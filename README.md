@@ -1,5 +1,5 @@
 # (P)seudo (C)ard (S)huffler
-A tool for producing pseudo-randomized list of cards.
+For producing a pseudo-randomized list of playing cards (♠️♦️♣️♥️).
 
 ## Usage
 Outputs the list of cards to the console and optionally to a file.

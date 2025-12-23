@@ -13,7 +13,7 @@ card_num_to_name = {
     12: 'Queen',
     13: 'King'
 }
-# https://www.compart.com/en/unicode/block/U+1F0A0
+# https://unicode.org/charts/nameslist/n_1F0A0.html
 # 
 # Use like: print(chr(int('1F0A1', 16)))
 card_to_utf8 = {

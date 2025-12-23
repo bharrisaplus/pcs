@@ -1,2 +1,28 @@
 # (P)seudo (C)ard (S)huffler
 A tool for producing pseudo-randomized list of cards.
+
+## Usage
+Outputs the list of cards to the console and optionally to a file.
+
+### Console output only
+```
+$ python card_shuffle.py
+1) Two of Spade
+2) King of Heart
+3) Seven of Club
+4) Ace of Diamond
+....
+52) Queen of Heart
+```
+
+### Writing to file
+```
+$ python card_shuffle.py -h
+usage: card_shuffle.py [-h] [-w]
+
+Producing a pseudo-randomized list of playing cards.
+
+options:
+  -h, --help   show this help message and exit
+  -w, --write  Flag to set for writing output to a file
+```

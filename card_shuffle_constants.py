@@ -1,75 +1,83 @@
-card_num_to_name = {
-    1: 'One',
-    2: 'Two',
-    3: 'Three',
-    4: 'Four',
-    5: 'Five',
-    6: 'Six',
-    7: 'Seven',
-    8: 'Eight',
-    9: 'Nine',
-    10: 'Ten',
-    11: 'Jack',
-    12: 'Queen',
-    13: 'King'
-}
+number_values = range(1,14)
+suites = [ 'spade', 'diamond', 'club', 'heart' ]
+card_names = [ 'ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen', 'king' ]
+card_group_a = [suites[0], suites[2]]
+card_group_b = [suites[1], suites[3]]
+
+card_num_to_name = {}
+card_num_to_name[number_values[0]] = card_names[0]
+card_num_to_name[number_values[1]] = card_names[1]
+card_num_to_name[number_values[2]] = card_names[2]
+card_num_to_name[number_values[3]] = card_names[3]
+card_num_to_name[number_values[4]] = card_names[4]
+card_num_to_name[number_values[5]] = card_names[5]
+card_num_to_name[number_values[6]] = card_names[6]
+card_num_to_name[number_values[7]] = card_names[7]
+card_num_to_name[number_values[8]] = card_names[8]
+card_num_to_name[number_values[9]] = card_names[9]
+card_num_to_name[number_values[10]] = card_names[10]
+card_num_to_name[number_values[11]] = card_names[11]
+card_num_to_name[number_values[12]] = card_names[12]
+
 # https://unicode.org/charts/nameslist/n_1F0A0.html
 # 
 # Use like: print(chr(int('1F0A1', 16)))
 card_to_utf8 = {
-    (1, 'spade'): '1F0A1',
-    (2, 'spade'): '1F0A2',
-    (3, 'spade'): '1F0A3',
-    (4, 'spade'): '1F0A4',
-    (5, 'spade'): '1F0A5',
-    (6, 'spade'): '1F0A6',
-    (7, 'spade'): '1F0A7',
-    (8, 'spade'): '1F0A8',
-    (9, 'spade'): '1F0A9',
-    (10, 'spade'): '1F0AA',
-    (11, 'spade'): '1F0AB',
-    (12, 'spade'): '1F0AD',
-    (13, 'spade'): '1F0AE',
-    (1, 'diamond'): '1F0B1',
-    (2, 'diamond'): '1F0B2',
-    (3, 'diamond'): '1F0B3',
-    (4, 'diamond'): '1F0B4',
-    (5, 'diamond'): '1F0B5',
-    (6, 'diamond'): '1F0B6',
-    (7, 'diamond'): '1F0B7',
-    (8, 'diamond'): '1F0B8',
-    (9, 'diamond'): '1F0B9',
-    (10, 'diamond'): '1F0BA',
-    (11, 'diamond'): '1F0BB',
-    (12, 'diamond'): '1F0BD',
-    (13, 'diamond'): '1F0BE',
-    ('joker', 'red'): '1F0BF',
-    (1, 'club'): '1F0C1',
-    (2, 'club'): '1F0C2',
-    (3, 'club'): '1F0C3',
-    (4, 'club'): '1F0C4',
-    (5, 'club'): '1F0C5',
-    (6, 'club'): '1F0C6',
-    (7, 'club'): '1F0C7',
-    (8, 'club'): '1F0C8',
-    (9, 'club'): '1F0C9',
-    (10, 'club'): '1F0CA',
-    (11, 'club'): '1F0CB',
-    (12, 'club'): '1F0CD',
-    (13, 'club'): '1F0CE',
-    ('joker', 'black'): '1F0CF',
-    (1, 'heart'): '1F0D1',
-    (2, 'heart'): '1F0D2',
-    (3, 'heart'): '1F0D3',
-    (4, 'heart'): '1F0D4',
-    (5, 'heart'): '1F0D5',
-    (6, 'heart'): '1F0D6',
-    (7, 'heart'): '1F0D7',
-    (8, 'heart'): '1F0D8',
-    (9, 'heart'): '1F0D9',
-    (10, 'heart'): '1F0DA',
-    (11, 'heart'): '1F0DB',
-    (12, 'heart'): '1F0DD',
-    (13, 'heart'): '1F0DE',
-    ('joker', 'white'): '1F0DF'
+    ('spade', 1): '1F0A1',
+    ('spade', 2): '1F0A2',
+    ('spade', 3): '1F0A3',
+    ('spade', 4): '1F0A4',
+    ('spade', 5): '1F0A5',
+    ('spade', 6): '1F0A6',
+    ('spade', 7): '1F0A7',
+    ('spade', 8): '1F0A8',
+    ('spade', 9): '1F0A9',
+    ('spade', 10): '1F0AA',
+    ('spade', 11): '1F0AB',
+    ('spade', 12): '1F0AD',
+    ('spade', 13): '1F0AE',
+    ('diamond', 1): '1F0B1',
+    ('diamond', 2): '1F0B2',
+    ('diamond', 3): '1F0B3',
+    ('diamond', 4): '1F0B4',
+    ('diamond', 5): '1F0B5',
+    ('diamond', 6): '1F0B6',
+    ('diamond', 7): '1F0B7',
+    ('diamond', 8): '1F0B8',
+    ('diamond', 9): '1F0B9',
+    ('diamond', 10): '1F0BA',
+    ('diamond', 11): '1F0BB',
+    ('diamond', 12): '1F0BD',
+    ('diamond', 13): '1F0BE',
+    ('red', 'joker'): '1F0BF',
+    ('club', 1): '1F0C1',
+    ('club', 2): '1F0C2',
+    ('club', 3): '1F0C3',
+    ('club', 4): '1F0C4',
+    ('club', 5): '1F0C5',
+    ('club', 6): '1F0C6',
+    ('club', 7): '1F0C7',
+    ('club', 8): '1F0C8',
+    ('club', 9): '1F0C9',
+    ('club', 10): '1F0CA',
+    ('club', 11): '1F0CB',
+    ('club', 12): '1F0CD',
+    ('club', 13): '1F0CE',
+    ('black', 'joker'): '1F0CF',
+    ('heart', 1): '1F0D1',
+    ('heart', 2): '1F0D2',
+    ('heart', 3): '1F0D3',
+    ('heart', 4): '1F0D4',
+    ('heart', 5): '1F0D5',
+    ('heart', 6): '1F0D6',
+    ('heart', 7): '1F0D7',
+    ('heart', 8): '1F0D8',
+    ('heart', 9): '1F0D9',
+    ('heart', 10): '1F0DA',
+    ('heart', 11): '1F0DB',
+    ('heart', 12): '1F0DD',
+    ('heart', 13): '1F0DE',
+    ('white', 'joker'): '1F0DF'
 }
+
+save_icon_utf8 = '1F4BE'

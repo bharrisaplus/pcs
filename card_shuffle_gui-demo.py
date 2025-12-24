@@ -92,6 +92,17 @@ def tkinter_demo():
 
     cardFrame.grid()
 
+    controlFrame = tkinter.Frame(
+        tkinterWindow, borderwidth=0, highlightthickness=0
+    )
+
+    controlFrame.grid()
+
+    tkinter.Button(
+        controlFrame, text=chr(int(card_shuffle_constants.save_icon_utf8, 16)), relief="flat",
+        font=('Consolas', 18), command=tkinterWindow.destroy, fg="goldenrod3"
+    ).pack()
+
     # tkinter/tcl colors
     # https://www.tcl-lang.org/man/tcl8.5/TkCmd/colors.htm
 

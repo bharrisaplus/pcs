@@ -37,7 +37,7 @@ def shuffle_cards(card_pool, position_pool):
 
     return [maybe_card for maybe_card in random_deck_order if maybe_card != 0]
 
-def get_cards_for_display(card_deck):
+def get_cards_for_console(card_deck):
     card_catalog = []
 
     for card_catalog_idx, card_stuff in enumerate(card_deck, start=1):
@@ -47,7 +47,7 @@ def get_cards_for_display(card_deck):
 
     return card_catalog
 
-def output_decklist(card_roll, toFile=False):
+def display_decklist_in_console(card_roll, toFile=False):
     print(*card_roll, sep="\n")
 
     if toFile:
@@ -58,6 +58,12 @@ def output_decklist(card_roll, toFile=False):
 
         print("\nDecklist written to 'shuffled.decklist.txt'.")
 
+def _capture_gui_to_screenshot(captureArea, offsetArea):
+    return
+
+def display_decklist_in_gui(card_roll, toFile=False):
+    return
+
 if __name__ == "__main__":
     cardShuffleParser = argparse.ArgumentParser(prog="card_shuffle.py",
         description="Producing a pseudo-randomized list of playing cards."
@@ -67,9 +73,20 @@ if __name__ == "__main__":
         help="Flag to set for writing output to a file"
     )
 
+    cardShuffleParser.add_argument("-g", "--gui", action="store_true",
+        help="Flag to set for displaying output in tkinter window"
+    )
+
+    cardShuffleParser.add_argument("-i", "--image", action="store_true",
+        help="Flag to set for writing tkinter window to image file"
+    )
+
     cardShuffleArgs = cardShuffleParser.parse_args()
     new_deck_order, positions_to_fill = _setup_52()
     mixed_deck_order = shuffle_cards(new_deck_order, positions_to_fill)
-    card_display_list = get_cards_for_display(mixed_deck_order)
+    card_display_console = get_cards_for_console(mixed_deck_order)
 
-    output_decklist(card_display_list, toFile=cardShuffleArgs.write)
+    display_decklist_in_console(card_display_console, toFile=cardShuffleArgs.write)
+
+    if cardShuffleArgs.gui:
+        display_decklist_in_gui(mixed_deck_order, toFile=cardShuffleArgs.image)

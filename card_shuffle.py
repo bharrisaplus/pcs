@@ -65,28 +65,36 @@ def display_decklist_in_gui(card_roll, toFile=False):
     return
 
 if __name__ == "__main__":
+    # Grab arguments
+
     cardShuffleParser = argparse.ArgumentParser(prog="card_shuffle.py",
         description="Producing a pseudo-randomized list of playing cards."
     )
 
     cardShuffleParser.add_argument("-w", "--write", action="store_true",
-        help="Flag to set for writing output to a file"
+        help="Flag to set for writing output to a text file"
     )
 
     cardShuffleParser.add_argument("-g", "--gui", action="store_true",
-        help="Flag to set for displaying output in tkinter window"
+        help="Flag to set for displaying output using tkinter"
     )
 
     cardShuffleParser.add_argument("-i", "--image", action="store_true",
-        help="Flag to set for writing tkinter window to image file"
+        help="Flag to set for writing tkinter window to an image file"
     )
 
     cardShuffleArgs = cardShuffleParser.parse_args()
+
+    # Get a blank deck and mix it up
+
     new_deck_order, positions_to_fill = _setup_52()
     mixed_deck_order = shuffle_cards(new_deck_order, positions_to_fill)
+
+    # Show the cards
+
     card_display_console = get_cards_for_console(mixed_deck_order)
 
-    display_decklist_in_console(card_display_console, toFile=cardShuffleArgs.write)
+    display_decklist_in_console(mixed_deck_order, toFile=cardShuffleArgs.write)
 
     if cardShuffleArgs.gui:
         display_decklist_in_gui(mixed_deck_order, toFile=cardShuffleArgs.image)

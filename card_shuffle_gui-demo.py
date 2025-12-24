@@ -1,4 +1,3 @@
-import argparse
 import turtle
 import tkinter
 from PIL import ImageGrab
@@ -203,23 +202,4 @@ def tkinter_demo():
     tkinterWindow.mainloop()
 
 if __name__ == "__main__":
-    # Grab arguments
-
-    cardShuffleParser = argparse.ArgumentParser(prog="card_shuffle.py",
-        description="Producing a pseudo-randomized list of playing cards."
-    )
-
-    cardShuffleParser.add_argument("-k", "--tk", action="store_true",
-        help="Flag to set for displaying tkinter demo"
-    )
-
-    cardShuffleParser.add_argument("-u", "--turtle", action="store_true", default=True,
-        help="Flag to set for displaying turtle demo"
-    )
-
-    cardShuffleArgs = cardShuffleParser.parse_args()
-
-    if cardShuffleArgs.tk:
-        tkinter_demo()
-    else:
-        turtle_demo()
+    turtle_demo()

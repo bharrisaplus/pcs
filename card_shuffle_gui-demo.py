@@ -3,12 +3,12 @@ import turtle
 import tkinter
 from PIL import ImageGrab
 
-import card_shuffle_constants
+import card_shuffle_constants as pcs_constants
 
 def turtle_demo():
     ''' Print card symbols to screen '''
-    ace_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 1)), 16))
-    ace_diamond = chr(int(card_shuffle_constants.card_to_utf8.get(('diamond', 1)), 16))
+    ace_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 1)), 16))
+    ace_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 1)), 16))
 
     # https://docs.python.org/3/library/turtle.html#turtle-tutorial
 
@@ -25,6 +25,16 @@ def turtle_demo():
     turtle.mainloop()
 
 def _capture_tkinter(captureWindow, offsetArea, captureFileName='shuffled'):
+    '''Save an image of the display cards
+
+    Grab the current screen using pillow and crop the area outside of the gui using the tkinter
+        window + widget geometry
+
+    Args:
+        captureWindow (tkinter.Tk): The current tkinter instance to pull geometry from
+        offsetArea (tkinter.Frame): The widget to ignore when grabbing screenshot
+    '''
+
     capture_area_start_x = captureWindow.winfo_rootx()
     capture_area_start_y = captureWindow.winfo_rooty()
     offset_y = offsetArea.winfo_height()
@@ -46,61 +56,61 @@ def _capture_tkinter(captureWindow, offsetArea, captureFileName='shuffled'):
 
 def tkinter_demo():
     ''' Print cards in new deck order: (♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️:K-A) '''
-    ace_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 1)), 16))
-    two_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 2)), 16))
-    three_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 3)), 16))
-    four_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 4)), 16))
-    five_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 5)), 16))
-    six_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 6)), 16))
-    seven_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 7)), 16))
-    eight_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 8)), 16))
-    nine_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 9)), 16))
-    ten_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 10)), 16))
-    jack_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 11)), 16))
-    queen_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 12)), 16))
-    king_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 13)), 16))
+    ace_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 1)), 16))
+    two_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 2)), 16))
+    three_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 3)), 16))
+    four_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 4)), 16))
+    five_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 5)), 16))
+    six_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 6)), 16))
+    seven_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 7)), 16))
+    eight_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 8)), 16))
+    nine_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 9)), 16))
+    ten_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 10)), 16))
+    jack_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 11)), 16))
+    queen_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 12)), 16))
+    king_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 13)), 16))
 
-    ace_diamond = chr(int(card_shuffle_constants.card_to_utf8.get(('diamond', 1)), 16))
-    two_diamond = chr(int(card_shuffle_constants.card_to_utf8.get(('diamond', 2)), 16))
-    three_diamond = chr(int(card_shuffle_constants.card_to_utf8.get(('diamond', 3)), 16))
-    four_diamond = chr(int(card_shuffle_constants.card_to_utf8.get(('diamond', 4)), 16))
-    five_diamond = chr(int(card_shuffle_constants.card_to_utf8.get(('diamond', 5)), 16))
-    six_diamond = chr(int(card_shuffle_constants.card_to_utf8.get(('diamond', 6)), 16))
-    seven_diamond = chr(int(card_shuffle_constants.card_to_utf8.get(('diamond', 7)), 16))
-    eight_diamond = chr(int(card_shuffle_constants.card_to_utf8.get(('diamond', 8)), 16))
-    nine_diamond = chr(int(card_shuffle_constants.card_to_utf8.get(('diamond', 9)), 16))
-    ten_diamond = chr(int(card_shuffle_constants.card_to_utf8.get(('diamond', 10)), 16))
-    jack_diamond = chr(int(card_shuffle_constants.card_to_utf8.get(('diamond', 11)), 16))
-    queen_diamond = chr(int(card_shuffle_constants.card_to_utf8.get(('diamond', 12)), 16))
-    king_diamond = chr(int(card_shuffle_constants.card_to_utf8.get(('diamond', 13)), 16))
+    ace_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 1)), 16))
+    two_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 2)), 16))
+    three_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 3)), 16))
+    four_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 4)), 16))
+    five_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 5)), 16))
+    six_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 6)), 16))
+    seven_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 7)), 16))
+    eight_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 8)), 16))
+    nine_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 9)), 16))
+    ten_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 10)), 16))
+    jack_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 11)), 16))
+    queen_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 12)), 16))
+    king_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 13)), 16))
 
-    ace_club = chr(int(card_shuffle_constants.card_to_utf8.get(('club', 1)), 16))
-    two_club = chr(int(card_shuffle_constants.card_to_utf8.get(('club', 2)), 16))
-    three_club = chr(int(card_shuffle_constants.card_to_utf8.get(('club', 3)), 16))
-    four_club = chr(int(card_shuffle_constants.card_to_utf8.get(('club', 4)), 16))
-    five_club = chr(int(card_shuffle_constants.card_to_utf8.get(('club', 5)), 16))
-    six_club = chr(int(card_shuffle_constants.card_to_utf8.get(('club', 6)), 16))
-    seven_club = chr(int(card_shuffle_constants.card_to_utf8.get(('club', 7)), 16))
-    eight_club = chr(int(card_shuffle_constants.card_to_utf8.get(('club', 8)), 16))
-    nine_club = chr(int(card_shuffle_constants.card_to_utf8.get(('club', 9)), 16))
-    ten_club = chr(int(card_shuffle_constants.card_to_utf8.get(('club', 10)), 16))
-    jack_club = chr(int(card_shuffle_constants.card_to_utf8.get(('club', 11)), 16))
-    queen_club = chr(int(card_shuffle_constants.card_to_utf8.get(('club', 12)), 16))
-    king_club = chr(int(card_shuffle_constants.card_to_utf8.get(('club', 13)), 16))
+    ace_club = chr(int(pcs_constants.card_to_utf8.get(('club', 1)), 16))
+    two_club = chr(int(pcs_constants.card_to_utf8.get(('club', 2)), 16))
+    three_club = chr(int(pcs_constants.card_to_utf8.get(('club', 3)), 16))
+    four_club = chr(int(pcs_constants.card_to_utf8.get(('club', 4)), 16))
+    five_club = chr(int(pcs_constants.card_to_utf8.get(('club', 5)), 16))
+    six_club = chr(int(pcs_constants.card_to_utf8.get(('club', 6)), 16))
+    seven_club = chr(int(pcs_constants.card_to_utf8.get(('club', 7)), 16))
+    eight_club = chr(int(pcs_constants.card_to_utf8.get(('club', 8)), 16))
+    nine_club = chr(int(pcs_constants.card_to_utf8.get(('club', 9)), 16))
+    ten_club = chr(int(pcs_constants.card_to_utf8.get(('club', 10)), 16))
+    jack_club = chr(int(pcs_constants.card_to_utf8.get(('club', 11)), 16))
+    queen_club = chr(int(pcs_constants.card_to_utf8.get(('club', 12)), 16))
+    king_club = chr(int(pcs_constants.card_to_utf8.get(('club', 13)), 16))
 
-    ace_heart = chr(int(card_shuffle_constants.card_to_utf8.get(('heart', 1)), 16))
-    two_heart = chr(int(card_shuffle_constants.card_to_utf8.get(('heart', 2)), 16))
-    three_heart = chr(int(card_shuffle_constants.card_to_utf8.get(('heart', 3)), 16))
-    four_heart = chr(int(card_shuffle_constants.card_to_utf8.get(('heart', 4)), 16))
-    five_heart = chr(int(card_shuffle_constants.card_to_utf8.get(('heart', 5)), 16))
-    six_heart = chr(int(card_shuffle_constants.card_to_utf8.get(('heart', 6)), 16))
-    seven_heart = chr(int(card_shuffle_constants.card_to_utf8.get(('heart', 7)), 16))
-    eight_heart = chr(int(card_shuffle_constants.card_to_utf8.get(('heart', 8)), 16))
-    nine_heart = chr(int(card_shuffle_constants.card_to_utf8.get(('heart', 9)), 16))
-    ten_heart = chr(int(card_shuffle_constants.card_to_utf8.get(('heart', 10)), 16))
-    jack_heart = chr(int(card_shuffle_constants.card_to_utf8.get(('heart', 11)), 16))
-    queen_heart = chr(int(card_shuffle_constants.card_to_utf8.get(('heart', 12)), 16))
-    king_heart = chr(int(card_shuffle_constants.card_to_utf8.get(('heart', 13)), 16))
+    ace_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 1)), 16))
+    two_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 2)), 16))
+    three_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 3)), 16))
+    four_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 4)), 16))
+    five_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 5)), 16))
+    six_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 6)), 16))
+    seven_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 7)), 16))
+    eight_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 8)), 16))
+    nine_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 9)), 16))
+    ten_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 10)), 16))
+    jack_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 11)), 16))
+    queen_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 12)), 16))
+    king_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 13)), 16))
 
     cardFontStyle = ('Consolas', 81)
 
@@ -127,7 +137,7 @@ def tkinter_demo():
         tkinterWindow.destroy()
 
     tkinter.Button(
-        controlFrame, text=chr(int(card_shuffle_constants.save_icon_utf8, 16)), font=('Consolas', 18), fg="goldenrod3",
+        controlFrame, text=chr(int(pcs_constants.save_icon_utf8, 16)), font=('Consolas', 18), fg="goldenrod3",
         command=saveButtonCommand, relief="flat"
     ).pack()
 

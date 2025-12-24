@@ -37,24 +37,21 @@ def shuffle_cards(card_pool, position_pool):
 
     return [maybe_card for maybe_card in random_deck_order if maybe_card != 0]
 
-def get_cards_for_console(card_deck):
+def display_decklist_in_console(card_roll, toFile=False):
     card_catalog = []
 
-    for card_catalog_idx, card_stuff in enumerate(card_deck, start=1):
+    for card_catalog_idx, card_stuff in enumerate(card_roll, start=1):
         card_name = pcs_constants.card_num_to_name.get(card_stuff[1])
 
         card_catalog.append("{}) {} of {}".format(card_catalog_idx, card_name, card_stuff[0]))
 
-    return card_catalog
-
-def display_decklist_in_console(card_roll, toFile=False):
-    print(*card_roll, sep="\n")
+    print(*card_catalog, sep="\n")
 
     if toFile:
         file_descriptor = os.open('shuffled.decklist.txt', os.O_WRONLY | os.O_CREAT | os.O_TRUNC)
 
         with os.fdopen(file_descriptor, mode='w') as out_file:
-            out_file.write("\n".join(card_roll))
+            out_file.write("\n".join(card_catalog))
 
         print("\nDecklist written to 'shuffled.decklist.txt'.")
 
@@ -96,8 +93,6 @@ if __name__ == "__main__":
     if cardShuffleArgs.demo:
         pcs_utils.tkinter_demo()
     else:
-        card_display_console = get_cards_for_console(mixed_deck_order)
-
         display_decklist_in_console(mixed_deck_order, toFile=cardShuffleArgs.write)
 
         if cardShuffleArgs.gui:

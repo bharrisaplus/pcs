@@ -17,6 +17,18 @@ $ python card_shuffle.py
 
 ### Writing to file
 ```
+$ python card_shuffle.py -w,--write
+1) Three of Club
+2) Ace of Spade
+3) Two of Spade
+4) King of Heart
+....
+52) Five of Heart
+Decklist written to 'shuffled.decklist.txt'.
+```
+
+### Help display
+```
 $ python card_shuffle.py -h
 usage: card_shuffle.py [-h] [-w]
 

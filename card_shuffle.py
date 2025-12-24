@@ -5,16 +5,14 @@ import argparse
 import card_shuffle_constants
 
 def _setup_52():
-    number_values = range(1,14)
-    suites = [ 'spade', 'diamond', 'club', 'heart' ]
     card_bank = []
 
-    for suite in suites:
-        if suite in ['spade', 'diamond']:
-            for idx in number_values:
+    for suite in card_shuffle_constants.suites:
+        if suite in card_shuffle_constants.suites:
+            for idx in card_shuffle_constants.number_values:
                 card_bank.append((suite, idx))
         else:
-            for idx in reversed(number_values):
+            for idx in reversed(card_shuffle_constants.number_values):
                 card_bank.append((suite, idx))
 
     return card_bank, list(range(len(card_bank)))

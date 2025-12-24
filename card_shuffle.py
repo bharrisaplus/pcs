@@ -1,18 +1,20 @@
+import importlib
 import random
 import os
 import argparse
 
-import card_shuffle_constants
+pcs_constants = importlib.import_module("card_shuffle_constants")
+pcs_utils = importlib.import_module("card_shuffle_gui-demo")
 
 def _setup_52():
     card_bank = []
 
-    for suite in card_shuffle_constants.suites:
-        if suite in card_shuffle_constants.suites:
-            for idx in card_shuffle_constants.number_values:
+    for suite in pcs_constants.suites:
+        if suite in pcs_constants.suites:
+            for idx in pcs_constants.number_values:
                 card_bank.append((suite, idx))
         else:
-            for idx in reversed(card_shuffle_constants.number_values):
+            for idx in reversed(pcs_constants.number_values):
                 card_bank.append((suite, idx))
 
     return card_bank, list(range(len(card_bank)))
@@ -39,7 +41,7 @@ def get_cards_for_console(card_deck):
     card_catalog = []
 
     for card_catalog_idx, card_stuff in enumerate(card_deck, start=1):
-        card_name = card_shuffle_constants.card_num_to_name.get(card_stuff[1])
+        card_name = pcs_constants.card_num_to_name.get(card_stuff[1])
 
         card_catalog.append("{}) {} of {}".format(card_catalog_idx, card_name, card_stuff[0]))
 
@@ -81,6 +83,10 @@ if __name__ == "__main__":
         help="Flag to set for writing tkinter window to an image file"
     )
 
+    cardShuffleParser.add_argument("-d", "--demo", action="store_true",
+        help="Flag to set for displaying demo using tkinter. Other options are ignored when set."
+    )
+
     cardShuffleArgs = cardShuffleParser.parse_args()
 
     # Get a blank deck and mix it up
@@ -90,9 +96,12 @@ if __name__ == "__main__":
 
     # Show the cards
 
-    card_display_console = get_cards_for_console(mixed_deck_order)
+    if cardShuffleArgs.demo:
+        pcs_utils.tkinter_demo()
+    else:
+        card_display_console = get_cards_for_console(mixed_deck_order)
 
-    display_decklist_in_console(mixed_deck_order, toFile=cardShuffleArgs.write)
+        display_decklist_in_console(mixed_deck_order, toFile=cardShuffleArgs.write)
 
-    if cardShuffleArgs.gui:
-        display_decklist_in_gui(mixed_deck_order, toFile=cardShuffleArgs.image)
+        if cardShuffleArgs.gui:
+            display_decklist_in_gui(mixed_deck_order, toFile=cardShuffleArgs.image)

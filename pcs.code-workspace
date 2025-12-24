@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+  ],
+  "settings": {
+    "search.useIgnoreFiles": true,
+    "explorer.excludeGitIgnore": true
+  }
+}

@@ -21,6 +21,7 @@ card_num_to_name[number_values[12]] = card_names[12]
 
 # https://unicode.org/charts/nameslist/n_1F0A0.html
 # 
+# https://docs.python.org/3/library/functions.html#chr
 # Use like: print(chr(int('1F0A1', 16)))
 card_to_utf8 = {
     ('spade', 1): '1F0A1',

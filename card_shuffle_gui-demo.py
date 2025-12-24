@@ -1,10 +1,12 @@
 import argparse
 import turtle
 import tkinter
+from PIL import ImageGrab
 
 import card_shuffle_constants
 
 def turtle_demo():
+    ''' Print card symbols to screen '''
     ace_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 1)), 16))
     ace_diamond = chr(int(card_shuffle_constants.card_to_utf8.get(('diamond', 1)), 16))
 
@@ -22,7 +24,28 @@ def turtle_demo():
 
     turtle.mainloop()
 
+def _capture_tkinter(captureWindow, offsetArea, captureFileName='shuffled'):
+    capture_area_start_x = captureWindow.winfo_rootx()
+    capture_area_start_y = captureWindow.winfo_rooty()
+    offset_y = offsetArea.winfo_height()
+    capture_area_end_x = capture_area_start_x + captureWindow.winfo_width()
+    capture_area_end_y = capture_area_start_y + captureWindow.winfo_height() - offset_y
+    capture_filename = "{}.decklist.png".format(captureFileName)
+
+    # https://pillow.readthedocs.io/en/stable/reference/ImageGrab.html
+    #
+    # bbox determines what region of screen to save
+    #
+    capture_image = ImageGrab.grab(
+        bbox=(capture_area_start_x, capture_area_start_y, capture_area_end_x, capture_area_end_y)
+    )
+
+    capture_image.save(capture_filename)
+
+    print("Decklist saved to '{}'".format(capture_filename))
+
 def tkinter_demo():
+    ''' Print cards in new deck order: (♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️:K-A) '''
     ace_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 1)), 16))
     two_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 2)), 16))
     three_spade = chr(int(card_shuffle_constants.card_to_utf8.get(('spade', 3)), 16))
@@ -98,9 +121,14 @@ def tkinter_demo():
 
     controlFrame.grid()
 
+    def saveButtonCommand():
+        ''' Grab screenshot and close window '''
+        _capture_tkinter(tkinterWindow, controlFrame, 'ndo')
+        tkinterWindow.destroy()
+
     tkinter.Button(
-        controlFrame, text=chr(int(card_shuffle_constants.save_icon_utf8, 16)), relief="flat",
-        font=('Consolas', 18), command=tkinterWindow.destroy, fg="goldenrod3"
+        controlFrame, text=chr(int(card_shuffle_constants.save_icon_utf8, 16)), font=('Consolas', 18), fg="goldenrod3",
+        command=saveButtonCommand, relief="flat"
     ).pack()
 
     # tkinter/tcl colors

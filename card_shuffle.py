@@ -58,9 +58,6 @@ def display_decklist_in_console(card_roll, toFile=False):
 
         print("\nDecklist written to 'shuffled.decklist.txt'.")
 
-def _capture_gui_to_screenshot(captureArea, offsetArea):
-    return
-
 def display_decklist_in_gui(card_roll, toFile=False):
     return
 

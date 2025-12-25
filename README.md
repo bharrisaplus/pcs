@@ -9,7 +9,6 @@ For producing a pseudo-randomized list of playing cards (♠️♦️♣️♥�
   * [GUI](#gui)
     * [Demo](#demo)
     * [GUI output](#gui-output)
-    * [Writing to image file](#writing-to-image-file)
   * [Help display](#help-display)
 
 ## Overview

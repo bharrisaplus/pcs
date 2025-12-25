@@ -43,7 +43,7 @@ Decklist written to 'shuffled.decklist.txt'.
 ```
 
 ### GUI
-Using tkinter
+Using tkinter for display and saving to an image with pillow
 
 #### Demo
 ```
@@ -53,11 +53,6 @@ $ python card_shuffle.py [-d, --demo]
 ### GUI output
 ```
 $ python card_shuffle.py [-g,--gui]
-```
-
-#### Writing to image file
-```
-$ python card_shuffle.py [-gi, -g -i, --gui --image]
 ```
 
 ### Help display
@@ -71,6 +66,5 @@ options:
   -h, --help   show this help message and exit
   -w, --write  Flag to set for writing output to a text file
   -g, --gui    Flag to set for displaying output using tkinter
-  -i, --image  Flag to set for writing tkinter window to an image file. Requires -g to be set to take effect.
   -d, --demo   Flag to set for displaying demo using tkinter. Other options are ignored when set.
 ```

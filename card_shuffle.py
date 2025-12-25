@@ -65,7 +65,7 @@ def display_decklist_in_console(card_roll, toFile=False):
 
         print("\nDecklist written to 'shuffled.decklist.txt'.")
 
-def display_decklist_in_gui(card_roll, toFile=False):
+def display_decklist_in_gui(card_roll):
     return
 
 if __name__ == "__main__":
@@ -81,10 +81,6 @@ if __name__ == "__main__":
 
     cardShuffleParser.add_argument("-g", "--gui", action="store_true",
         help="Flag to set for displaying output using tkinter"
-    )
-
-    cardShuffleParser.add_argument("-i", "--image", action="store_true",
-        help="Flag to set for writing tkinter window to an image file. Requires -g to be set to take effect."
     )
 
     cardShuffleParser.add_argument("-d", "--demo", action="store_true",
@@ -106,4 +102,4 @@ if __name__ == "__main__":
         display_decklist_in_console(mixed_deck_order, toFile=cardShuffleArgs.write)
 
         if cardShuffleArgs.gui:
-            display_decklist_in_gui(mixed_deck_order, toFile=cardShuffleArgs.image)
+            display_decklist_in_gui(mixed_deck_order)

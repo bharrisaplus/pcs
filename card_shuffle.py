@@ -67,6 +67,24 @@ def display_decklist_in_console(card_roll, toFile=False):
         print("\nDecklist written to 'shuffled.decklist.txt'.")
 
 def display_decklist_in_gui(card_roll):
+    '''Show the cards using utf-8 symbols
+
+    Create a layout in tkinter with the following layout
+        rootWindow
+            cardFrame:
+                [{Cards 1 - 14}]
+                [{Cards 15 - 28}]
+                [{Cards 29 - 42}]
+                [{Cards 43 - 52}]
+            controlFrame:
+                [{saveButton}]
+
+        When clicked, the saveButton will create an image file of the rootWindow and cardFrame only.
+
+    Args:
+        card_roll (list[tuple(str, int)]): The cards to be shown. See card_shuffle_constants.py@_setup_52
+    '''
+
     rootWindow = tkinter.Tk()
 
     rootWindow.title("pcs: pseudo card shuffle")

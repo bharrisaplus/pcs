@@ -14,6 +14,7 @@ def _setup_52():
                 * int: The number value of the card. See card_shuffle_constants.py:number_values
             * list[int]: The numbered spots where cards can go
     '''
+
     card_bank = []
 
     for suite in pcs_constants.suites:
@@ -28,6 +29,7 @@ def _setup_52():
 
 def turtle_demo():
     ''' Print card symbols to screen '''
+
     ace_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 1)), 16))
     ace_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 1)), 16))
 
@@ -88,6 +90,7 @@ def _capture_tkinter_partial(captureWindow, offsetArea, captureFileName='shuffle
 
 def tkinter_demo():
     ''' Print cards in new deck order: (♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️:K-A) '''
+
     ace_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 1)), 16))
     two_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 2)), 16))
     three_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 3)), 16))

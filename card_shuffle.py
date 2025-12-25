@@ -7,6 +7,19 @@ pcs_constants = importlib.import_module("card_shuffle_constants")
 pcs_utils = importlib.import_module("card_shuffle_gui-demo")
 
 def shuffle_cards(card_pool, position_pool):
+    '''Randomize the order of given cards
+
+    Having a bank of both cards and positions, pick a random card and a random position from their
+        respective banks to create a somewhat random order.
+
+    Args:
+        card_pool (list[tuple(str, int)]): The cards to randomize. See card_shuffle_constants.py@_setup_52
+        position_pool (list[int]): The potential numbered spots cards can be placed in
+
+    Returns:
+        list[tuple(str, int)]: cards placed in a pseudo-random order
+    '''
+
     random_cards = random.sample(population = card_pool, k = len(card_pool))
     random_positions = random.sample(population = position_pool, k = len(position_pool))
     random_deck_order = [0] * 52
@@ -25,6 +38,16 @@ def shuffle_cards(card_pool, position_pool):
     return [maybe_card for maybe_card in random_deck_order if maybe_card != 0]
 
 def display_decklist_in_console(card_roll, toFile=False):
+    '''Create a plain-text version of the card order for viewing in the terminal.
+
+    Taking the cards given create a formatted string with each card on it's own line that
+    can, optionally, be written to a file.
+
+    Args:
+        card_roll (list[tuple(str, int)]): The cards to be shown. See card_shuffle_constants.py@_setup_52
+        toFile (bool): Whether or not to create a file. (default: `False`)
+    '''
+
     card_catalog = []
 
     for card_catalog_idx, card_stuff in enumerate(card_roll, start=1):

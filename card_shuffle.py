@@ -2,6 +2,7 @@ import importlib
 import random
 import os
 import argparse
+import tkinter
 
 pcs_constants = importlib.import_module("card_shuffle_constants")
 pcs_utils = importlib.import_module("card_shuffle_gui-demo")
@@ -10,7 +11,7 @@ def shuffle_cards(card_pool, position_pool):
     '''Randomize the order of given cards
 
     Having a bank of both cards and positions, pick a random card and a random position from their
-        respective banks to create a somewhat random order.
+        respective banks to create a new order.
 
     Args:
         card_pool (list[tuple(str, int)]): The cards to randomize. See card_shuffle_constants.py@_setup_52
@@ -51,9 +52,9 @@ def display_decklist_in_console(card_roll, toFile=False):
     card_catalog = []
 
     for card_catalog_idx, card_stuff in enumerate(card_roll, start=1):
-        card_name = pcs_constants.card_num_to_name.get(card_stuff[1])
+        card_name = pcs_constants.card_num_to_name.get(card_stuff[1]).capitalize()
 
-        card_catalog.append("{}) {} of {}".format(card_catalog_idx, card_name, card_stuff[0]))
+        card_catalog.append("{}) {} of {}".format(card_catalog_idx, card_name, card_stuff[0].capitalize()))
 
     print(*card_catalog, sep="\n")
 
@@ -66,7 +67,47 @@ def display_decklist_in_console(card_roll, toFile=False):
         print("\nDecklist written to 'shuffled.decklist.txt'.")
 
 def display_decklist_in_gui(card_roll):
-    return
+    rootWindow = tkinter.Tk()
+
+    rootWindow.title("pcs: pseudo card shuffle")
+    rootWindow.geometry("921x518")
+
+    cardFrame = tkinter.Frame(rootWindow, bd=0, padx=22, highlightthickness=0)
+
+    cardFrame.grid()
+
+    controlFrame = tkinter.Frame(rootWindow, borderwidth=0)
+
+    controlFrame.grid()
+
+    tkinter.Button(
+        controlFrame, text=chr(int(pcs_constants.save_icon_utf8, 16)), font=("Consolas", 18), fg="goldenrod3",
+        command=pcs_utils._capture_tkinter_partial(rootWindow, controlFrame), relief="flat"
+    ).pack()
+
+    # 52 / 14 ~ 4 rows
+
+    for frame_idx, card_info in enumerate(card_roll[:14]):
+        card_symbol = chr(int(pcs_constants.card_to_utf8.get(card_info), 16))
+        card_color = 'midnight blue' if card_info[0] in pcs_constants.card_group_a else 'firebrick'
+        tkinter.Label(cardFrame, text=card_symbol, font=("Consolas", 72), fg=card_color).grid(column=frame_idx, row=0)
+
+    for frame_idx, card_info in enumerate(card_roll[14:28]):
+        card_symbol = chr(int(pcs_constants.card_to_utf8.get(card_info), 16))
+        card_color = 'midnight blue' if card_info[0] in pcs_constants.card_group_a else 'firebrick'
+        tkinter.Label(cardFrame, text=card_symbol, font=("Consolas", 72), fg=card_color).grid(column=frame_idx, row=1)
+
+    for frame_idx, card_info in enumerate(card_roll[28:42]):
+        card_symbol = chr(int(pcs_constants.card_to_utf8.get(card_info), 16))
+        card_color = 'midnight blue' if card_info[0] in pcs_constants.card_group_a else 'firebrick'
+        tkinter.Label(cardFrame, text=card_symbol, font=("Consolas", 72), fg=card_color).grid(column=frame_idx, row=2)
+
+    for frame_idx, card_info in enumerate(card_roll[42:]):
+        card_symbol = chr(int(pcs_constants.card_to_utf8.get(card_info), 16))
+        card_color = 'midnight blue' if card_info[0] in pcs_constants.card_group_a else 'firebrick'
+        tkinter.Label(cardFrame, text=card_symbol, font=("Consolas", 72), fg=card_color).grid(column=frame_idx, row=3)
+
+    rootWindow.mainloop()
 
 if __name__ == "__main__":
     # Grab arguments

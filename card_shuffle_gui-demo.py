@@ -4,6 +4,28 @@ from PIL import ImageGrab
 
 import card_shuffle_constants as pcs_constants
 
+def _setup_52():
+    '''Arrange playing cards in new deck order (♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️:K-A).
+
+    Returns:
+        (tuple[ tuple(str, int)], list[int] ]): The arranged cards and the positions to fill in:
+            * tuple(str, int): model representing the cards
+                * str: The suite of the card. See card_shuffle_constants.py:suites
+                * int: The number value of the card. See card_shuffle_constants.py:number_values
+            * list[int]: The numbered spots where cards can go
+    '''
+    card_bank = []
+
+    for suite in pcs_constants.suites:
+        if suite in pcs_constants.suites:
+            for idx in pcs_constants.number_values:
+                card_bank.append((suite, idx))
+        else:
+            for idx in reversed(pcs_constants.number_values):
+                card_bank.append((suite, idx))
+
+    return card_bank, list(range(len(card_bank)))
+
 def turtle_demo():
     ''' Print card symbols to screen '''
     ace_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 1)), 16))

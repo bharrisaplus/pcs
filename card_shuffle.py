@@ -6,19 +6,6 @@ import argparse
 pcs_constants = importlib.import_module("card_shuffle_constants")
 pcs_utils = importlib.import_module("card_shuffle_gui-demo")
 
-def _setup_52():
-    card_bank = []
-
-    for suite in pcs_constants.suites:
-        if suite in pcs_constants.suites:
-            for idx in pcs_constants.number_values:
-                card_bank.append((suite, idx))
-        else:
-            for idx in reversed(pcs_constants.number_values):
-                card_bank.append((suite, idx))
-
-    return card_bank, list(range(len(card_bank)))
-
 def shuffle_cards(card_pool, position_pool):
     random_cards = random.sample(population = card_pool, k = len(card_pool))
     random_positions = random.sample(population = position_pool, k = len(position_pool))
@@ -85,7 +72,7 @@ if __name__ == "__main__":
 
     # Get a blank deck and mix it up
 
-    new_deck_order, positions_to_fill = _setup_52()
+    new_deck_order, positions_to_fill = pcs_utils._setup_52()
     mixed_deck_order = shuffle_cards(new_deck_order, positions_to_fill)
 
     # Show the cards

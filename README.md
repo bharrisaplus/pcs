@@ -1,6 +1,8 @@
 # (P)seudo (C)ard (S)huffler
 For producing a pseudo-randomized list of playing cards (♠️♦️♣️♥️).
 
+![example_image](example.webp)
+
 * [Overview](#overview)
 * [Usage](#usage)
   * [Console](#console)

@@ -18,7 +18,7 @@ def _setup_52():
     card_bank = []
 
     for suite in pcs_constants.suites:
-        if suite in pcs_constants.suites:
+        if suite in pcs_constants.suites[:2]:
             for idx in pcs_constants.number_values:
                 card_bank.append((suite, idx))
         else:

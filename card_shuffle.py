@@ -84,7 +84,7 @@ if __name__ == "__main__":
     )
 
     cardShuffleParser.add_argument("-i", "--image", action="store_true",
-        help="Flag to set for writing tkinter window to an image file"
+        help="Flag to set for writing tkinter window to an image file. Requires -g to be set to take effect."
     )
 
     cardShuffleParser.add_argument("-d", "--demo", action="store_true",

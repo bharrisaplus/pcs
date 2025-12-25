@@ -53,6 +53,17 @@ def _capture_tkinter(captureWindow, offsetArea, captureFileName='shuffled'):
 
     print("Decklist saved to '{}'".format(capture_filename))
 
+def _capture_tkinter_partial(captureWindow, offsetArea, captureFileName='shuffled'):
+    ''' Grab screenshot and close window '''
+
+    def _partialFunc():
+        ''' Passed to the command= param for tkinter button widget and invoked upon click '''
+
+        _capture_tkinter(captureWindow,offsetArea, captureFileName)
+        captureWindow.destroy()
+
+    return _partialFunc
+
 def tkinter_demo():
     ''' Print cards in new deck order: (♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️:K-A) '''
     ace_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 1)), 16))
@@ -130,14 +141,9 @@ def tkinter_demo():
 
     controlFrame.grid()
 
-    def saveButtonCommand():
-        ''' Grab screenshot and close window '''
-        _capture_tkinter(tkinterWindow, controlFrame, 'ndo')
-        tkinterWindow.destroy()
-
     tkinter.Button(
         controlFrame, text=chr(int(pcs_constants.save_icon_utf8, 16)), font=('Consolas', 18), fg="goldenrod3",
-        command=saveButtonCommand, relief="flat"
+        command=_capture_tkinter_partial(tkinterWindow, controlFrame, 'ndo'), relief="flat"
     ).pack()
 
     # tkinter/tcl colors

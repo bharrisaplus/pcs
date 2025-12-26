@@ -33,9 +33,9 @@ def shuffle_cards(card_pool, position_pool):
 
     random_cards = random.sample(population = card_pool, k = len(card_pool))
     random_positions = random.sample(population = position_pool, k = len(position_pool))
-    random_deck_order = [0] * 52
+    random_deck_order = [0] * len(position_pool)
 
-    for slot in range(len(card_pool)):
+    for slot in range(len(position_pool)):
         card_idx = random.randrange(len(random_cards))
         card_to_place = random_cards[card_idx]
         position_idx = random.randrange(len(random_positions))

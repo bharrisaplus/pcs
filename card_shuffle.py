@@ -148,7 +148,7 @@ if __name__ == "__main__":
         help="Flag to set for displaying output using tkinter"
     )
 
-    cardShuffleParser.add_argument("-d", "--demo", action="store_true",
+    cardShuffleParser.add_argument("-n", "--ndo", action="store_true",
         help="Flag to set for displaying demo using tkinter. Other options are ignored when set."
     )
 
@@ -161,8 +161,8 @@ if __name__ == "__main__":
 
     # Show the cards
 
-    if cardShuffleArgs.demo:
-        pcs_utils.tkinter_demo()
+    if cardShuffleArgs.ndo:
+        pcs_utils.ndo_example()
     else:
         display_decklist_in_console(mixed_deck_order, toFile=cardShuffleArgs.write)
 

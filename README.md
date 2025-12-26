@@ -9,8 +9,8 @@ For producing a pseudo-randomized list of playing cards (♠️♦️♣️♥�
     * [Console output only](#console-output-only)
     * [Writing to a file](#writing-to-file)
   * [GUI](#gui)
-    * [Demo](#demo)
     * [GUI output](#gui-output)
+    * [NDO Example](#ndo)
   * [Help display](#help-display)
 
 ## Overview
@@ -47,20 +47,20 @@ Decklist written to 'shuffled.decklist.txt'.
 ### GUI
 Using tkinter for display and saving to an image with pillow
 
-#### Demo
-```
-$ python card_shuffle.py [-d, --demo]
-```
-
 ### GUI output
 ```
 $ python card_shuffle.py [-g,--gui]
 ```
 
+#### NDO Example
+```
+$ python card_shuffle.py [-d, --demo]
+```
+
 ### Help display
 ```
 $ python card_shuffle.py -h
-usage: card_shuffle.py [-h] [-w] [-g] [-i] [-d]
+usage: card_shuffle.py [-h] [-w] [-g] [-n]
 
 Producing a pseudo-randomized list of playing cards.
 
@@ -68,5 +68,5 @@ options:
   -h, --help   show this help message and exit
   -w, --write  Flag to set for writing output to a text file
   -g, --gui    Flag to set for displaying output using tkinter
-  -d, --demo   Flag to set for displaying demo using tkinter. Other options are ignored when set.
+  -n, --ndo   Flag to set for displaying demo using tkinter. Other options are ignored when set.
 ```

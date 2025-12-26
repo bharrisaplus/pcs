@@ -93,7 +93,7 @@ def _capture_tkinter_partial(captureWindow, offsetArea, captureFileName='shuffle
 
     return _partialFunc
 
-def tkinter_demo():
+def ndo_example():
     ''' Print cards in new deck order: (♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️:K-A) '''
 
     cardFontStyle = ('Consolas', 81)

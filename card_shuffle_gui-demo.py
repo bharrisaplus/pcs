@@ -2,7 +2,12 @@ import turtle
 import tkinter
 from PIL import ImageGrab
 
-import card_shuffle_constants as pcs_constants
+from card_shuffle_constants import (
+    suites as card_suites,
+    number_values as card_nums,
+    save_icon_utf8 as floppy_code,
+    card_to_utf8
+)
 
 def _setup_52():
     '''Arrange playing cards in new deck order (♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️:K-A).
@@ -17,12 +22,12 @@ def _setup_52():
 
     card_bank = []
 
-    for suite in pcs_constants.suites:
-        if suite in pcs_constants.suites[:2]:
-            for idx in pcs_constants.number_values:
+    for suite in card_suites:
+        if suite in card_suites[:2]:
+            for idx in card_nums:
                 card_bank.append((suite, idx))
         else:
-            for idx in reversed(pcs_constants.number_values):
+            for idx in reversed(card_nums):
                 card_bank.append((suite, idx))
 
     return card_bank, list(range(len(card_bank)))
@@ -30,19 +35,19 @@ def _setup_52():
 def turtle_demo():
     ''' Print card symbols to screen '''
 
-    ace_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 1)), 16))
-    ace_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 1)), 16))
+    s1 = chr(int(card_to_utf8.get(('spade', 1)), 16))
+    d1 = chr(int(card_to_utf8.get(('diamond', 1)), 16))
+    style = ('Consolas', 45)
 
     # https://docs.python.org/3/library/turtle.html#turtle-tutorial
 
     turtle.color('deep pink')
-    style = ('Consolas', 45)
 
     turtle.penup()
     turtle.goto(0,30)
-    turtle.write(ace_spade, font=style, move=True)
+    turtle.write(s1, font=style, move=True)
     turtle.goto(50,30)
-    turtle.write(ace_diamond, font=style, move=True)
+    turtle.write(d1, font=style, move=True)
     turtle.hideturtle()
 
     turtle.mainloop()
@@ -91,144 +96,139 @@ def _capture_tkinter_partial(captureWindow, offsetArea, captureFileName='shuffle
 def tkinter_demo():
     ''' Print cards in new deck order: (♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️:K-A) '''
 
-    ace_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 1)), 16))
-    two_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 2)), 16))
-    three_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 3)), 16))
-    four_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 4)), 16))
-    five_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 5)), 16))
-    six_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 6)), 16))
-    seven_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 7)), 16))
-    eight_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 8)), 16))
-    nine_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 9)), 16))
-    ten_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 10)), 16))
-    jack_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 11)), 16))
-    queen_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 12)), 16))
-    king_spade = chr(int(pcs_constants.card_to_utf8.get(('spade', 13)), 16))
-
-    ace_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 1)), 16))
-    two_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 2)), 16))
-    three_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 3)), 16))
-    four_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 4)), 16))
-    five_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 5)), 16))
-    six_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 6)), 16))
-    seven_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 7)), 16))
-    eight_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 8)), 16))
-    nine_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 9)), 16))
-    ten_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 10)), 16))
-    jack_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 11)), 16))
-    queen_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 12)), 16))
-    king_diamond = chr(int(pcs_constants.card_to_utf8.get(('diamond', 13)), 16))
-
-    ace_club = chr(int(pcs_constants.card_to_utf8.get(('club', 1)), 16))
-    two_club = chr(int(pcs_constants.card_to_utf8.get(('club', 2)), 16))
-    three_club = chr(int(pcs_constants.card_to_utf8.get(('club', 3)), 16))
-    four_club = chr(int(pcs_constants.card_to_utf8.get(('club', 4)), 16))
-    five_club = chr(int(pcs_constants.card_to_utf8.get(('club', 5)), 16))
-    six_club = chr(int(pcs_constants.card_to_utf8.get(('club', 6)), 16))
-    seven_club = chr(int(pcs_constants.card_to_utf8.get(('club', 7)), 16))
-    eight_club = chr(int(pcs_constants.card_to_utf8.get(('club', 8)), 16))
-    nine_club = chr(int(pcs_constants.card_to_utf8.get(('club', 9)), 16))
-    ten_club = chr(int(pcs_constants.card_to_utf8.get(('club', 10)), 16))
-    jack_club = chr(int(pcs_constants.card_to_utf8.get(('club', 11)), 16))
-    queen_club = chr(int(pcs_constants.card_to_utf8.get(('club', 12)), 16))
-    king_club = chr(int(pcs_constants.card_to_utf8.get(('club', 13)), 16))
-
-    ace_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 1)), 16))
-    two_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 2)), 16))
-    three_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 3)), 16))
-    four_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 4)), 16))
-    five_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 5)), 16))
-    six_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 6)), 16))
-    seven_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 7)), 16))
-    eight_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 8)), 16))
-    nine_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 9)), 16))
-    ten_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 10)), 16))
-    jack_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 11)), 16))
-    queen_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 12)), 16))
-    king_heart = chr(int(pcs_constants.card_to_utf8.get(('heart', 13)), 16))
-
     cardFontStyle = ('Consolas', 81)
+    s1 = chr(int(card_to_utf8.get(('spade', 1)), 16))
+    s2 = chr(int(card_to_utf8.get(('spade', 2)), 16))
+    s3 = chr(int(card_to_utf8.get(('spade', 3)), 16))
+    s4 = chr(int(card_to_utf8.get(('spade', 4)), 16))
+    s5 = chr(int(card_to_utf8.get(('spade', 5)), 16))
+    s6 = chr(int(card_to_utf8.get(('spade', 6)), 16))
+    s7 = chr(int(card_to_utf8.get(('spade', 7)), 16))
+    s8 = chr(int(card_to_utf8.get(('spade', 8)), 16))
+    s9 = chr(int(card_to_utf8.get(('spade', 9)), 16))
+    s10 = chr(int(card_to_utf8.get(('spade', 10)), 16))
+    s11 = chr(int(card_to_utf8.get(('spade', 11)), 16))
+    s12 = chr(int(card_to_utf8.get(('spade', 12)), 16))
+    s13 = chr(int(card_to_utf8.get(('spade', 13)), 16))
+
+    d1 = chr(int(card_to_utf8.get(('diamond', 1)), 16))
+    d2 = chr(int(card_to_utf8.get(('diamond', 2)), 16))
+    d3 = chr(int(card_to_utf8.get(('diamond', 3)), 16))
+    d4 = chr(int(card_to_utf8.get(('diamond', 4)), 16))
+    d5 = chr(int(card_to_utf8.get(('diamond', 5)), 16))
+    d6 = chr(int(card_to_utf8.get(('diamond', 6)), 16))
+    d7 = chr(int(card_to_utf8.get(('diamond', 7)), 16))
+    d8 = chr(int(card_to_utf8.get(('diamond', 8)), 16))
+    d9 = chr(int(card_to_utf8.get(('diamond', 9)), 16))
+    d10 = chr(int(card_to_utf8.get(('diamond', 10)), 16))
+    d11 = chr(int(card_to_utf8.get(('diamond', 11)), 16))
+    d12 = chr(int(card_to_utf8.get(('diamond', 12)), 16))
+    d13 = chr(int(card_to_utf8.get(('diamond', 13)), 16))
+
+    c1 = chr(int(card_to_utf8.get(('club', 1)), 16))
+    c2 = chr(int(card_to_utf8.get(('club', 2)), 16))
+    c3 = chr(int(card_to_utf8.get(('club', 3)), 16))
+    c4 = chr(int(card_to_utf8.get(('club', 4)), 16))
+    c5 = chr(int(card_to_utf8.get(('club', 5)), 16))
+    c6 = chr(int(card_to_utf8.get(('club', 6)), 16))
+    c7 = chr(int(card_to_utf8.get(('club', 7)), 16))
+    c8 = chr(int(card_to_utf8.get(('club', 8)), 16))
+    c9 = chr(int(card_to_utf8.get(('club', 9)), 16))
+    c10 = chr(int(card_to_utf8.get(('club', 10)), 16))
+    c11 = chr(int(card_to_utf8.get(('club', 11)), 16))
+    c12 = chr(int(card_to_utf8.get(('club', 12)), 16))
+    c13 = chr(int(card_to_utf8.get(('club', 13)), 16))
+
+    h1 = chr(int(card_to_utf8.get(('heart', 1)), 16))
+    h2 = chr(int(card_to_utf8.get(('heart', 2)), 16))
+    h3 = chr(int(card_to_utf8.get(('heart', 3)), 16))
+    h4 = chr(int(card_to_utf8.get(('heart', 4)), 16))
+    h5 = chr(int(card_to_utf8.get(('heart', 5)), 16))
+    h6 = chr(int(card_to_utf8.get(('heart', 6)), 16))
+    h7 = chr(int(card_to_utf8.get(('heart', 7)), 16))
+    h8 = chr(int(card_to_utf8.get(('heart', 8)), 16))
+    h9 = chr(int(card_to_utf8.get(('heart', 9)), 16))
+    h10 = chr(int(card_to_utf8.get(('heart', 10)), 16))
+    h11 = chr(int(card_to_utf8.get(('heart', 11)), 16))
+    h12 = chr(int(card_to_utf8.get(('heart', 12)), 16))
+    h13 = chr(int(card_to_utf8.get(('heart', 13)), 16))
 
     tkinterWindow = tkinter.Tk()
 
     tkinterWindow.title("pcs: pseudo card shuffle")
     tkinterWindow.geometry("1036x583")
 
-    cardFrame = tkinter.Frame(
-        tkinterWindow, borderwidth=0, padx=22, highlightthickness=0
-    )
+    cardFrame = tkinter.Frame(tkinterWindow, borderwidth=0, padx=22, highlightthickness=0)
 
     cardFrame.grid()
 
-    controlFrame = tkinter.Frame(
-        tkinterWindow, borderwidth=0, highlightthickness=0
-    )
+    controlFrame = tkinter.Frame(tkinterWindow, borderwidth=0, highlightthickness=0)
 
     controlFrame.grid()
 
     tkinter.Button(
-        controlFrame, text=chr(int(pcs_constants.save_icon_utf8, 16)), font=('Consolas', 18), fg="goldenrod3",
+        controlFrame, text=chr(int(floppy_code, 16)), font=('Consolas', 18), fg="goldenrod3",
         command=_capture_tkinter_partial(tkinterWindow, controlFrame, 'ndo'), relief="flat"
     ).pack()
 
     # tkinter/tcl colors
     # https://www.tcl-lang.org/man/tcl8.5/TkCmd/colors.htm
 
-    tkinter.Label(cardFrame, text=ace_spade, font=cardFontStyle, fg="midnight blue").grid(column=0, row=0)
-    tkinter.Label(cardFrame, text=two_spade, font=cardFontStyle, fg="midnight blue").grid(column=1, row=0)
-    tkinter.Label(cardFrame, text=three_spade, font=cardFontStyle, fg="midnight blue").grid(column=2, row=0)
-    tkinter.Label(cardFrame, text=four_spade, font=cardFontStyle, fg="midnight blue").grid(column=3, row=0)
-    tkinter.Label(cardFrame, text=five_spade, font=cardFontStyle, fg="midnight blue").grid(column=4, row=0)
-    tkinter.Label(cardFrame, text=six_spade, font=cardFontStyle, fg="midnight blue").grid(column=5, row=0)
-    tkinter.Label(cardFrame, text=seven_spade, font=cardFontStyle, fg="midnight blue").grid(column=6, row=0)
-    tkinter.Label(cardFrame, text=eight_spade, font=cardFontStyle, fg="midnight blue").grid(column=7, row=0)
-    tkinter.Label(cardFrame, text=nine_spade, font=cardFontStyle, fg="midnight blue").grid(column=8, row=0)
-    tkinter.Label(cardFrame, text=ten_spade, font=cardFontStyle, fg="midnight blue").grid(column=9, row=0)
-    tkinter.Label(cardFrame, text=jack_spade, font=cardFontStyle, fg="midnight blue").grid(column=10, row=0)
-    tkinter.Label(cardFrame, text=queen_spade, font=cardFontStyle, fg="midnight blue").grid(column=11, row=0)
-    tkinter.Label(cardFrame, text=king_spade, font=cardFontStyle, fg="midnight blue").grid(column=12, row=0)
-    tkinter.Label(cardFrame, text=ace_diamond, font=cardFontStyle, fg="firebrick").grid(column=13, row=0)
+    tkinter.Label(cardFrame, text=s1, font=cardFontStyle, fg="midnight blue").grid(column=0, row=0)
+    tkinter.Label(cardFrame, text=s2, font=cardFontStyle, fg="midnight blue").grid(column=1, row=0)
+    tkinter.Label(cardFrame, text=s3, font=cardFontStyle, fg="midnight blue").grid(column=2, row=0)
+    tkinter.Label(cardFrame, text=s4, font=cardFontStyle, fg="midnight blue").grid(column=3, row=0)
+    tkinter.Label(cardFrame, text=s5, font=cardFontStyle, fg="midnight blue").grid(column=4, row=0)
+    tkinter.Label(cardFrame, text=s6, font=cardFontStyle, fg="midnight blue").grid(column=5, row=0)
+    tkinter.Label(cardFrame, text=s7, font=cardFontStyle, fg="midnight blue").grid(column=6, row=0)
+    tkinter.Label(cardFrame, text=s8, font=cardFontStyle, fg="midnight blue").grid(column=7, row=0)
+    tkinter.Label(cardFrame, text=s9, font=cardFontStyle, fg="midnight blue").grid(column=8, row=0)
+    tkinter.Label(cardFrame, text=s10, font=cardFontStyle, fg="midnight blue").grid(column=9, row=0)
+    tkinter.Label(cardFrame, text=s11, font=cardFontStyle, fg="midnight blue").grid(column=10, row=0)
+    tkinter.Label(cardFrame, text=s12, font=cardFontStyle, fg="midnight blue").grid(column=11, row=0)
+    tkinter.Label(cardFrame, text=s13, font=cardFontStyle, fg="midnight blue").grid(column=12, row=0)
+    tkinter.Label(cardFrame, text=d1, font=cardFontStyle, fg="firebrick").grid(column=13, row=0)
 
-    tkinter.Label(cardFrame, text=two_diamond, font=cardFontStyle, fg="firebrick").grid(column=0, row=1)
-    tkinter.Label(cardFrame, text=three_diamond, font=cardFontStyle, fg="firebrick").grid(column=1, row=1)
-    tkinter.Label(cardFrame, text=four_diamond, font=cardFontStyle, fg="firebrick").grid(column=2, row=1)
-    tkinter.Label(cardFrame, text=five_diamond, font=cardFontStyle, fg="firebrick").grid(column=3, row=1)
-    tkinter.Label(cardFrame, text=six_diamond, font=cardFontStyle, fg="firebrick").grid(column=4, row=1)
-    tkinter.Label(cardFrame, text=seven_diamond, font=cardFontStyle, fg="firebrick").grid(column=5, row=1)
-    tkinter.Label(cardFrame, text=eight_diamond, font=cardFontStyle, fg="firebrick").grid(column=6, row=1)
-    tkinter.Label(cardFrame, text=nine_diamond, font=cardFontStyle, fg="firebrick").grid(column=7, row=1)
-    tkinter.Label(cardFrame, text=ten_diamond, font=cardFontStyle, fg="firebrick").grid(column=8, row=1)
-    tkinter.Label(cardFrame, text=jack_diamond, font=cardFontStyle, fg="firebrick").grid(column=9, row=1)
-    tkinter.Label(cardFrame, text=queen_diamond, font=cardFontStyle, fg="firebrick").grid(column=10, row=1)
-    tkinter.Label(cardFrame, text=king_diamond, font=cardFontStyle, fg="firebrick").grid(column=11, row=1)
-    tkinter.Label(cardFrame, text=king_club, font=cardFontStyle, fg="dark olive green").grid(column=12, row=1)
-    tkinter.Label(cardFrame, text=queen_club, font=cardFontStyle, fg="dark olive green").grid(column=13, row=1)
+    tkinter.Label(cardFrame, text=d2, font=cardFontStyle, fg="firebrick").grid(column=0, row=1)
+    tkinter.Label(cardFrame, text=d3, font=cardFontStyle, fg="firebrick").grid(column=1, row=1)
+    tkinter.Label(cardFrame, text=d4, font=cardFontStyle, fg="firebrick").grid(column=2, row=1)
+    tkinter.Label(cardFrame, text=d5, font=cardFontStyle, fg="firebrick").grid(column=3, row=1)
+    tkinter.Label(cardFrame, text=d6, font=cardFontStyle, fg="firebrick").grid(column=4, row=1)
+    tkinter.Label(cardFrame, text=d7, font=cardFontStyle, fg="firebrick").grid(column=5, row=1)
+    tkinter.Label(cardFrame, text=d8, font=cardFontStyle, fg="firebrick").grid(column=6, row=1)
+    tkinter.Label(cardFrame, text=d9, font=cardFontStyle, fg="firebrick").grid(column=7, row=1)
+    tkinter.Label(cardFrame, text=d10, font=cardFontStyle, fg="firebrick").grid(column=8, row=1)
+    tkinter.Label(cardFrame, text=d11, font=cardFontStyle, fg="firebrick").grid(column=9, row=1)
+    tkinter.Label(cardFrame, text=d12, font=cardFontStyle, fg="firebrick").grid(column=10, row=1)
+    tkinter.Label(cardFrame, text=d13, font=cardFontStyle, fg="firebrick").grid(column=11, row=1)
+    tkinter.Label(cardFrame, text=c1, font=cardFontStyle, fg="dark olive green").grid(column=12, row=1)
+    tkinter.Label(cardFrame, text=c2, font=cardFontStyle, fg="dark olive green").grid(column=13, row=1)
 
-    tkinter.Label(cardFrame, text=jack_club, font=cardFontStyle, fg="dark olive green").grid(column=0, row=2)
-    tkinter.Label(cardFrame, text=ten_club, font=cardFontStyle, fg="dark olive green").grid(column=1, row=2)
-    tkinter.Label(cardFrame, text=nine_club, font=cardFontStyle, fg="dark olive green").grid(column=2, row=2)
-    tkinter.Label(cardFrame, text=eight_club, font=cardFontStyle, fg="dark olive green").grid(column=3, row=2)
-    tkinter.Label(cardFrame, text=seven_club, font=cardFontStyle, fg="dark olive green").grid(column=4, row=2)
-    tkinter.Label(cardFrame, text=six_club, font=cardFontStyle, fg="dark olive green").grid(column=5, row=2)
-    tkinter.Label(cardFrame, text=five_club, font=cardFontStyle, fg="dark olive green").grid(column=6, row=2)
-    tkinter.Label(cardFrame, text=four_club, font=cardFontStyle, fg="dark olive green").grid(column=7, row=2)
-    tkinter.Label(cardFrame, text=three_club, font=cardFontStyle, fg="dark olive green").grid(column=8, row=2)
-    tkinter.Label(cardFrame, text=two_club, font=cardFontStyle, fg="dark olive green").grid(column=9, row=2)
-    tkinter.Label(cardFrame, text=ace_club, font=cardFontStyle, fg="dark olive green").grid(column=10, row=2)
-    tkinter.Label(cardFrame, text=king_heart, font=cardFontStyle, fg="DarkOrange2").grid(column=11, row=2)
-    tkinter.Label(cardFrame, text=queen_heart, font=cardFontStyle, fg="DarkOrange2").grid(column=12, row=2)
-    tkinter.Label(cardFrame, text=jack_heart, font=cardFontStyle, fg="DarkOrange2").grid(column=13, row=2)
+    tkinter.Label(cardFrame, text=c3, font=cardFontStyle, fg="dark olive green").grid(column=0, row=2)
+    tkinter.Label(cardFrame, text=c4, font=cardFontStyle, fg="dark olive green").grid(column=1, row=2)
+    tkinter.Label(cardFrame, text=c5, font=cardFontStyle, fg="dark olive green").grid(column=2, row=2)
+    tkinter.Label(cardFrame, text=c6, font=cardFontStyle, fg="dark olive green").grid(column=3, row=2)
+    tkinter.Label(cardFrame, text=c7, font=cardFontStyle, fg="dark olive green").grid(column=4, row=2)
+    tkinter.Label(cardFrame, text=c8, font=cardFontStyle, fg="dark olive green").grid(column=5, row=2)
+    tkinter.Label(cardFrame, text=c9, font=cardFontStyle, fg="dark olive green").grid(column=6, row=2)
+    tkinter.Label(cardFrame, text=c10, font=cardFontStyle, fg="dark olive green").grid(column=7, row=2)
+    tkinter.Label(cardFrame, text=c11, font=cardFontStyle, fg="dark olive green").grid(column=8, row=2)
+    tkinter.Label(cardFrame, text=c12, font=cardFontStyle, fg="dark olive green").grid(column=9, row=2)
+    tkinter.Label(cardFrame, text=c13, font=cardFontStyle, fg="dark olive green").grid(column=10, row=2)
+    tkinter.Label(cardFrame, text=h1, font=cardFontStyle, fg="DarkOrange2").grid(column=11, row=2)
+    tkinter.Label(cardFrame, text=h2, font=cardFontStyle, fg="DarkOrange2").grid(column=12, row=2)
+    tkinter.Label(cardFrame, text=h3, font=cardFontStyle, fg="DarkOrange2").grid(column=13, row=2)
 
-    tkinter.Label(cardFrame, text=ten_heart, font=cardFontStyle, fg="DarkOrange2").grid(column=0, row=3)
-    tkinter.Label(cardFrame, text=nine_heart, font=cardFontStyle, fg="DarkOrange2").grid(column=1, row=3)
-    tkinter.Label(cardFrame, text=eight_heart, font=cardFontStyle, fg="DarkOrange2").grid(column=2, row=3)
-    tkinter.Label(cardFrame, text=seven_heart, font=cardFontStyle, fg="DarkOrange2").grid(column=3, row=3)
-    tkinter.Label(cardFrame, text=six_heart, font=cardFontStyle, fg="DarkOrange2").grid(column=4, row=3)
-    tkinter.Label(cardFrame, text=five_heart, font=cardFontStyle, fg="DarkOrange2").grid(column=5, row=3)
-    tkinter.Label(cardFrame, text=four_heart, font=cardFontStyle, fg="DarkOrange2").grid(column=6, row=3)
-    tkinter.Label(cardFrame, text=three_heart, font=cardFontStyle, fg="DarkOrange2").grid(column=7, row=3)
-    tkinter.Label(cardFrame, text=two_heart, font=cardFontStyle, fg="DarkOrange2").grid(column=8, row=3)
-    tkinter.Label(cardFrame, text=ace_heart, font=cardFontStyle, fg="DarkOrange2").grid(column=9, row=3)
+    tkinter.Label(cardFrame, text=h4, font=cardFontStyle, fg="DarkOrange2").grid(column=0, row=3)
+    tkinter.Label(cardFrame, text=h5, font=cardFontStyle, fg="DarkOrange2").grid(column=1, row=3)
+    tkinter.Label(cardFrame, text=h6, font=cardFontStyle, fg="DarkOrange2").grid(column=2, row=3)
+    tkinter.Label(cardFrame, text=h7, font=cardFontStyle, fg="DarkOrange2").grid(column=3, row=3)
+    tkinter.Label(cardFrame, text=h8, font=cardFontStyle, fg="DarkOrange2").grid(column=4, row=3)
+    tkinter.Label(cardFrame, text=h9, font=cardFontStyle, fg="DarkOrange2").grid(column=5, row=3)
+    tkinter.Label(cardFrame, text=h10, font=cardFontStyle, fg="DarkOrange2").grid(column=6, row=3)
+    tkinter.Label(cardFrame, text=h11, font=cardFontStyle, fg="DarkOrange2").grid(column=7, row=3)
+    tkinter.Label(cardFrame, text=h12, font=cardFontStyle, fg="DarkOrange2").grid(column=8, row=3)
+    tkinter.Label(cardFrame, text=h13, font=cardFontStyle, fg="DarkOrange2").grid(column=9, row=3)
 
     tkinterWindow.mainloop()
 

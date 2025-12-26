@@ -32,7 +32,7 @@ def _setup_52():
 
     return card_bank, list(range(len(card_bank)))
 
-def turtle_demo():
+def hello_turtle():
     ''' Print card symbols to screen '''
 
     s1 = chr(int(card_to_utf8.get(('spade', 1)), 16))
@@ -233,4 +233,4 @@ def ndo_example():
     tkinterWindow.mainloop()
 
 if __name__ == "__main__":
-    turtle_demo()
+    hello_turtle()

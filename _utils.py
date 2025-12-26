@@ -2,7 +2,7 @@ import turtle
 import tkinter
 from PIL import ImageGrab
 
-from card_shuffle_constants import (
+from _constants import (
     suites as card_suites,
     number_values as card_nums,
     save_icon_utf8 as floppy_code,

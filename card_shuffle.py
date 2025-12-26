@@ -4,14 +4,18 @@ import os
 import argparse
 import tkinter
 
-from card_shuffle_constants import (
+from _constants import (
     card_num_to_name as lookup_card,
     save_icon_utf8 as floppy_code,
     card_group_a as blue_group,
     card_to_utf8
 )
 
-pcs_utils = importlib.import_module("card_shuffle_gui-demo")
+from _utils import (
+    _capture_tkinter_partial as screen_grab,
+    ndo_example as display_example,
+    _setup_52
+)
 
 def shuffle_cards(card_pool, position_pool):
     '''Randomize the order of given cards
@@ -20,7 +24,7 @@ def shuffle_cards(card_pool, position_pool):
         respective banks to create a new order.
 
     Args:
-        card_pool (list[tuple(str, int)]): The cards to randomize. See card_shuffle_constants.py@_setup_52
+        card_pool (list[tuple(str, int)]): The cards to randomize. See _constants.py@_setup_52
         position_pool (list[int]): The potential numbered spots cards can be placed in
 
     Returns:
@@ -51,7 +55,7 @@ def display_decklist_in_console(card_roll, toFile=False):
     can, optionally, be written to a file.
 
     Args:
-        card_roll (list[tuple(str, int)]): The cards to be shown. See card_shuffle_constants.py@_setup_52
+        card_roll (list[tuple(str, int)]): The cards to be shown. See _constants.py@_setup_52
         toFile (bool): Whether or not to create a file. (default: `False`)
     '''
 
@@ -88,7 +92,7 @@ def display_decklist_in_gui(card_roll):
         When clicked, the saveButton will create an image file of the rootWindow and cardFrame only.
 
     Args:
-        card_roll (list[tuple(str, int)]): The cards to be shown. See card_shuffle_constants.py@_setup_52
+        card_roll (list[tuple(str, int)]): The cards to be shown. See _constants.py@_setup_52
     '''
 
     rootWindow = tkinter.Tk()
@@ -106,7 +110,7 @@ def display_decklist_in_gui(card_roll):
 
     tkinter.Button(
         controlFrame, text=chr(int(floppy_code, 16)), font=("Consolas", 18), fg="goldenrod3",
-        command=pcs_utils._capture_tkinter_partial(rootWindow, controlFrame), relief="flat"
+        command=screen_grab(rootWindow, controlFrame), relief="flat"
     ).pack()
 
     # 52 / 14 ~ 4 rows
@@ -156,13 +160,13 @@ if __name__ == "__main__":
 
     # Get a blank deck and mix it up
 
-    new_deck_order, positions_to_fill = pcs_utils._setup_52()
+    new_deck_order, positions_to_fill = _setup_52()
     mixed_deck_order = shuffle_cards(new_deck_order, positions_to_fill)
 
     # Show the cards
 
     if cardShuffleArgs.ndo:
-        pcs_utils.ndo_example()
+        display_example()
     else:
         display_decklist_in_console(mixed_deck_order, toFile=cardShuffleArgs.write)
 

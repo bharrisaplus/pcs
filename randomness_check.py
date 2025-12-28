@@ -4,7 +4,7 @@ import _stats as staty
 
 card_order = [('spade', 1),('spade', 2),('spade', 3),('spade', 4),('spade', 5),('spade', 6),('spade', 7),('spade', 8),('spade', 9),('spade', 10),('spade', 11),('spade', 12),('spade', 13),('diamond', 1),('diamond', 2),('diamond', 3),('diamond', 4),('diamond', 5),('diamond', 6),('diamond', 7),('diamond', 8),('diamond', 9),('diamond', 10),('diamond', 11),('diamond', 12),('diamond', 13),('club', 13),('club', 12),('club', 11),('club', 10),('club', 9),('club', 8),('club', 7),('club', 6),('club', 5),('club', 4),('club', 3),('club', 2),('club', 1),('heart', 13),('heart', 12),('heart', 11),('heart', 10),('heart', 9),('heart', 8),('heart', 7),('heart', 6),('heart', 5),('heart', 4),('heart', 3),('heart', 2),('heart', 1)]
 
-class EdtDstnc(unittest.TestCase):
+class RandomCheck(unittest.TestCase):
     def test_jaro(self):
         ex_a = 'FARMVILLE'
         ex_b = 'FAREMVIEL'
@@ -74,15 +74,28 @@ class EdtDstnc(unittest.TestCase):
 
         solution = staty.count_peapods_from(ex_g, ex_h)
 
-        self.assertEqual(solution[0], 1, "Should be one ripe peapod in {}".format(ex_g))
-        self.assertEqual(solution[1], 15, "Should be fifteen green peapos in {}".format(ex_h))
+        self.assertEqual(solution[0], 1, "Should be 1 ripe peapod in {}".format(ex_g))
+        self.assertEqual(solution[1], 15, "Should be 15 green peapods in {}".format(ex_h))
 
-    '''
-    def test_kendall_agin(self):
-        ex_i = [24,25,19,18,10,1,2,17,9,13]
+    def test_peapod_agin(self):
+        ex_i = [24,25,19,18,23,21,22,26,20]
         ex_j = [18,19,20,21,22,23,24,25,26]
 
-    def again_again(self):
-        ex_k = [0,2,13,9,7,11,1]
+        solution = staty.count_peapods_from(ex_i, ex_j)
+
+        self.assertEqual(solution[0], 3, "Should be 3 ripe peapods in {}".format(ex_i))
+        self.assertEqual(solution[1], 13, "Should be 13 green peapods in {}".format(ex_j))
+
+    def test_peapod_again_again(self):
+        ex_k = [6,2,4,1,7,5,8,3]
         ex_l = [1,2,3,4,5,6,7,8]
-    '''
+
+        solution = staty.count_peapods_from(ex_k, ex_l)
+
+        self.assertEqual(solution[0], 0, "Should be 0 ripe peapods in {}".format(ex_k))
+        self.assertEqual(solution[1], 14, "Should be 13 green peapods in {}".format(ex_l))
+
+
+    #def test_card_shuffle(self):
+
+    #def test_card_shuffle_more(self):

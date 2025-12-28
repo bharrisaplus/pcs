@@ -37,3 +37,24 @@ def get_jaro_edit_distance_from(mixed_order, known_order):
     c = (match_count - transposition_count) / match_count
 
     return (1/3) * ( a + b + c ), (mixed_match, known_match), transposition_count
+
+def count_peapods_from(mixed_order, known_order):
+    item_count = len(mixed_order)
+    _ripe_counter = 0
+    _green_counter = 0
+    known_order_dict = { _val: _idx for _idx, _val in enumerate(known_order) }
+
+    for idx_xf, itm_xf in enumerate(mixed_order):
+        if idx_xf < item_count - 1:
+            # Forward Check
+            if (known_order_dict[itm_xf] - known_order_dict[mixed_order[idx_xf + 1]] == -1):
+                _ripe_counter += 1
+            else:
+                _green_counter += 1
+            # Look-back Check
+            if (known_order_dict[itm_xf] - known_order_dict[mixed_order[max(idx_xf - 1, 0)]] == -1):
+                _ripe_counter += 1
+            else:
+                _green_counter += 1
+
+    return _ripe_counter, _green_counter

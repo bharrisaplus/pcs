@@ -67,3 +67,22 @@ class EdtDstnc(unittest.TestCase):
         self.assertEqual(solution[2], 0,
             "transpositions counted in {} and {} should be ".format(ex_e, ex_f)
         )
+
+    def test_peapod(self):
+        ex_g = [16,18,13,15,11,12,14,10,17]
+        ex_h = [10,11,12,13,14,15,16,17,18]
+
+        solution = staty.count_peapods_from(ex_g, ex_h)
+
+        self.assertEqual(solution[0], 1, "Should be one ripe peapod in {}".format(ex_g))
+        self.assertEqual(solution[1], 15, "Should be fifteen green peapos in {}".format(ex_h))
+
+    '''
+    def test_kendall_agin(self):
+        ex_i = [24,25,19,18,10,1,2,17,9,13]
+        ex_j = [18,19,20,21,22,23,24,25,26]
+
+    def again_again(self):
+        ex_k = [0,2,13,9,7,11,1]
+        ex_l = [1,2,3,4,5,6,7,8]
+    '''

@@ -8,7 +8,7 @@ class EdtDstnc(unittest.TestCase):
     def test_jaro(self):
         ex_a = 'FARMVILLE'
         ex_b = 'FAREMVIEL'
-        solution = staty.get_jaro_similarity_from(ex_b, ex_a)
+        solution = staty.get_jaro_edit_distance_from(ex_b, ex_a)
 
         self.assertEqual(0.8842592592592592, solution[0],
             "jaro similarity between {} and {} should be 0.8842592592592592".format(ex_a, ex_b)
@@ -29,7 +29,7 @@ class EdtDstnc(unittest.TestCase):
     def test_jaro_again(self):
         ex_c = 'HELLO'
         ex_d = 'HEYYA'
-        solution = staty.get_jaro_similarity_from(ex_c, ex_d)
+        solution = staty.get_jaro_edit_distance_from(ex_c, ex_d)
 
         self.assertEqual(1.8/3, solution[0],
             "jaro similarity between {} and {} should be 0.6".format(ex_c, ex_d)
@@ -48,22 +48,22 @@ class EdtDstnc(unittest.TestCase):
         )
 
     def test_jaro_again_again(self):
-        ex_ref_five = 'XLNGXATCXR'
-        ex_ref_six = 'FYJLHDRQDM'
-        solution = staty.get_jaro_similarity_from(ex_ref_five, ex_ref_six)
+        ex_e = 'XLNGXATCXR'
+        ex_f = 'FYJLHDRQDM'
+        solution = staty.get_jaro_edit_distance_from(ex_e, ex_f)
 
         self.assertEqual(abs(1.4/3), solution[0],
-            "jaro similarity between {} and {} should be ~0.4667".format(ex_ref_five, ex_ref_six)
+            "jaro edit distance between {} and {} should be ~0.4667".format(ex_e, ex_f)
         )
 
         self.assertEqual(len(solution[1][0]), 2,
-            "matched characters in {} and {} should be ".format(ex_ref_five, ex_ref_six)
+            "matched characters in {} and {} should be ".format(ex_e, ex_f)
         )
 
         self.assertEqual(len(solution[1][1]), 2,
-            "matched characters in {} and {} should be ".format(ex_ref_five, ex_ref_six)
+            "matched characters in {} and {} should be ".format(ex_e, ex_f)
         )
 
         self.assertEqual(solution[2], 0,
-            "transpositions counted in {} and {} should be ".format(ex_ref_five, ex_ref_six)
+            "transpositions counted in {} and {} should be ".format(ex_e, ex_f)
         )

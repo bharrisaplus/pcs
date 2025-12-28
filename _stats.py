@@ -26,7 +26,7 @@ def count_jaro_transposition_for(mixed_ref, known_ref):
 
     return t_count / 2
 
-def get_jaro_similarity_from(mixed_order, known_order):
+def get_jaro_edit_distance_from(mixed_order, known_order):
     mixed_match, known_match = get_jaro_match_between(mixed_order, known_order)
     transposition_count = count_jaro_transposition_for(mixed_match, known_match)
 

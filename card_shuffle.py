@@ -48,6 +48,18 @@ def shuffle_cards(card_pool, position_pool):
     return [maybe_card for maybe_card in random_deck_order if maybe_card != 0]
 
 def maybe_cut(card_block, isArbitrary=False):
+    '''Rearrange the deck at a determined point
+    
+    From the determined point take every card before the point and move it to the back of the list.
+        The determined point can be picked by:
+            * arbitrary: index of a card randly selected from 1-3 randomly selected cards from the deck
+            * peapod: index of card found next to new dedk order neighbor
+
+    Args:
+        card_block (list[tuple(str, int)]): The cards to possibly rearrange. See _constants.py@_setup_52
+        isArbitrary (bool): See above (default: `False`)
+    '''
+
     previous_info = None
     cut_position = None
     cutting_block = None
@@ -202,10 +214,7 @@ if __name__ == "__main__":
     maybe_cut_order = None
 
     if cardShuffleArgs.cut:
-        if cardShuffleArgs.arbitrary:
-            maybe_cut_order = maybe_cut(mixed_deck_order)
-        else:
-            maybe_cut_order = maybe_cut(mixed_deck_order)
+        maybe_cut_order = maybe_cut(mixed_deck_order, isArbitrary=cardShuffleArgs.arbitrary)
 
     final_deck_order = maybe_cut_order or mixed_deck_order
 

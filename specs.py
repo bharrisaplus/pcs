@@ -19,9 +19,10 @@ class PCSCheck(unittest.TestCase):
         )
 
     def test_shuffle(self):
-        mixed_up = CardShuffle.shuffle_cards(card_order, list(range(len(card_order))))
+        card_order_len = len(card_order)
+        mixed_up = CardShuffle.shuffle_cards(card_order, list(range(card_order_len)))
 
-        self.assertEqual(len(mixed_up), len(card_order),
+        self.assertEqual(len(mixed_up), card_order_len,
             "The shuffled deck should retain the same number of cards as before the shuffle"
         )
 
@@ -58,8 +59,8 @@ class PCSCheck(unittest.TestCase):
 
 class MetricCheck(unittest.TestCase):
     def test_jaro(self):
-        ex_a = 'FARMVILLE'
-        ex_b = 'FAREMVIEL'
+        ex_a = ['F','A','R','M','V','I','L','L','E']
+        ex_b = ['F','A','R','E','M','V','I','E','L']
         solution = CardShuffleStats.get_jaro_edit_distance_from(ex_b, ex_a)
 
         self.assertEqual(0.8842592592592592, solution[0],
@@ -79,8 +80,8 @@ class MetricCheck(unittest.TestCase):
         )
 
     def test_jaro_again(self):
-        ex_c = 'HELLO'
-        ex_d = 'HEYYA'
+        ex_c = ['H','E','L','L','O']
+        ex_d = ['H','E','Y','Y','A']
         solution = CardShuffleStats.get_jaro_edit_distance_from(ex_c, ex_d)
 
         self.assertEqual(1.8/3, solution[0],
@@ -100,8 +101,8 @@ class MetricCheck(unittest.TestCase):
         )
 
     def test_jaro_again_again(self):
-        ex_e = 'XLNGXATCXR'
-        ex_f = 'FYJLHDRQDM'
+        ex_e = ['X','L','N','G','X','A','T','C','X','R']
+        ex_f = ['F','Y','J','L','H','D','R','Q','D','M']
         solution = CardShuffleStats.get_jaro_edit_distance_from(ex_e, ex_f)
 
         self.assertEqual(abs(1.4/3), solution[0],
@@ -109,15 +110,15 @@ class MetricCheck(unittest.TestCase):
         )
 
         self.assertEqual(len(solution[1][0]), 2,
-            "matched characters in {} and {} should be ".format(ex_e, ex_f)
+            "matched characters in {} should be 2".format(ex_e)
         )
 
         self.assertEqual(len(solution[1][1]), 2,
-            "matched characters in {} and {} should be ".format(ex_e, ex_f)
+            "matched characters in {} should be 2".format(ex_f)
         )
 
         self.assertEqual(solution[2], 0,
-            "transpositions counted in {} and {} should be ".format(ex_e, ex_f)
+            "transpositions counted in {} and {} should be 0".format(ex_e, ex_f)
         )
 
     def test_peapod(self):

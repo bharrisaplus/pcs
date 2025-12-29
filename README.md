@@ -60,13 +60,15 @@ $ python card_shuffle.py [-d, --demo]
 ### Help display
 ```
 $ python card_shuffle.py -h
-usage: card_shuffle.py [-h] [-w] [-g] [-n]
+usage: card_shuffle.py [-h] [-w] [-g] [-n] [-c] [-a]
 
 Producing a pseudo-randomized list of playing cards.
 
 options:
-  -h, --help   show this help message and exit
-  -w, --write  Flag to set for writing output to a text file
-  -g, --gui    Flag to set for displaying output using tkinter
-  -n, --ndo   Flag to set for displaying demo using tkinter. Other options are ignored when set.
+  -h, --help       show this help message and exit
+  -w, --write      Flag to set for writing output to a text file
+  -g, --gui        Flag to set for displaying output using tkinter
+  -n, --ndo        Flag to set for displaying demo using tkinter. Other options are ignored when set.
+  -c, --cut        Flag to set for cutting the deck after the shuffle at a consecutive pair if found.
+  -a, --arbitrary  Flag to set for cutting the deck after the shuffle at a random spot.
 ```

@@ -50,7 +50,7 @@ def count_jaro_transposition_for(mixed_order, known_order):
         if itm is not known_order[idx]:
             t_count += 1
 
-    return t_count / 2
+    return t_count // 2
 
 def get_jaro_edit_distance_from(mixed_order, known_order):
     '''An implementation of the jaro distance metric.

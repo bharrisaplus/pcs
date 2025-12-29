@@ -47,6 +47,36 @@ def shuffle_cards(card_pool, position_pool):
 
     return [maybe_card for maybe_card in random_deck_order if maybe_card != 0]
 
+def maybe_cut(card_block, isArbitrary=False):
+    previous_info = None
+    cut_position = None
+    cutting_block = None
+
+    if isArbitrary:
+        possible_cut = random.sample(population = card_block, k = random.randrange(1,4))
+        cut_position = card_block.index(random.sample(possible_cut, k = 1)[0])
+
+    else:
+        for idx_info, info in enumerate(card_block):
+            if previous_info == None:
+                previous_info = info
+                continue
+
+            if info[0] == previous_info[0] and info[1] in [ previous_info[1] - 1, previous_info[1] + 1]:
+                print("Found peapod!")
+                print("{} @ {}".format(info, idx_info,))
+                cut_position = idx_info
+                break
+
+            previous_info = info
+
+    if cut_position:
+        cutting_block = card_block + card_block[:cut_position]
+        
+        del cutting_block[:cut_position]
+
+    return cutting_block or card_block
+
 def display_decklist_in_console(card_roll, toFile=False):
     '''Create a plain-text version of the card order for viewing in the terminal.
 
@@ -155,19 +185,36 @@ if __name__ == "__main__":
         help="Flag to set for displaying demo using tkinter. Other options are ignored when set."
     )
 
+    cardShuffleParser.add_argument("-c", "--cut", action="store_true",
+        help="Flag to set for cutting the deck after the shuffle at a consecutive pair if found."
+    )
+
+    cardShuffleParser.add_argument("-a", "--arbitrary", action="store_true",
+        help="Flag to set for cutting the deck after the shuffle at a random spot."
+    )
+
     cardShuffleArgs = cardShuffleParser.parse_args()
 
-    # Get a blank deck and mix it up
+    # Get a blank deck, mix it up and possibly cut
 
     new_deck_order, positions_to_fill = _setup_52()
     mixed_deck_order = shuffle_cards(new_deck_order, positions_to_fill)
+    maybe_cut_order = None
+
+    if cardShuffleArgs.cut:
+        if cardShuffleArgs.arbitrary:
+            maybe_cut_order = maybe_cut(mixed_deck_order)
+        else:
+            maybe_cut_order = maybe_cut(mixed_deck_order)
+
+    final_deck_order = maybe_cut_order or mixed_deck_order
 
     # Show the cards
 
     if cardShuffleArgs.ndo:
         display_example()
     else:
-        display_decklist_in_console(mixed_deck_order, toFile=cardShuffleArgs.write)
+        display_decklist_in_console(final_deck_order, toFile=cardShuffleArgs.write)
 
         if cardShuffleArgs.gui:
-            display_decklist_in_gui(mixed_deck_order)
+            display_decklist_in_gui(final_deck_order)

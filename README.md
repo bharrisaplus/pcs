@@ -21,7 +21,6 @@ Outputs the list of cards to the console and optionally to a file.
 
 ### Console
 
-#### Console output only
 ```
 $ python card_shuffle.py
 1) Two of Spade
@@ -47,7 +46,6 @@ Decklist written to 'shuffled.decklist.txt'.
 ### GUI
 Using [tkinter](https://docs.python.org/3/library/tkinter.html) for display and saving to an image with [pillow](https://pillow.readthedocs.io/en/stable/)
 
-### GUI output
 ```
 $ python card_shuffle.py [-g,--gui]
 ```

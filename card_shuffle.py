@@ -75,8 +75,6 @@ def maybe_cut(card_block, isArbitrary=False):
                 continue
 
             if info[0] == previous_info[0] and info[1] in [ previous_info[1] - 1, previous_info[1] + 1]:
-                print("Found peapod!")
-                print("{} @ {}".format(info, idx_info,))
                 cut_position = idx_info
                 break
 
@@ -87,7 +85,7 @@ def maybe_cut(card_block, isArbitrary=False):
         
         del cutting_block[:cut_position]
 
-    return cutting_block or card_block
+    return cutting_block or card_block, cut_position
 
 def display_decklist_in_console(card_roll, toFile=False):
     '''Create a plain-text version of the card order for viewing in the terminal.
@@ -214,7 +212,10 @@ if __name__ == "__main__":
     maybe_cut_order = None
 
     if cardShuffleArgs.cut:
-        maybe_cut_order = maybe_cut(mixed_deck_order, isArbitrary=cardShuffleArgs.arbitrary)
+        maybe_cut_order, maybe_cut_spot = maybe_cut(mixed_deck_order, isArbitrary=cardShuffleArgs.arbitrary)
+
+        if maybe_cut_spot:
+            print("Cut deck @ {}".format(maybe_cut_spot))
 
     final_deck_order = maybe_cut_order or mixed_deck_order
 

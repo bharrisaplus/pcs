@@ -45,7 +45,7 @@ Decklist written to 'shuffled.decklist.txt'.
 ```
 
 ### GUI
-Using tkinter for display and saving to an image with pillow
+Using [tkinter](https://docs.python.org/3/library/tkinter.html) for display and saving to an image with [pillow](https://pillow.readthedocs.io/en/stable/)
 
 ### GUI output
 ```

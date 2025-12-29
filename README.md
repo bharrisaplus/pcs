@@ -6,10 +6,8 @@ For producing a pseudo-randomized list of playing cards (♠️♦️♣️♥�
 * [Overview](#overview)
 * [Usage](#usage)
   * [Console](#console)
-    * [Console output only](#console-output-only)
     * [Writing to a file](#writing-to-file)
   * [GUI](#gui)
-    * [GUI output](#gui-output)
     * [NDO Example](#ndo)
   * [Help display](#help-display)
 

@@ -17,7 +17,7 @@ from _utils import (
 )
 
 def shuffle_cards(card_pool, position_pool):
-    '''Randomize the order of given cards
+    '''Randomize the order of given cards and place at random in a new deck
 
     Having a bank of both cards and positions, pick a random card and a random position from their
         respective banks to create a new order.
@@ -40,12 +40,12 @@ def shuffle_cards(card_pool, position_pool):
         position_idx = random.randrange(len(random_positions))
         position_to_use = random_positions[position_idx]
 
-        random_deck_order.insert(position_to_use, card_to_place)
+        random_deck_order[position_to_use] = card_to_place
 
         random_cards.remove(card_to_place)
         random_positions.remove(position_to_use)
 
-    return [maybe_card for maybe_card in random_deck_order if maybe_card != 0]
+    return random_deck_order
 
 def maybe_cut(card_block, isArbitrary=False):
     '''Rearrange the deck at a determined point

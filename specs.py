@@ -16,3 +16,10 @@ class PCSCheck(unittest.TestCase):
         self.assertEqual(maybe_new_deck_order[0], card_order,
             "The starting should be in new deck order"
         )
+
+    def test_shuffle(self):
+        mixed_up = CardShuffle.shuffle_cards(card_order, list(range(len(card_order))))
+
+        self.assertEqual(len(mixed_up), len(card_order),
+            "The shuffled deck should retain the same number of cards as before the shuffle"
+        )

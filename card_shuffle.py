@@ -135,18 +135,19 @@ def display_decklist_in_gui(card_roll):
     rootWindow = tkinter.Tk()
 
     rootWindow.title("pcs: pseudo card shuffle")
-    rootWindow.geometry("1036x583")
+    rootWindow.geometry("1209x680")
+    rootWindow.grid_columnconfigure(0, weight=1)
 
-    cardFrame = tkinter.Frame(rootWindow, bd=0, padx=22, highlightthickness=0)
+    cardFrame = tkinter.Frame(rootWindow, bd=0, highlightthickness=0)
 
     cardFrame.grid()
 
-    controlFrame = tkinter.Frame(rootWindow, borderwidth=0)
+    controlFrame = tkinter.Frame(rootWindow, bd=0, highlightthickness=0)
 
     controlFrame.grid()
 
     tkinter.Button(
-        controlFrame, text=chr(int(floppy_code, 16)), font=("Consolas", 18), fg="goldenrod3",
+        controlFrame, text=chr(int(floppy_code, 16)), font=("Consolas", 22), fg="goldenrod3",
         command=screen_grab(rootWindow, controlFrame), relief="flat"
     ).pack()
 
@@ -155,22 +156,22 @@ def display_decklist_in_gui(card_roll):
     for frame_idx, card_info in enumerate(card_roll[:14]):
         card_symbol = chr(int(card_to_utf8.get(card_info), 16))
         card_color = 'midnight blue' if card_info[0] in blue_group else 'firebrick'
-        tkinter.Label(cardFrame, text=card_symbol, font=("Consolas", 81), fg=card_color).grid(column=frame_idx, row=0)
+        tkinter.Label(cardFrame, text=card_symbol, font=("Consolas", 90), fg=card_color).grid(column=frame_idx, row=0)
 
     for frame_idx, card_info in enumerate(card_roll[14:28]):
         card_symbol = chr(int(card_to_utf8.get(card_info), 16))
         card_color = 'midnight blue' if card_info[0] in blue_group else 'firebrick'
-        tkinter.Label(cardFrame, text=card_symbol, font=("Consolas", 81), fg=card_color).grid(column=frame_idx, row=1)
+        tkinter.Label(cardFrame, text=card_symbol, font=("Consolas", 90), fg=card_color).grid(column=frame_idx, row=1)
 
     for frame_idx, card_info in enumerate(card_roll[28:42]):
         card_symbol = chr(int(card_to_utf8.get(card_info), 16))
         card_color = 'midnight blue' if card_info[0] in blue_group else 'firebrick'
-        tkinter.Label(cardFrame, text=card_symbol, font=("Consolas", 81), fg=card_color).grid(column=frame_idx, row=2)
+        tkinter.Label(cardFrame, text=card_symbol, font=("Consolas", 90), fg=card_color).grid(column=frame_idx, row=2)
 
     for frame_idx, card_info in enumerate(card_roll[42:]):
         card_symbol = chr(int(card_to_utf8.get(card_info), 16))
         card_color = 'midnight blue' if card_info[0] in blue_group else 'firebrick'
-        tkinter.Label(cardFrame, text=card_symbol, font=("Consolas", 81), fg=card_color).grid(column=frame_idx, row=3)
+        tkinter.Label(cardFrame, text=card_symbol, font=("Consolas", 90), fg=card_color).grid(column=frame_idx, row=3)
 
     rootWindow.mainloop()
 

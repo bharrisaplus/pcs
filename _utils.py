@@ -98,23 +98,24 @@ def ndo_example():
     ''' Print cards in new deck order: (♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️:K-A) '''
 
     cardRoll, _ = _setup_52()
-    cardFontStyle = ('Consolas', 81)
+    cardFontStyle = ('Consolas', 90)
 
     tkinterWindow = tkinter.Tk()
 
     tkinterWindow.title("pcs: pseudo card shuffle")
-    tkinterWindow.geometry("1036x583")
+    tkinterWindow.geometry("1209x680")
+    tkinterWindow.grid_columnconfigure(0, weight=1)
 
-    cardFrame = tkinter.Frame(tkinterWindow, borderwidth=0, padx=22, highlightthickness=0)
+    cardFrame = tkinter.Frame(tkinterWindow, bd=0, highlightthickness=0)
 
     cardFrame.grid()
 
-    controlFrame = tkinter.Frame(tkinterWindow, borderwidth=0, highlightthickness=0)
+    controlFrame = tkinter.Frame(tkinterWindow, bd=0, highlightthickness=0)
 
     controlFrame.grid()
 
     tkinter.Button(
-        controlFrame, text=chr(int(floppy_code, 16)), font=('Consolas', 18), fg="goldenrod3",
+        controlFrame, text=chr(int(floppy_code, 16)), font=('Consolas', 22), fg="goldenrod3",
         command=_capture_tkinter_partial(tkinterWindow, controlFrame, 'ndo'), relief="flat"
     ).pack()
 

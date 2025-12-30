@@ -81,9 +81,7 @@ def maybe_cut(card_block, isArbitrary=False):
             previous_info = info
 
     if cut_position:
-        cutting_block = card_block + card_block[:cut_position]
-        
-        del cutting_block[:cut_position]
+        cutting_block = card_block[cut_position:] + card_block[:cut_position]
 
     return cutting_block or card_block, cut_position
 

@@ -54,7 +54,7 @@ class PCSCheck(unittest.TestCase):
         )
 
         self.assertEqual(cut_spot, swear_mix.index(cut_up[0]),
-            "The peapod cut deck should be cut at the first consecutive pair"
+            "The arbitrary cut deck should be cut at the first consecutive pair"
         )
 
 class MetricCheck(unittest.TestCase):

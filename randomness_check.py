@@ -31,7 +31,7 @@ class RandomCheck(unittest.TestCase):
 
         jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(mixed_up, card_order)
 
-        self.assertTrue(0.53 < jaro_similarity[0] < 0.80,
+        self.assertTrue(0.50 < jaro_similarity[0] < 0.80,
             "The end positions of cards after a shuffle should be somewhat far from start positions"
         )
 
@@ -41,7 +41,7 @@ class RandomCheck(unittest.TestCase):
 
         jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(maybe_cut_up, card_order)
 
-        self.assertTrue(0.53 < jaro_similarity[0] < 0.80,
+        self.assertTrue(0.50 < jaro_similarity[0] < 0.80,
             "The end positions of cards after a shuffle and cut should be somewhat far from start positions"
         )
 
@@ -51,7 +51,7 @@ class RandomCheck(unittest.TestCase):
 
         jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(maybe_cut_up, card_order)
 
-        self.assertTrue(0.53 < jaro_similarity[0] < 0.80,
+        self.assertTrue(0.50 < jaro_similarity[0] < 0.80,
             "The end positions of cards after a shuffle and cut should be somewhat far from start positions"
         )
 

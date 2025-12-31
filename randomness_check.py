@@ -1,4 +1,6 @@
 import unittest
+import statistics as PyStat
+import math
 
 import _stats as CardShuffleStats
 import card_shuffle as CardShuffle
@@ -92,4 +94,29 @@ class RandomCheck(unittest.TestCase):
 
         self.assertTrue( peapod_count[0] < peapod_count[1],
             "There should be less consecutive than non-consecutive pairs for any shuffled deck"
+        )
+
+    def test_card_shuffle_long(self):
+        jaro_measurement = [0] * 10000
+
+        for text_idx in range(len(jaro_measurement)):
+            mixed_up = CardShuffle.shuffle_cards(card_order, self.new_deck_order_positions)
+            jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(mixed_up, card_order)
+
+            jaro_measurement[text_idx] = jaro_similarity[0]
+
+        sample_mean = PyStat.mean(jaro_measurement)
+        sample_std = PyStat.stdev(jaro_measurement, sample_mean)
+
+        acceptance_check_passed = (
+            math.isclose(sample_mean - sample_std, 0.6676, rel_tol=0.05) or
+            math.isclose(sample_mean, 0.6676, rel_tol=0.05) or
+            math.isclose(sample_mean + sample_std, 0.6676, rel_tol=0.05) or
+            math.isclose(sample_mean - sample_std, 0.6662, rel_tol=0.05) or
+            math.isclose(sample_mean, 0.6662, rel_tol=0.05) or
+            math.isclose(sample_mean + sample_std, 0.6662, rel_tol=0.05)
+        )
+
+        self.assertTrue(acceptance_check_passed,
+            "The mean jaro similarity observed of the PCS should be close to that of the FY and GSR shuffles"
         )

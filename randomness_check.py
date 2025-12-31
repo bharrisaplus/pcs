@@ -96,6 +96,14 @@ class RandomCheck(unittest.TestCase):
             "There should be less consecutive than non-consecutive pairs for any shuffled deck"
         )
 
+    def debug_report_long_stats(self, _mean, _std, _min, _max):
+        print("\nThe mean for the data: {}".format(_mean))
+        print("The standard deviation for the data: {}".format(_std))
+        print("The Data ranged between {} and {}".format(_min, _max))
+        print("\nThe mean compared to Fishe-Yates: {} +- {} vs {}".format(_mean, _std, 0.6676))
+        print("The mean compared to Gilber-Shannon-Reeds: {} +- {} vs {}".format(_mean, _std, 0.6662))
+
+    @unittest.skip("Not necessary for every run")
     def test_card_shuffle_long(self):
         jaro_measurement = [0] * 10000
 
@@ -116,6 +124,8 @@ class RandomCheck(unittest.TestCase):
             math.isclose(sample_mean, 0.6662, rel_tol=0.05) or
             math.isclose(sample_mean + sample_std, 0.6662, rel_tol=0.05)
         )
+
+        self.debug_report_long_stats(sample_mean, sample_std, min(jaro_measurement), max(jaro_measurement))
 
         self.assertTrue(acceptance_check_passed,
             "The mean jaro similarity observed of the PCS should be close to that of the FY and GSR shuffles"

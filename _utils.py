@@ -98,12 +98,23 @@ def ndo_example():
     ''' Print cards in new deck order: (♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️:K-A) '''
 
     cardRoll, _ = _setup_52()
-    cardFontStyle = ('Consolas', 90)
 
     tkinterWindow = tkinter.Tk()
+    window_height = int((tkinterWindow.winfo_screenheight() * 0.63) // 1)
+    window_width = int((tkinterWindow.winfo_screenwidth() * 0.63) // 1)
+    cardFontSize = int(window_height * 0.1325 // 1)
+    controlFontSize = int(window_height * 0.033 // 1)
+    cardFontStyle = ('Consolas', cardFontSize)
+    controlFontStyle = ('Consolas', controlFontSize)
+
+    #print("Screen size: {}x{}".format(tkinterWindow.winfo_screenwidth(), tkinterWindow.winfo_screenheight()))
+    #print("Window size: {}x{}".format(window_width, window_height))
+    #print("Card font size: {}".format(cardFontSize)) # or 63 min
+    #print("Control font: {}".format(controlFontSize)) # or 18 min
+
 
     tkinterWindow.title("pcs: pseudo card shuffle")
-    tkinterWindow.geometry("1209x680")
+    tkinterWindow.geometry("{}x{}".format(window_width, window_height))
     tkinterWindow.grid_columnconfigure(0, weight=1)
 
     cardFrame = tkinter.Frame(tkinterWindow, bd=0, highlightthickness=0)
@@ -115,7 +126,7 @@ def ndo_example():
     controlFrame.grid()
 
     tkinter.Button(
-        controlFrame, text=chr(int(floppy_code, 16)), font=('Consolas', 22), fg="goldenrod3",
+        controlFrame, text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="goldenrod3",
         command=_capture_tkinter_partial(tkinterWindow, controlFrame, 'ndo'), relief="flat"
     ).pack()
 

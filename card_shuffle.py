@@ -53,7 +53,7 @@ def maybe_cut(card_block, isArbitrary=False):
     From the determined point take every card before the point and move it to the back of the list.
         The determined point can be picked by:
             * arbitrary: index of a card randly selected from 1-3 randomly selected cards from the deck
-            * peapod: index of card found next to new dedk order neighbor
+            * peapod: index of card found next to new deck order neighbor
 
     Args:
         card_block (list[tuple(str, int)]): The cards to possibly rearrange. See _constants.py@_setup_52

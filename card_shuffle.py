@@ -119,10 +119,10 @@ def display_decklist_in_gui(card_roll):
     Create a layout in tkinter with the following layout
         rootWindow
             cardFrame:
-                [{Cards 1 - 14}]
-                [{Cards 15 - 28}]
-                [{Cards 29 - 42}]
-                [{Cards 43 - 52}]
+                [{Cards 1 - 13}]
+                [{Cards 14 - 26}]
+                [{Cards 27 - 39}]
+                [{Cards 40 - 52}]
             controlFrame:
                 [{saveButton}]
 
@@ -151,24 +151,22 @@ def display_decklist_in_gui(card_roll):
         command=screen_grab(rootWindow, controlFrame), relief="flat"
     ).pack()
 
-    # 52 / 14 ~ 4 rows
-
-    for frame_idx, card_info in enumerate(card_roll[:14]):
+    for frame_idx, card_info in enumerate(card_roll[:13]):
         card_symbol = chr(int(card_to_utf8.get(card_info), 16))
         card_color = 'midnight blue' if card_info[0] in blue_group else 'firebrick'
         tkinter.Label(cardFrame, text=card_symbol, font=("Consolas", 90), fg=card_color).grid(column=frame_idx, row=0)
 
-    for frame_idx, card_info in enumerate(card_roll[14:28]):
+    for frame_idx, card_info in enumerate(card_roll[13:26]):
         card_symbol = chr(int(card_to_utf8.get(card_info), 16))
         card_color = 'midnight blue' if card_info[0] in blue_group else 'firebrick'
         tkinter.Label(cardFrame, text=card_symbol, font=("Consolas", 90), fg=card_color).grid(column=frame_idx, row=1)
 
-    for frame_idx, card_info in enumerate(card_roll[28:42]):
+    for frame_idx, card_info in enumerate(card_roll[26:39]):
         card_symbol = chr(int(card_to_utf8.get(card_info), 16))
         card_color = 'midnight blue' if card_info[0] in blue_group else 'firebrick'
         tkinter.Label(cardFrame, text=card_symbol, font=("Consolas", 90), fg=card_color).grid(column=frame_idx, row=2)
 
-    for frame_idx, card_info in enumerate(card_roll[42:]):
+    for frame_idx, card_info in enumerate(card_roll[39:]):
         card_symbol = chr(int(card_to_utf8.get(card_info), 16))
         card_color = 'midnight blue' if card_info[0] in blue_group else 'firebrick'
         tkinter.Label(cardFrame, text=card_symbol, font=("Consolas", 90), fg=card_color).grid(column=frame_idx, row=3)

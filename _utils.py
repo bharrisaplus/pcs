@@ -122,19 +122,19 @@ def ndo_example():
     # tkinter/tcl colors
     # https://www.tcl-lang.org/man/tcl8.5/TkCmd/colors.htm
 
-    for frame_idx, card_info in enumerate(cardRoll[:14]):
+    for frame_idx, card_info in enumerate(cardRoll[:13]):
         card_symbol = chr(int(card_to_utf8.get(card_info), 16))
         tkinter.Label(cardFrame, text=card_symbol, font=cardFontStyle, fg='midnight blue').grid(column=frame_idx, row=0)
 
-    for frame_idx, card_info in enumerate(cardRoll[14:28]):
+    for frame_idx, card_info in enumerate(cardRoll[13:26]):
         card_symbol = chr(int(card_to_utf8.get(card_info), 16))
         tkinter.Label(cardFrame, text=card_symbol, font=cardFontStyle, fg='firebrick').grid(column=frame_idx, row=1)
 
-    for frame_idx, card_info in enumerate(cardRoll[28:42]):
+    for frame_idx, card_info in enumerate(cardRoll[26:39]):
         card_symbol = chr(int(card_to_utf8.get(card_info), 16))
         tkinter.Label(cardFrame, text=card_symbol, font=cardFontStyle, fg='dark olive green').grid(column=frame_idx, row=2)
 
-    for frame_idx, card_info in enumerate(cardRoll[42:]):
+    for frame_idx, card_info in enumerate(cardRoll[39:]):
         card_symbol = chr(int(card_to_utf8.get(card_info), 16))
         tkinter.Label(cardFrame, text=card_symbol, font=cardFontStyle, fg='DarkOrange2').grid(column=frame_idx, row=3)
 

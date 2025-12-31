@@ -65,7 +65,7 @@ class RandomCheck(unittest.TestCase):
             "There should be less consecutive than non-consecutive pairs for any shuffled deck"
         )
 
-    def test_card_shuffle_cut_arbitrary_for_peapod(self):
+    def test_card_shuffle_arbitrary_cut_for_peapod(self):
         mixed_up = CardShuffle.shuffle_cards(card_order, self.new_deck_order_positions)
         maybe_cut_up, _ = CardShuffle.maybe_cut(mixed_up, isArbitrary=True)
 

@@ -33,7 +33,7 @@ class RandomCheck(unittest.TestCase):
             "The end positions of cards after a shuffle should be somewhat far from start positions"
         )
 
-    def test_card_shuffle_peapod_cut(self):
+    def test_card_shuffle_cut(self):
         mixed_up = CardShuffle.shuffle_cards(card_order, self.new_deck_order_positions)
         maybe_cut_up, _ = CardShuffle.maybe_cut(mixed_up)
 
@@ -53,7 +53,7 @@ class RandomCheck(unittest.TestCase):
             "The end positions of cards after a shuffle and cut should be somewhat far from start positions"
         )
 
-    def test_shuffle_for_peapod(self):
+    def test_card_shuffle_for_peapod(self):
         mixed_up = CardShuffle.shuffle_cards(card_order, self.new_deck_order_positions)
 
         peapod_count = CardShuffleStats.count_peapods_from(mixed_up, card_order)
@@ -66,7 +66,7 @@ class RandomCheck(unittest.TestCase):
             "There should be less consecutive than non-consecutive pairs for any shuffled deck"
         )
 
-    def test_shuffle_cut_for_peapod(self):
+    def test_card_shuffle_cut_for_peapod(self):
         mixed_up = CardShuffle.shuffle_cards(card_order, self.new_deck_order_positions)
         maybe_cut_up, _ = CardShuffle.maybe_cut(mixed_up)
 
@@ -80,7 +80,7 @@ class RandomCheck(unittest.TestCase):
             "There should be less consecutive than non-consecutive pairs for any shuffled deck"
         )
 
-    def test_shuffle_cut_arbitrary_for_peapod(self):
+    def test_card_shuffle_cut_arbitrary_for_peapod(self):
         mixed_up = CardShuffle.shuffle_cards(card_order, self.new_deck_order_positions)
         maybe_cut_up, _ = CardShuffle.maybe_cut(mixed_up, isArbitrary=True)
 

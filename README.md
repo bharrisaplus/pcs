@@ -16,8 +16,20 @@ Shuffling by taking a random sampling from the available cards and placing them 
 
 ## Usage
 
+### Install dependencies
+This projects needs tkinter and pillow. Tkinter should be included with most python distributions and pillow is available via pypi
+#### pip
+To install dependencies globally
+```
+  pip install pillow
+```
+#### pipenv
+A Pipfile is included for installing dependencies within a virtualenv
+```
+pipenv install
+```
 ### Console
-Outputs the list of cards to the console and optionally to a file.
+Outputs the list of cards to the terminal and optionally to a file.
 ```
 $ python card_shuffle.py
 1) Two of Spade

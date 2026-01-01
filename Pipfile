@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pillow = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"
+
+[scripts]
+specs = "python -m unittest specs.py"
+randomness = "python -m unittest randomness_check.py"
+randomness_ext = "python -m unittest randomness_check_extensive.py"
+cli_help = "python card_shuffle.py -h"
+cli = "python card_shuffle.py"
+cli_write = "python card_shuffle.py -w"
+gui = "python card_shuffle.py -g"
+gui_colors = "python card_shuffle.py -gf"
+demo = "python card_shuffle.py -n"

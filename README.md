@@ -20,7 +20,7 @@ Shuffling by taking a random sampling from the available cards and placing them 
 ## Usage
 
 ### Install dependencies
-This projects needs tkinter and pillow. Tkinter should be included with most python distributions and pillow is available via pypi
+This projects needs [tkinter](https://docs.python.org/3/library/tkinter.html) and [pillow](https://pillow.readthedocs.io/en/stable/). Tkinter should be included with most python distributions and pillow is available via [pypi](https://pypi.org/).
 #### pip
 To install dependencies globally
 ```

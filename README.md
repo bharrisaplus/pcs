@@ -5,6 +5,9 @@ For producing a pseudo-randomized list of playing cards (♠️♦️♣️♥�
 
 * [Overview](#overview)
 * [Usage](#usage)
+  * [Install dependencies](#install-dependencies)
+    * pip
+    * pipenv
   * [Console](#console)
     * [Writing to a file](#writing-to-file)
   * [GUI](#gui)

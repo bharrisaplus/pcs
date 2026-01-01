@@ -6,7 +6,8 @@ import tkinter
 from _constants import (
     card_num_to_name as lookup_card,
     save_icon_utf8 as floppy_code,
-    card_group_a as blue_group,
+    card_group_a,
+    card_group_b,
     card_to_utf8
 )
 
@@ -113,7 +114,7 @@ def display_decklist_in_console(card_roll, toFile=False):
 
         print("\nDecklist written to 'shuffled.decklist.txt'.")
 
-def display_decklist_in_gui(card_roll):
+def display_decklist_in_gui(card_roll, fourColor=False):
     '''Show the cards using utf-8 symbols
 
     Create a layout in tkinter with the following layout
@@ -130,7 +131,25 @@ def display_decklist_in_gui(card_roll):
 
     Args:
         card_roll (list[tuple(str, int)]): The cards to be shown. See _constants.py@_setup_52
+        fourColor (bool): Whether to use one color pre suite when displaying cards (default: False)
     '''
+
+    def get_card_color(card_suite):
+        suite_color = None
+
+        if card_suite in card_group_a:
+            suite_color = 'midnight blue'
+
+            if fourColor and card_suite == card_group_a[1]:
+                    suite_color = 'dark olive green'
+
+        if card_suite in card_group_b:
+            suite_color = 'firebrick'
+
+            if fourColor and card_suite == card_group_b[1]:
+                suite_color = 'DarkOrange2'
+
+        return suite_color
 
     rootWindow = tkinter.Tk()
     window_height = int((rootWindow.winfo_screenheight() * 0.63) // 1)
@@ -159,22 +178,22 @@ def display_decklist_in_gui(card_roll):
 
     for frame_idx, card_info in enumerate(card_roll[:13]):
         card_symbol = chr(int(card_to_utf8.get(card_info), 16))
-        card_color = 'midnight blue' if card_info[0] in blue_group else 'firebrick'
+        card_color = get_card_color(card_info[0])
         tkinter.Label(cardFrame, text=card_symbol, font=cardFontStyle, fg=card_color).grid(column=frame_idx, row=0)
 
     for frame_idx, card_info in enumerate(card_roll[13:26]):
         card_symbol = chr(int(card_to_utf8.get(card_info), 16))
-        card_color = 'midnight blue' if card_info[0] in blue_group else 'firebrick'
+        card_color = get_card_color(card_info[0])
         tkinter.Label(cardFrame, text=card_symbol, font=cardFontStyle, fg=card_color).grid(column=frame_idx, row=1)
 
     for frame_idx, card_info in enumerate(card_roll[26:39]):
         card_symbol = chr(int(card_to_utf8.get(card_info), 16))
-        card_color = 'midnight blue' if card_info[0] in blue_group else 'firebrick'
+        card_color = get_card_color(card_info[0])
         tkinter.Label(cardFrame, text=card_symbol, font=cardFontStyle, fg=card_color).grid(column=frame_idx, row=2)
 
     for frame_idx, card_info in enumerate(card_roll[39:]):
         card_symbol = chr(int(card_to_utf8.get(card_info), 16))
-        card_color = 'midnight blue' if card_info[0] in blue_group else 'firebrick'
+        card_color = get_card_color(card_info[0])
         tkinter.Label(cardFrame, text=card_symbol, font=cardFontStyle, fg=card_color).grid(column=frame_idx, row=3)
 
     rootWindow.mainloop()
@@ -193,6 +212,9 @@ if __name__ == "__main__":
     cardShuffleParser.add_argument("-g", "--gui", action="store_true",
         help="Flag to set for displaying output using tkinter"
     )
+
+    cardShuffleParser.add_argument("-f", "--four-color", action="store_true",
+        help="Flag to set for displaying each suite in a unique color in the tkinter gui window")
 
     cardShuffleParser.add_argument("-n", "--ndo", action="store_true",
         help="Flag to set for displaying demo using tkinter. Other options are ignored when set."
@@ -230,4 +252,4 @@ if __name__ == "__main__":
         display_decklist_in_console(final_deck_order, toFile=cardShuffleArgs.write)
 
         if cardShuffleArgs.gui:
-            display_decklist_in_gui(final_deck_order)
+            display_decklist_in_gui(final_deck_order, fourColor=cardShuffleArgs.four_color)

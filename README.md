@@ -15,7 +15,7 @@ For producing a pseudo-randomized list of playing cards (♠️♦️♣️♥�
   * [Help display](#help-display)
 
 ## Overview
-Shuffling by taking a random sampling from the available cards and placing them in a position based on a random sampling from available positions in the deck.
+Producing a decklist of shuffled playing cards.
 
 ## Usage
 

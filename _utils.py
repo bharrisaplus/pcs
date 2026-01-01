@@ -64,9 +64,11 @@ def _capture_tkinter(captureWindow, offsetArea, captureFileName='shuffled'):
         offsetArea (tkinter.Frame): The widget to ignore when grabbing screenshot
     '''
 
+    captureWindow.update_idletasks()
+
     capture_area_start_x = captureWindow.winfo_rootx()
     capture_area_start_y = captureWindow.winfo_rooty()
-    offset_y = offsetArea.winfo_height()
+    offset_y = offsetArea.winfo_height() + 20
     capture_area_end_x = capture_area_start_x + captureWindow.winfo_width()
     capture_area_end_y = capture_area_start_y + captureWindow.winfo_height() - offset_y
     capture_filename = "{}.decklist.png".format(captureFileName)

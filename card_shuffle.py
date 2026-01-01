@@ -58,7 +58,7 @@ def maybe_cut(card_block, isArbitrary=False):
 
     Args:
         card_block (list[tuple(str, int)]): The cards to possibly rearrange. See _constants.py@_setup_52
-        isArbitrary (bool): See above (default: `False`)
+        isArbitrary (bool): See above (default: False)
     '''
 
     previous_info = None
@@ -94,7 +94,7 @@ def display_decklist_in_console(card_roll, toFile=False):
 
     Args:
         card_roll (list[tuple(str, int)]): The cards to be shown. See _constants.py@_setup_52
-        toFile (bool): Whether or not to create a file. (default: `False`)
+        toFile (bool): Whether or not to create a file. (default: False)
     '''
 
     card_catalog = []

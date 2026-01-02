@@ -1,3 +1,5 @@
+''' Shuffle a deck of cards and produce the decklist '''
+
 import random
 import os
 import argparse
@@ -17,6 +19,7 @@ from _utils import (
     _setup_52
 )
 
+
 def shuffle_cards(card_pool, position_pool):
     '''Randomize the order of given cards and place at random in a new deck
 
@@ -31,11 +34,12 @@ def shuffle_cards(card_pool, position_pool):
         list[tuple(str, int)]: cards placed in a pseudo-random order
     '''
 
-    random_cards = random.sample(population = card_pool, k = len(card_pool))
-    random_positions = random.sample(population = position_pool, k = len(position_pool))
-    random_deck_order = [0] * len(position_pool)
+    position_count = len(position_pool)
+    random_cards = random.sample(population=card_pool, k=len(card_pool))
+    random_positions = random.sample(population=position_pool, k=position_count)
+    random_deck_order = [0] * position_count
 
-    for slot in range(len(position_pool)):
+    for _ in range(position_count):
         card_idx = random.randrange(len(random_cards))
         card_to_place = random_cards[card_idx]
         position_idx = random.randrange(len(random_positions))
@@ -48,34 +52,39 @@ def shuffle_cards(card_pool, position_pool):
 
     return random_deck_order
 
-def maybe_cut(card_block, isArbitrary=False):
+
+def maybe_cut(card_block, is_arbitrary=False):
     '''Rearrange the deck at a determined point
-    
+
     From the determined point take every card before the point and move it to the back of the list.
         The determined point can be picked by:
-            * arbitrary: index of a card randly selected from 1-3 randomly selected cards from the deck
+            * arbitrary: index from one of 1-3 randomly selected cards from the deck
             * peapod: index of card found next to new deck order neighbor
 
     Args:
-        card_block (list[tuple(str, int)]): The cards to possibly rearrange. See _constants.py@_setup_52
-        isArbitrary (bool): See above (default: False)
+        card_block (list[tuple(str, int)]): The cards to rearrange. See _constants.py@_setup_52
+        is_arbitrary (bool): See above (default: False)
     '''
 
     previous_info = None
     cut_position = None
     cutting_block = None
 
-    if isArbitrary:
-        possible_cut = random.sample(population = card_block, k = random.randrange(1,4))
-        cut_position = card_block.index(random.sample(possible_cut, k = 1)[0])
+    if is_arbitrary:
+        possible_cut = random.sample(population=card_block, k=random.randrange(1, 4))
+        cut_position = card_block.index(random.sample(possible_cut, k=1)[0])
 
     else:
         for idx_info, info in enumerate(card_block):
-            if previous_info == None:
+            if previous_info is None:
                 previous_info = info
                 continue
 
-            if info[0] == previous_info[0] and info[1] in [ previous_info[1] - 1, previous_info[1] + 1]:
+            if info[0] == previous_info[0] and (
+                info[1] == previous_info[1] - 1 or
+                info[1] == previous_info[1] + 1
+            ):
+
                 cut_position = idx_info
                 break
 
@@ -86,7 +95,8 @@ def maybe_cut(card_block, isArbitrary=False):
 
     return cutting_block or card_block, cut_position
 
-def display_decklist_in_console(card_roll, toFile=False):
+
+def display_decklist_in_console(card_roll, to_file=False):
     '''Create a plain-text version of the card order for viewing in the terminal.
 
     Taking the cards given create a formatted string with each card on it's own line that
@@ -94,19 +104,21 @@ def display_decklist_in_console(card_roll, toFile=False):
 
     Args:
         card_roll (list[tuple(str, int)]): The cards to be shown. See _constants.py@_setup_52
-        toFile (bool): Whether or not to create a file. (default: False)
+        to_file (bool): Whether or not to create a file. (default: False)
     '''
 
     card_catalog = []
 
     for card_catalog_idx, card_stuff in enumerate(card_roll, start=1):
-        card_name = lookup_card.get(card_stuff[1]).capitalize()
-
-        card_catalog.append("{}) {} of {}".format(card_catalog_idx, card_name, card_stuff[0].capitalize()))
+        card_catalog.append("{}) {} of {}".format(
+            card_catalog_idx,
+            lookup_card.get(card_stuff[1]).capitalize(),
+            card_stuff[0].capitalize()
+        ))
 
     print(*card_catalog, sep="\n")
 
-    if toFile:
+    if to_file:
         file_descriptor = os.open('shuffled.decklist.txt', os.O_WRONLY | os.O_CREAT | os.O_TRUNC)
 
         with os.fdopen(file_descriptor, mode='w') as out_file:
@@ -114,7 +126,8 @@ def display_decklist_in_console(card_roll, toFile=False):
 
         print("\nDecklist written to 'shuffled.decklist.txt'.")
 
-def display_decklist_in_gui(card_roll, fourColor=False):
+
+def display_decklist_in_gui(card_roll, four_color=False):
     '''Show the cards using utf-8 symbols
 
     Create a layout in tkinter with the following layout
@@ -131,7 +144,7 @@ def display_decklist_in_gui(card_roll, fourColor=False):
 
     Args:
         card_roll (list[tuple(str, int)]): The cards to be shown. See _constants.py@_setup_52
-        fourColor (bool): Whether to use one color pre suite when displaying cards (default: False)
+        four_color (bool): Whether to use one color pre suite when displaying cards (default: False)
     '''
 
     def get_card_color(card_suite):
@@ -140,13 +153,13 @@ def display_decklist_in_gui(card_roll, fourColor=False):
         if card_suite in card_group_a:
             suite_color = 'midnight blue'
 
-            if fourColor and card_suite == card_group_a[1]:
-                    suite_color = 'dark olive green'
+            if four_color and card_suite == card_group_a[1]:
+                suite_color = 'dark olive green'
 
         if card_suite in card_group_b:
             suite_color = 'firebrick'
 
-            if fourColor and card_suite == card_group_b[1]:
+            if four_color and card_suite == card_group_b[1]:
                 suite_color = 'DarkOrange2'
 
         return suite_color
@@ -154,10 +167,8 @@ def display_decklist_in_gui(card_roll, fourColor=False):
     rootWindow = tkinter.Tk()
     window_height = int((rootWindow.winfo_screenheight() * 0.63) // 1)
     window_width = int((rootWindow.winfo_screenwidth() * 0.63) // 1)
-    cardFontSize = int(window_height * 0.1325 // 1)
-    controlFontSize = int(window_height * 0.033 // 1)
-    cardFontStyle = ('Consolas', cardFontSize)
-    controlFontStyle = ('Consolas', controlFontSize)
+    cardFontStyle = ('Consolas', int(window_height * 0.1325 // 1))
+    controlFontStyle = ('Consolas', int(window_height * 0.033 // 1))
 
     rootWindow.title("pcs: pseudo card shuffle")
     rootWindow.geometry("{}x{}".format(window_width, window_height))
@@ -177,26 +188,31 @@ def display_decklist_in_gui(card_roll, fourColor=False):
     ).pack()
 
     for frame_idx, card_info in enumerate(card_roll[:13]):
-        card_symbol = chr(int(card_to_utf8.get(card_info), 16))
-        card_color = get_card_color(card_info[0])
-        tkinter.Label(cardFrame, text=card_symbol, font=cardFontStyle, fg=card_color).grid(column=frame_idx, row=0)
+        tkinter.Label(
+            cardFrame, text=chr(int(card_to_utf8.get(card_info), 16)), font=cardFontStyle,
+            fg=get_card_color(card_info[0])
+        ).grid(column=frame_idx, row=0)
 
     for frame_idx, card_info in enumerate(card_roll[13:26]):
-        card_symbol = chr(int(card_to_utf8.get(card_info), 16))
-        card_color = get_card_color(card_info[0])
-        tkinter.Label(cardFrame, text=card_symbol, font=cardFontStyle, fg=card_color).grid(column=frame_idx, row=1)
+        tkinter.Label(
+            cardFrame, text=chr(int(card_to_utf8.get(card_info), 16)), font=cardFontStyle,
+            fg=get_card_color(card_info[0])
+        ).grid(column=frame_idx, row=1)
 
     for frame_idx, card_info in enumerate(card_roll[26:39]):
-        card_symbol = chr(int(card_to_utf8.get(card_info), 16))
-        card_color = get_card_color(card_info[0])
-        tkinter.Label(cardFrame, text=card_symbol, font=cardFontStyle, fg=card_color).grid(column=frame_idx, row=2)
+        tkinter.Label(
+            cardFrame, text=chr(int(card_to_utf8.get(card_info), 16)), font=cardFontStyle,
+            fg=get_card_color(card_info[0])
+        ).grid(column=frame_idx, row=2)
 
     for frame_idx, card_info in enumerate(card_roll[39:]):
-        card_symbol = chr(int(card_to_utf8.get(card_info), 16))
-        card_color = get_card_color(card_info[0])
-        tkinter.Label(cardFrame, text=card_symbol, font=cardFontStyle, fg=card_color).grid(column=frame_idx, row=3)
+        tkinter.Label(
+            cardFrame, text=chr(int(card_to_utf8.get(card_info), 16)), font=cardFontStyle,
+            fg=get_card_color(card_info[0])
+        ).grid(column=frame_idx, row=3)
 
     rootWindow.mainloop()
+
 
 if __name__ == "__main__":
     # Grab arguments
@@ -214,7 +230,8 @@ if __name__ == "__main__":
     )
 
     cardShuffleParser.add_argument("-f", "--four-color", action="store_true",
-        help="Flag to set for displaying each suite in a unique color in the tkinter gui window")
+        help="Flag to set for displaying each suite in a unique color in the tkinter gui window"
+    )
 
     cardShuffleParser.add_argument("-n", "--ndo", action="store_true",
         help="Flag to set for displaying demo using tkinter. Other options are ignored when set."
@@ -234,18 +251,18 @@ if __name__ == "__main__":
         display_example()
     else:
         new_deck_order, positions_to_fill = _setup_52()
-        mixed_deck_order = shuffle_cards(new_deck_order, positions_to_fill)
-        maybe_cut_order = None
+        mixed_deck = shuffle_cards(new_deck_order, positions_to_fill)
+        cut_deck = None
 
         if cardShuffleArgs.cut:
-            maybe_cut_order, maybe_cut_spot = maybe_cut(mixed_deck_order, isArbitrary=cardShuffleArgs.arbitrary)
+            cut_deck, cut_spot = maybe_cut(mixed_deck, is_arbitrary=cardShuffleArgs.arbitrary)
 
-            if maybe_cut_spot:
-                print("Cut deck @ {}".format(maybe_cut_spot))
+            if cut_spot:
+                print("Cut deck @ {}".format(cut_spot))
 
-        final_deck_order = maybe_cut_order or mixed_deck_order
+        final_deck = cut_deck or mixed_deck
 
-        display_decklist_in_console(final_deck_order, toFile=cardShuffleArgs.write)
+        display_decklist_in_console(final_deck, to_file=cardShuffleArgs.write)
 
         if cardShuffleArgs.gui:
-            display_decklist_in_gui(final_deck_order, fourColor=cardShuffleArgs.four_color)
+            display_decklist_in_gui(final_deck, four_color=cardShuffleArgs.four_color)

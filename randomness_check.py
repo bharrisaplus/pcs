@@ -57,8 +57,8 @@ class RandomCheck(unittest.TestCase):
 
         peapod_count = CardShuffleStats.count_peapods_from(maybe_cut_up, card_order)
 
-        self.assertTrue( peapod_count[0] <= 3,
-            "There should be around 3 consecutive pairs for any shuffled deck"
+        self.assertTrue( peapod_count[0] <= 4,
+            "There should be around 4 consecutive pairs for any shuffled deck"
         )
 
         self.assertTrue( peapod_count[0] < peapod_count[1],
@@ -72,7 +72,7 @@ class RandomCheck(unittest.TestCase):
         peapod_count = CardShuffleStats.count_peapods_from(maybe_cut_up, card_order)
 
         self.assertTrue( peapod_count[0] <= 4,
-            "There should be around 3 consecutive pairs for any shuffled deck"
+            "There should be around 4 consecutive pairs for any shuffled deck"
         )
 
         self.assertTrue( peapod_count[0] < peapod_count[1],

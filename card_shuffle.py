@@ -3,21 +3,18 @@
 import random
 import os
 import argparse
-import tkinter
 
-from _constants import (
-    card_num_to_name as lookup_card,
-    save_icon_utf8 as floppy_code,
-    card_group_a,
-    card_group_b,
-    card_to_utf8
-)
+from _constants import card_num_to_name as lookup_card
+from _utils import _setup_52
+from card_shuffle_gui import display_cards as display_decklist_in_gui
 
-from _utils import (
-    _capture_tkinter_partial as screen_grab,
-    ndo_example as display_example,
-    _setup_52
-)
+
+def display_example():
+    ''' Print cards in new deck order: (♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️:K-A) '''
+
+    example_deck, _ = _setup_52()
+
+    display_decklist_in_gui(example_deck, four_color=True)
 
 
 def shuffle_cards(card_pool, position_pool):
@@ -125,93 +122,6 @@ def display_decklist_in_console(card_roll, to_file=False):
             out_file.write("\n".join(card_catalog))
 
         print("\nDecklist written to 'shuffled.decklist.txt'.")
-
-
-def display_decklist_in_gui(card_roll, four_color=False):
-    '''Show the cards using utf-8 symbols
-
-    Create a layout in tkinter with the following layout
-        rootWindow
-            cardFrame:
-                [{Cards 1 - 13}]
-                [{Cards 14 - 26}]
-                [{Cards 27 - 39}]
-                [{Cards 40 - 52}]
-            controlFrame:
-                [{saveButton}]
-
-        When clicked, the saveButton will create an image file of the rootWindow and cardFrame only.
-
-    Args:
-        card_roll (list[tuple(str, int)]): The cards to be shown. See _constants.py@_setup_52
-        four_color (bool): Whether to use one color pre suite when displaying cards (default: False)
-    '''
-
-    def get_card_color(card_suite):
-        suite_color = None
-
-        if card_suite in card_group_a:
-            suite_color = 'midnight blue'
-
-            if four_color and card_suite == card_group_a[1]:
-                suite_color = 'dark olive green'
-
-        if card_suite in card_group_b:
-            suite_color = 'firebrick'
-
-            if four_color and card_suite == card_group_b[1]:
-                suite_color = 'DarkOrange2'
-
-        return suite_color
-
-    rootWindow = tkinter.Tk()
-    window_height = int((rootWindow.winfo_screenheight() * 0.63) // 1)
-    window_width = int((rootWindow.winfo_screenwidth() * 0.63) // 1)
-    cardFontStyle = ('Consolas', int(window_height * 0.1325 // 1))
-    controlFontStyle = ('Consolas', int(window_height * 0.033 // 1))
-
-    rootWindow.title("pcs: pseudo card shuffle")
-    rootWindow.geometry("{}x{}".format(window_width, window_height))
-    rootWindow.grid_columnconfigure(0, weight=1)
-
-    cardFrame = tkinter.Frame(rootWindow, bd=0, highlightthickness=0)
-
-    cardFrame.grid()
-
-    controlFrame = tkinter.Frame(rootWindow, bd=0, highlightthickness=0)
-
-    controlFrame.grid()
-
-    tkinter.Button(
-        controlFrame, text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="goldenrod3",
-        command=screen_grab(rootWindow, controlFrame), relief="flat"
-    ).pack()
-
-    for frame_idx, card_info in enumerate(card_roll[:13]):
-        tkinter.Label(
-            cardFrame, text=chr(int(card_to_utf8.get(card_info), 16)), font=cardFontStyle,
-            fg=get_card_color(card_info[0])
-        ).grid(column=frame_idx, row=0)
-
-    for frame_idx, card_info in enumerate(card_roll[13:26]):
-        tkinter.Label(
-            cardFrame, text=chr(int(card_to_utf8.get(card_info), 16)), font=cardFontStyle,
-            fg=get_card_color(card_info[0])
-        ).grid(column=frame_idx, row=1)
-
-    for frame_idx, card_info in enumerate(card_roll[26:39]):
-        tkinter.Label(
-            cardFrame, text=chr(int(card_to_utf8.get(card_info), 16)), font=cardFontStyle,
-            fg=get_card_color(card_info[0])
-        ).grid(column=frame_idx, row=2)
-
-    for frame_idx, card_info in enumerate(card_roll[39:]):
-        tkinter.Label(
-            cardFrame, text=chr(int(card_to_utf8.get(card_info), 16)), font=cardFontStyle,
-            fg=get_card_color(card_info[0])
-        ).grid(column=frame_idx, row=3)
-
-    rootWindow.mainloop()
 
 
 if __name__ == "__main__":

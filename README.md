@@ -63,6 +63,7 @@ $ python card_shuffle.py [-g,--gui]
 ```
 
 #### NDO Example
+A demo that shows a deck in 'new deck order' ♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️: K-A
 ```
 $ python card_shuffle.py [-d, --demo]
 ```

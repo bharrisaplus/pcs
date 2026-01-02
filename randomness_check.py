@@ -30,7 +30,7 @@ class RandomCheck(unittest.TestCase):
 
     def test_card_shuffle_arbitrary_cut(self):
         mixed_up = CardShuffle.shuffle_cards(card_order, self.new_deck_order_positions)
-        maybe_cut_up, _ = CardShuffle.maybe_cut(mixed_up, isArbitrary=True)
+        maybe_cut_up, _ = CardShuffle.maybe_cut(mixed_up, is_arbitrary=True)
 
         jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(maybe_cut_up, card_order)
 
@@ -67,7 +67,7 @@ class RandomCheck(unittest.TestCase):
 
     def test_card_shuffle_arbitrary_cut_for_peapod(self):
         mixed_up = CardShuffle.shuffle_cards(card_order, self.new_deck_order_positions)
-        maybe_cut_up, _ = CardShuffle.maybe_cut(mixed_up, isArbitrary=True)
+        maybe_cut_up, _ = CardShuffle.maybe_cut(mixed_up, is_arbitrary=True)
 
         peapod_count = CardShuffleStats.count_peapods_from(maybe_cut_up, card_order)
 

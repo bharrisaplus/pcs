@@ -103,7 +103,7 @@ class RandomCheck(unittest.TestCase):
 
         for text_idx in range(len(jaro_measurement)):
             mixed_up = CardShuffle.shuffle_cards(card_order, self.new_deck_order_positions)
-            maybe_cut_up, _ = CardShuffle.maybe_cut(mixed_up, isArbitrary=True)
+            maybe_cut_up, _ = CardShuffle.maybe_cut(mixed_up, is_arbitrary=True)
             jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(maybe_cut_up, card_order)
 
             jaro_measurement[text_idx] = jaro_similarity[0]
@@ -183,7 +183,7 @@ class RandomCheck(unittest.TestCase):
 
         for text_idx in range(len(peapod_measurement)):
             mixed_up = CardShuffle.shuffle_cards(card_order, self.new_deck_order_positions)
-            maybe_cut_up, _ = CardShuffle.maybe_cut(mixed_up, isArbitrary=True)
+            maybe_cut_up, _ = CardShuffle.maybe_cut(mixed_up, is_arbitrary=True)
             peapod_count = CardShuffleStats.count_peapods_from(maybe_cut_up, card_order)
 
             peapod_measurement[text_idx] = peapod_count[0]

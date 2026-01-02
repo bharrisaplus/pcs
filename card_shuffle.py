@@ -230,25 +230,21 @@ if __name__ == "__main__":
 
     cardShuffleArgs = cardShuffleParser.parse_args()
 
-    # Get a blank deck, mix it up and possibly cut
-
-    new_deck_order, positions_to_fill = _setup_52()
-    mixed_deck_order = shuffle_cards(new_deck_order, positions_to_fill)
-    maybe_cut_order = None
-
-    if cardShuffleArgs.cut:
-        maybe_cut_order, maybe_cut_spot = maybe_cut(mixed_deck_order, isArbitrary=cardShuffleArgs.arbitrary)
-
-        if maybe_cut_spot:
-            print("Cut deck @ {}".format(maybe_cut_spot))
-
-    final_deck_order = maybe_cut_order or mixed_deck_order
-
-    # Show the cards
-
     if cardShuffleArgs.ndo:
         display_example()
     else:
+        new_deck_order, positions_to_fill = _setup_52()
+        mixed_deck_order = shuffle_cards(new_deck_order, positions_to_fill)
+        maybe_cut_order = None
+
+        if cardShuffleArgs.cut:
+            maybe_cut_order, maybe_cut_spot = maybe_cut(mixed_deck_order, isArbitrary=cardShuffleArgs.arbitrary)
+
+            if maybe_cut_spot:
+                print("Cut deck @ {}".format(maybe_cut_spot))
+
+        final_deck_order = maybe_cut_order or mixed_deck_order
+
         display_decklist_in_console(final_deck_order, toFile=cardShuffleArgs.write)
 
         if cardShuffleArgs.gui:

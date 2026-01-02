@@ -1,4 +1,4 @@
-"""Helpful methods for card shuffling"""
+''' Helpful methods for card shuffling '''
 
 from turtle import Turtle
 import tkinter

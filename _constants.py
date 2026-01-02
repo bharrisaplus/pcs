@@ -1,4 +1,4 @@
-''' Data for describing the card shuffle'''
+''' Data for describing the card shuffle '''
 
 number_values = range(1, 14)
 suites = [ 'spade', 'diamond', 'club', 'heart' ]

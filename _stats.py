@@ -1,4 +1,4 @@
-''' Metrics to help sanity check the randomness'''
+''' Metrics to help sanity check the randomness '''
 
 
 def get_jaro_match_between(mixed_order, known_order):

@@ -1,4 +1,6 @@
-import turtle
+"""Helpful methods for card shuffling"""
+
+from turtle import Turtle
 import tkinter
 from PIL import ImageGrab
 
@@ -6,9 +8,9 @@ from _constants import (
     suites as card_suites,
     number_values as card_nums,
     save_icon_utf8 as floppy_code,
-    card_group_b as red_group,
     card_to_utf8
 )
+
 
 def _setup_52():
     '''Arrange playing cards in new deck order (♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️:K-A).
@@ -33,45 +35,48 @@ def _setup_52():
 
     return card_bank, list(range(len(card_bank)))
 
+
 def hello_turtle():
     ''' Print card symbols to screen '''
 
     s1 = chr(int(card_to_utf8.get(('spade', 1)), 16))
     d1 = chr(int(card_to_utf8.get(('diamond', 1)), 16))
     style = ('Consolas', 45)
+    tooter = Turtle()
 
     # https://docs.python.org/3/library/turtle.html#turtle-tutorial
 
-    turtle.color('deep pink')
+    tooter.screen.title('pcs: hello tooter turtle')
+    tooter.penup()
+    tooter.color('deep pink')
+    tooter.goto(0, 30)
+    tooter.write(s1, font=style, move=True)
+    tooter.goto(50, 30)
+    tooter.write(d1, font=style, move=True)
+    tooter.hideturtle()
 
-    turtle.penup()
-    turtle.goto(0,30)
-    turtle.write(s1, font=style, move=True)
-    turtle.goto(50,30)
-    turtle.write(d1, font=style, move=True)
-    turtle.hideturtle()
+    tooter.screen.mainloop()
 
-    turtle.mainloop()
 
-def _capture_tkinter(captureWindow, offsetArea, captureFileName='shuffled'):
+def _capture_tkinter(capture_window, offset_area, capture_prefix='shuffled'):
     '''Save an image of the display cards
 
     Grab the current screen using pillow and crop the area outside of the gui using the tkinter
         window + widget geometry
 
     Args:
-        captureWindow (tkinter.Tk): The current tkinter instance to pull geometry from
-        offsetArea (tkinter.Frame): The widget to ignore when grabbing screenshot
+        capture_window (tkinter.Tk): The current tkinter instance to pull geometry from
+        offset_area (tkinter.Frame): The widget to ignore when grabbing screenshot
     '''
 
-    captureWindow.update_idletasks()
+    capture_window.update_idletasks()
 
-    capture_area_start_x = captureWindow.winfo_rootx()
-    capture_area_start_y = captureWindow.winfo_rooty()
-    offset_y = offsetArea.winfo_height() + 20
-    capture_area_end_x = capture_area_start_x + captureWindow.winfo_width()
-    capture_area_end_y = capture_area_start_y + captureWindow.winfo_height() - offset_y
-    capture_filename = "{}.decklist.png".format(captureFileName)
+    capture_area_start_x = capture_window.winfo_rootx()
+    capture_area_start_y = capture_window.winfo_rooty()
+    offset_y = offset_area.winfo_height() + 20
+    capture_area_end_x = capture_area_start_x + capture_window.winfo_width()
+    capture_area_end_y = capture_area_start_y + capture_window.winfo_height() - offset_y
+    capture_filename = "{}.decklist.png".format(capture_prefix)
 
     # https://pillow.readthedocs.io/en/stable/reference/ImageGrab.html
     #
@@ -85,73 +90,74 @@ def _capture_tkinter(captureWindow, offsetArea, captureFileName='shuffled'):
 
     print("Decklist saved to '{}'".format(capture_filename))
 
-def _capture_tkinter_partial(captureWindow, offsetArea, captureFileName='shuffled'):
+
+def _capture_tkinter_partial(capture_window, offset_area, capture_prefix='shuffled'):
     ''' Grab screenshot and close window '''
 
-    def _partialFunc():
+    def _partial_func():
         ''' Passed to the command= param for tkinter button widget and invoked upon click '''
 
-        _capture_tkinter(captureWindow,offsetArea, captureFileName)
-        captureWindow.destroy()
+        _capture_tkinter(capture_window, offset_area, capture_prefix)
+        capture_window.destroy()
 
-    return _partialFunc
+    return _partial_func
+
 
 def ndo_example():
     ''' Print cards in new deck order: (♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️:K-A) '''
 
-    cardRoll, _ = _setup_52()
+    card_roll, _ = _setup_52()
 
-    tkinterWindow = tkinter.Tk()
-    window_height = int((tkinterWindow.winfo_screenheight() * 0.63) // 1)
-    window_width = int((tkinterWindow.winfo_screenwidth() * 0.63) // 1)
-    cardFontSize = int(window_height * 0.1325 // 1)
-    controlFontSize = int(window_height * 0.033 // 1)
-    cardFontStyle = ('Consolas', cardFontSize)
-    controlFontStyle = ('Consolas', controlFontSize)
+    rootWindow = tkinter.Tk()
+    window_height = int(rootWindow.winfo_screenheight() * 0.63)
+    window_width = int(rootWindow.winfo_screenwidth() * 0.63)
+    card_font_size = int(window_height * 0.1325)
+    control_font_size = int(window_height * 0.033)
+    card_font_style = ('Consolas', card_font_size)
+    control_font_style = ('Consolas', control_font_size)
 
-    #print("Screen size: {}x{}".format(tkinterWindow.winfo_screenwidth(), tkinterWindow.winfo_screenheight()))
-    #print("Window size: {}x{}".format(window_width, window_height))
-    #print("Card font size: {}".format(cardFontSize)) # or 63 min
-    #print("Control font: {}".format(controlFontSize)) # or 18 min
+    rootWindow.title("pcs: pseudo card shuffle")
+    rootWindow.geometry("{}x{}".format(window_width, window_height))
+    rootWindow.grid_columnconfigure(0, weight=1)
 
-
-    tkinterWindow.title("pcs: pseudo card shuffle")
-    tkinterWindow.geometry("{}x{}".format(window_width, window_height))
-    tkinterWindow.grid_columnconfigure(0, weight=1)
-
-    cardFrame = tkinter.Frame(tkinterWindow, bd=0, highlightthickness=0)
+    cardFrame = tkinter.Frame(rootWindow, bd=0, highlightthickness=0)
 
     cardFrame.grid()
 
-    controlFrame = tkinter.Frame(tkinterWindow, bd=0, highlightthickness=0)
+    controlFrame = tkinter.Frame(rootWindow, bd=0, highlightthickness=0)
 
     controlFrame.grid()
 
     tkinter.Button(
-        controlFrame, text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="goldenrod3",
-        command=_capture_tkinter_partial(tkinterWindow, controlFrame, 'ndo'), relief="flat"
+        controlFrame, text=chr(int(floppy_code, 16)), font=control_font_style, fg="goldenrod3",
+        command=_capture_tkinter_partial(rootWindow, controlFrame, 'ndo'), relief="flat"
     ).pack()
 
     # tkinter/tcl colors
     # https://www.tcl-lang.org/man/tcl8.5/TkCmd/colors.htm
 
-    for frame_idx, card_info in enumerate(cardRoll[:13]):
-        card_symbol = chr(int(card_to_utf8.get(card_info), 16))
-        tkinter.Label(cardFrame, text=card_symbol, font=cardFontStyle, fg='midnight blue').grid(column=frame_idx, row=0)
+    for frame_idx, card_info in enumerate(card_roll[:13]):
+        tkinter.Label(cardFrame,
+            text=chr(int(card_to_utf8.get(card_info), 16)), font=card_font_style, fg='midnight blue'
+        ).grid(column=frame_idx, row=0)
 
-    for frame_idx, card_info in enumerate(cardRoll[13:26]):
-        card_symbol = chr(int(card_to_utf8.get(card_info), 16))
-        tkinter.Label(cardFrame, text=card_symbol, font=cardFontStyle, fg='firebrick').grid(column=frame_idx, row=1)
+    for frame_idx, card_info in enumerate(card_roll[13:26]):
+        tkinter.Label(cardFrame,
+            text=chr(int(card_to_utf8.get(card_info), 16)), font=card_font_style, fg='firebrick'
+        ).grid(column=frame_idx, row=1)
 
-    for frame_idx, card_info in enumerate(cardRoll[26:39]):
-        card_symbol = chr(int(card_to_utf8.get(card_info), 16))
-        tkinter.Label(cardFrame, text=card_symbol, font=cardFontStyle, fg='dark olive green').grid(column=frame_idx, row=2)
+    for frame_idx, card_info in enumerate(card_roll[26:39]):
+        tkinter.Label(cardFrame,
+            text=chr(int(card_to_utf8.get(card_info), 16)), font=card_font_style, fg='dark olive green'
+        ).grid(column=frame_idx, row=2)
 
-    for frame_idx, card_info in enumerate(cardRoll[39:]):
-        card_symbol = chr(int(card_to_utf8.get(card_info), 16))
-        tkinter.Label(cardFrame, text=card_symbol, font=cardFontStyle, fg='DarkOrange2').grid(column=frame_idx, row=3)
+    for frame_idx, card_info in enumerate(card_roll[39:]):
+        tkinter.Label(cardFrame,
+            text=chr(int(card_to_utf8.get(card_info), 16)), font=card_font_style, fg='DarkOrange2'
+        ).grid(column=frame_idx, row=3)
 
-    tkinterWindow.mainloop()
+    rootWindow.mainloop()
+
 
 if __name__ == "__main__":
     hello_turtle()

@@ -1,4 +1,6 @@
-number_values = range(1,14)
+''' Data for describing the card shuffle'''
+
+number_values = range(1, 14)
 suites = [ 'spade', 'diamond', 'club', 'heart' ]
 card_names = [ 'ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen', 'king' ]
 card_group_a = [suites[0], suites[2]]

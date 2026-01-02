@@ -1,3 +1,6 @@
+''' Metrics to help sanity check the randomness'''
+
+
 def get_jaro_match_between(mixed_order, known_order):
     '''Gather a characters from each list that are aligned with some deviation allowed
 
@@ -31,9 +34,10 @@ def get_jaro_match_between(mixed_order, known_order):
         [maybe_itm for maybe_itm in _matched_y if maybe_itm != 0]
     )
 
+
 def count_jaro_transposition_for(mixed_order, known_order):
     '''How many things need to be rearranged so that the lists match.
-    
+
     After finding the matched characters, compare their current positions between the two lists
 
     Args:
@@ -51,6 +55,7 @@ def count_jaro_transposition_for(mixed_order, known_order):
             t_count += 1
 
     return t_count // 2
+
 
 def get_jaro_edit_distance_from(mixed_order, known_order):
     '''An implementation of the jaro distance metric.
@@ -77,6 +82,7 @@ def get_jaro_edit_distance_from(mixed_order, known_order):
 
     return (1/3) * ( a + b + c ), (mixed_match, known_match), transposition_count
 
+
 def count_peapods_from(mixed_order, known_order):
     '''Finding pairs of consecutive cards.
 
@@ -101,12 +107,12 @@ def count_peapods_from(mixed_order, known_order):
     for idx_xf, itm_xf in enumerate(mixed_order):
         if idx_xf < item_count - 1:
             # Forward Check
-            if (known_order_dict[itm_xf] - known_order_dict[mixed_order[idx_xf + 1]] == -1):
+            if known_order_dict[itm_xf] - known_order_dict[mixed_order[idx_xf + 1]] == -1:
                 _ripe_counter += 1
             else:
                 _green_counter += 1
             # Look-back Check
-            if (known_order_dict[itm_xf] - known_order_dict[mixed_order[max(idx_xf - 1, 0)]] == -1):
+            if known_order_dict[itm_xf] - known_order_dict[mixed_order[max(idx_xf - 1, 0)]] == -1:
                 _ripe_counter += 1
             else:
                 _green_counter += 1

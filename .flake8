@@ -1,0 +1,86 @@
+[flake8]
+# verbosity
+quiet = 0
+
+# print total number of errors
+count = True
+
+# patterns for files to not check
+exclude = 
+	__pycache__
+
+# additional patterns for above
+# extend-exclude =
+
+# patterns to check
+filename =
+	_constants.py,
+	_stats.py,
+	_utils.py,
+	card_shuffle.py
+
+# how the output is displayed (pylint or default unless another formatter is installed)
+format = default
+
+# True: func(abc,
+#      		 defg
+#     	    )
+#     
+# False: func(abc,
+# 	     	defg
+#        )
+hang-closing = False
+
+# specific PEP codes to ignore
+# ignore =
+
+# additional codes for above
+# extend-ignore =
+
+# specific pep codes to ignore certain files
+# per-file-ignores =
+
+# longest line of code can be
+max-line-length = 100
+
+# longest line of comment/docstring can be
+# max-doc-length
+
+# check for consistent indent
+indent-size = 4
+
+# specific PEP codes to check for
+# select =
+
+# additional codes for above
+# extend-select
+
+# ignore any # NOQA lines
+# disable-noqa = True
+
+# display the line of code in violation of the PEP code
+# show-source = True
+ 
+# tally up occurences of PEP code violations found
+statistics = True
+
+# specific plugins to load before running checks
+# require-plugins =
+
+# enable plugins which are registered as off-by-default
+# enable-extensions =
+
+# limit the number of times to fork checks when running in parallel
+# jobs = auto
+
+# display output to console (used writing output to a file)
+# tee = True
+
+# builtins to pass to pyflakes plugin
+# builtins =
+
+# check syntax for doctests
+# doctests = True
+
+# determine the complexity for blocks of code
+# max-complexity = 10

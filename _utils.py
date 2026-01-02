@@ -41,6 +41,7 @@ def _capture_tkinter(capture_window, offset_area, capture_prefix='shuffled'):
     Args:
         capture_window (tkinter.Tk): The current tkinter instance to pull geometry from
         offset_area (tkinter.Frame): The widget to ignore when grabbing screenshot
+        capture_prefix (str): What to name the saved file (default: 'shuffled')
     '''
 
     capture_window.update_idletasks()

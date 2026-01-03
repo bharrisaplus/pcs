@@ -30,8 +30,8 @@ class RandomCheck(unittest.TestCase):
         print("\nThe mean for the data: {}".format(_mean))
         print("The standard deviation for the data: {}".format(_std))
         print("The Data ranged between {} and {}".format(_min, _max))
-        print("\nThe mean compared to Fishe-Yates: {} +- {} vs {}".format(_mean, _std, 0.6676))
-        print("The mean compared to Gilber-Shannon-Reeds: {} +- {} vs {}".format(_mean, _std, 0.6662))
+        print("\nThe mean compared to Fisher-Yates: {} +- {} vs {}".format(_mean, _std, 0.6676))
+        print("The mean compared to Gilbert-Shannon-Reeds: {} +- {} vs {}".format(_mean, _std, 0.6662))
 
 
     def debug_report_peapod_long_stats(self, _mean, _std, _min, _max):

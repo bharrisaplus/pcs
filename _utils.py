@@ -35,6 +35,17 @@ def _setup_52():
 
 
 def get_card_title(card_index):
+    '''The full name of a card
+
+    The card suite and number in english
+
+    Args:
+        card_index (int): The position of the card in ndo
+
+    Returns:
+        str: Like "jack of club"
+    '''
+
     if card_index < 13:
         name_idx = card_index
     else:
@@ -51,10 +62,37 @@ def get_card_title(card_index):
 
 
 def get_card_symbol(card_index):
+    ''' The pictograph of the card
+
+    Cards are represented in the UTF-8 block 'Playing Cards'.
+    https://unicode.org/charts/nameslist/n_1F0A0.html
+
+    Args:
+        card_index (int): The position of the card in ndo
+
+    Returns:
+        chr: The character for the glyph
+    '''
+
     return chr(int(card_utf8_codes[card_index], 16))
 
 
 def get_card_color(card_index, four_color=False):
+    '''color for suite
+
+    With the options for card colors as a list like below, pick which option the card suit should use,
+        this allows for different color names to be used for different targets:
+
+        ['red', 'blue', 'green', 'purple]
+
+    Args:
+        card_index (int): The position of the card in ndo
+        four_color (bool): Whether to use one color per suite (default: False)
+
+    Returns:
+        int: The index of the color to use
+    '''
+
     color_option = None
 
     in_spade_range = card_index <= 12

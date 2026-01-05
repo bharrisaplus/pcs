@@ -42,7 +42,7 @@ def get_card_title(card_index):
 
     suite_idx = card_index // 13
 
-    if card_index < 25:
+    if card_index < 26:
         name_lookup = card_names
     else:
         name_lookup = list(reversed(card_names))
@@ -58,8 +58,8 @@ def get_card_color(card_index, four_color=False):
     color_option = None
 
     in_spade_range = card_index <= 12
-    in_diamond_range = 13 <= card_index <= 26
-    in_club_range = 27 <= card_index <= 38
+    in_diamond_range = 13 <= card_index <= 25
+    in_club_range = 26 <= card_index <= 38
     in_heart_range = 39 <= card_index <= 51
 
     if in_spade_range or in_club_range:

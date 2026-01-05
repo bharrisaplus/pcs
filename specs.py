@@ -18,6 +18,31 @@ class PCSCheck(unittest.TestCase):
             "The starting should be in new deck order"
         )
 
+    def test_get_card_name(self):
+        expected = [ "ace of spade", "ace of diamond", "ace of club", "ace of heart" ]
+
+        solution_1 = CardShuffleUtils.get_card_title(0)
+        solution_2 = CardShuffleUtils.get_card_title(13)
+        solution_3 = CardShuffleUtils.get_card_title(38)
+        solution_4 = CardShuffleUtils.get_card_title(51)
+
+        self.assertListEqual([solution_1, solution_2, solution_3, solution_4], expected,
+            "The title of a card should be retrieved based on the ndo position of the card"
+        )
+
+    def test_get_card_symbol(self):
+        expected = [ '🂡', '🃁', '🃑', '🂱' ]
+
+        solution_1 = CardShuffleUtils.get_card_symbol(0)
+        solution_2 = CardShuffleUtils.get_card_symbol(13)
+        solution_3 = CardShuffleUtils.get_card_symbol(38)
+        solution_4 = CardShuffleUtils.get_card_symbol(51)
+
+        self.assertListEqual([solution_1, solution_2, solution_3, solution_4], expected,
+            "The symbol of a card should be retrieved based on the ndo position of the card"
+        )
+
+
     def test_shuffle(self):
         card_order_len = len(card_order)
         mixed_up = CardShuffle.shuffle_cards(card_order, list(range(card_order_len)))

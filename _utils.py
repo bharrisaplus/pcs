@@ -4,7 +4,9 @@ from PIL import ImageGrab
 
 from _constants import (
     suites as card_suites,
-    number_values as card_nums
+    number_values as card_nums,
+    card_names,
+    card_utf8_codes
 )
 
 
@@ -30,6 +32,26 @@ def _setup_52():
                 card_bank.append((suite, idx))
 
     return card_bank, list(range(len(card_bank)))
+
+
+def get_card_title(card_index):
+    if card_index <= 12:
+        name_idx = card_index
+    else:
+        name_idx = card_index % 13
+
+    suite_idx = card_index // 13
+
+    if card_index < 25:
+        name_lookup = card_names
+    else:
+        name_lookup = list(reversed(card_names))
+
+    return "{} of {}".format(name_lookup[name_idx], card_suites[suite_idx])
+
+
+def get_card_symbol(card_index):
+    return chr(int(card_utf8_codes[card_index], 16))
 
 
 def _capture_tkinter(capture_window, offset_area, capture_prefix='shuffled'):

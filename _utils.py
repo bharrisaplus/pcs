@@ -3,37 +3,26 @@
 from PIL import ImageGrab
 
 from _constants import (
-    suites as card_suites,
-    number_values as card_nums,
+    card_suites,
     card_names,
     card_utf8_codes
 )
 
 
 def _setup_52():
-    '''Arrange playing cards in new deck order (♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️:K-A).
+    '''Get a deck of cards and positions to fill for the new deck
 
-    Returns:
-        (tuple[ tuple(str, int)], list[int] ]): The arranged cards and the positions to fill in:
-            * tuple(str, int): model representing the cards
-                * str: The suite of the card. See card_shuffle_constants.py:suites
-                * int: The number value of the card. See card_shuffle_constants.py:number_values
-            * list[int]: The numbered spots where cards can go
+    This facilitates the default of taking 52 cards then shuffling them into a new arrangement
+    
+    Previously, the deck of cards was modeled as list of tuples to represent suite and card value
+        but now is a list of integers which represent the cards original position in new deck order:
+
+        before = [('spade', 1), ('diamond', 1), ('club', 1), ('heart', 1)]
+
+        now = [0,13,38,51]
     '''
+
     return list(range(52)), list(range(52))
-    '''
-    card_bank = []
-
-    for suite in card_suites:
-        if suite in card_suites[:2]:
-            for idx in card_nums:
-                card_bank.append((suite, idx))
-        else:
-            for idx in reversed(card_nums):
-                card_bank.append((suite, idx))
-
-    return card_bank, list(range(len(card_bank)))
-    '''
 
 def get_card_title(card_index):
     '''The full name of a card
@@ -63,10 +52,7 @@ def get_card_title(card_index):
 
 
 def get_card_symbol(card_index):
-    ''' The pictograph of the card
-
-    Cards are represented in the UTF-8 block 'Playing Cards'.
-    https://unicode.org/charts/nameslist/n_1F0A0.html
+    ''' The glyph/pictograph/icon of the card
 
     Args:
         card_index (int): The position of the card in ndo

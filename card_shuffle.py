@@ -27,7 +27,7 @@ def shuffle_cards(card_pool, position_pool):
         respective banks to create a new order.
 
     Args:
-        card_pool (list[tuple(str, int)]): The cards to randomize. See _constants.py@_setup_52
+        card_pool (list[int]): The cards to randomize. See _utils.py@_setup_52
         position_pool (list[int]): The potential numbered spots cards can be placed in
 
     Returns:
@@ -62,7 +62,7 @@ def maybe_cut(card_block, is_arbitrary=False):
             * peapod: index of card found next to new deck order neighbor
 
     Args:
-        card_block (list[tuple(str, int)]): The cards to rearrange. See _constants.py@_setup_52
+        card_block (list[int]): The cards to rearrange. See _utils.py@_setup_52
         is_arbitrary (bool): See above (default: False)
     '''
 
@@ -100,7 +100,7 @@ def display_decklist_in_console(card_roll, to_file=False):
     can, optionally, be written to a file.
 
     Args:
-        card_roll (list[tuple(str, int)]): The cards to be shown. See _constants.py@_setup_52
+        card_roll (list[int]): The cards to be shown. See _utils.py@_setup_52
         to_file (bool): Whether or not to create a file. (default: False)
     '''
 

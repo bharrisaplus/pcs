@@ -15,8 +15,8 @@ python_version = "3.12"
 
 [scripts]
 specs = "python -m unittest specs.py"
-randomness = "python -m unittest randomness_check.py"
-randomness_ext = "python -m unittest randomness_check_extensive.py"
+randomness = "python -m unittest randomness_single.py"
+randomness_multi = "python -m unittest randomness_multi.py"
 cli_help = "python card_shuffle.py -h"
 cli = "python card_shuffle.py"
 cli_write = "python card_shuffle.py -w"

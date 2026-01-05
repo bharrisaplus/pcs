@@ -5,7 +5,7 @@ import card_shuffle as CardShuffle
 
 from specs import card_order
 
-class RandomCheck(unittest.TestCase):
+class RandomMultiCheck(unittest.TestCase):
     def setUp(self):
         self.new_deck_order_positions = list(range(len(card_order)))
 

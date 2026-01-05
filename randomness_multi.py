@@ -7,7 +7,7 @@ import card_shuffle as CardShuffle
 
 from specs import card_order
 
-class RandomCheck(unittest.TestCase):
+class RandomSingleCheck(unittest.TestCase):
     '''How random is the pcs shuffle
 
     Starting with the jaro similarity as a sanity test and looking at Fisher-Yates (FY) shuffle and the

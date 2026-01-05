@@ -3,13 +3,18 @@
 import random
 import os
 import argparse
+import supports_color
 
 from _utils import (
     _setup_52,
-    get_card_title
+    get_card_title,
+    get_card_color
 )
 
 from card_shuffle_gui import display_cards as display_decklist_in_gui
+
+console_colors = ['\033[36m', '\033[31m', '\033[32m', '\033[33m' ]
+console_color_reset = '\033[0m'
 
 
 def display_example():
@@ -93,7 +98,7 @@ def maybe_cut(card_block, is_arbitrary=False):
     return cutting_block or card_block, cut_position
 
 
-def display_decklist_in_console(card_roll, to_file=False):
+def display_decklist_in_console(card_roll, to_file=False, four_color=False):
     '''Create a plain-text version of the card order for viewing in the terminal.
 
     Taking the cards given create a formatted string with each card on it's own line that
@@ -108,7 +113,15 @@ def display_decklist_in_console(card_roll, to_file=False):
     file_catalog = []
 
     for console_catalog_idx, card_stuff in enumerate(card_roll, start=1):
-        console_catalog.append("{}) {}".format(console_catalog_idx, get_card_title(card_stuff)))
+        if four_color and supports_color.supportsColor.stdout:
+            console_catalog.append("{}{}) {}{}".format(
+                console_colors[get_card_color(card_stuff, four_color=True)], console_catalog_idx,
+                get_card_title(card_stuff), console_color_reset
+            ))
+        else:
+            console_catalog.append("{}) {}".format(console_catalog_idx, get_card_title(card_stuff)))
+        
+
         file_catalog.append("{}) {}".format(console_catalog_idx, get_card_title(card_stuff)))
 
     print(*console_catalog, sep="\n")
@@ -130,15 +143,15 @@ if __name__ == "__main__":
     )
 
     cardShuffleParser.add_argument("-w", "--write", action="store_true",
-        help="Flag to set for writing output to a text file"
+        help="Flag to set for writing output to a text file."
     )
 
     cardShuffleParser.add_argument("-g", "--gui", action="store_true",
-        help="Flag to set for displaying output using tkinter"
+        help="Flag to set for displaying output using tkinter."
     )
 
     cardShuffleParser.add_argument("-f", "--four-color", action="store_true",
-        help="Flag to set for displaying each suite in a unique color in the tkinter gui window"
+        help="Flag to set for displaying each suite in a unique color."
     )
 
     cardShuffleParser.add_argument("-n", "--ndo", action="store_true",
@@ -170,7 +183,7 @@ if __name__ == "__main__":
 
         final_deck = cut_deck or mixed_deck
 
-        display_decklist_in_console(final_deck, to_file=cardShuffleArgs.write)
+        display_decklist_in_console(final_deck, to_file=cardShuffleArgs.write, four_color=cardShuffleArgs.four_color)
 
         if cardShuffleArgs.gui:
             display_decklist_in_gui(final_deck, four_color=cardShuffleArgs.four_color)

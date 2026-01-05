@@ -109,7 +109,7 @@ def display_cards(card_roll, four_color=False):
 
     cardFrame.grid()
 
-    controlFrame = tkinter.Frame(rootWindow, bd=0, highlightthickness=0)
+    controlFrame = tkinter.Frame(rootWindow, bd=0, highlightthickness=0, pady=9)
 
     controlFrame.grid()
 

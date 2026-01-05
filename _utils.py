@@ -93,7 +93,7 @@ def _capture_tkinter(capture_window, offset_area, capture_prefix='shuffled'):
 
     capture_area_start_x = capture_window.winfo_rootx()
     capture_area_start_y = capture_window.winfo_rooty()
-    offset_y = offset_area.winfo_height() + 20
+    offset_y = offset_area.winfo_height()
     capture_area_end_x = capture_area_start_x + capture_window.winfo_width()
     capture_area_end_y = capture_area_start_y + capture_window.winfo_height() - offset_y
     capture_filename = "{}.decklist.png".format(capture_prefix)

@@ -10,13 +10,18 @@ from _constants import (
     card_to_utf8
 )
 
-from _utils import _capture_tkinter as screen_grab
+from _utils import (
+    _capture_tkinter as screen_grab,
+    get_card_color as _get_card_color,
+    get_card_symbol
+)
 
 def hello_turtle():
     ''' Print card symbols to screen '''
 
-    s1 = chr(int(card_to_utf8.get(('spade', 1)), 16))
-    d1 = chr(int(card_to_utf8.get(('diamond', 1)), 16))
+    s1 = get_card_symbol(0)
+    d1 = get_card_symbol(13)
+    turtle_colors = ['deep pink', 'maroon']
     style = ('Consolas', 45)
     tooter = Turtle()
 
@@ -24,9 +29,10 @@ def hello_turtle():
 
     tooter.screen.title('pcs: hello tooter turtle')
     tooter.penup()
-    tooter.color('deep pink')
+    tooter.color(turtle_colors[_get_card_color(0)])
     tooter.goto(0, 30)
     tooter.write(s1, font=style, move=True)
+    tooter.color(turtle_colors[_get_card_color(13)])
     tooter.goto(50, 30)
     tooter.write(d1, font=style, move=True)
     tooter.hideturtle()

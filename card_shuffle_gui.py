@@ -49,6 +49,8 @@ def _save_command(capture_window, offset_area, capture_prefix='shuffled'):
 def get_card_color(card_suite, four_color=False):
     '''Pick the tkinter color for the card suite
 
+    https://www.tcl-lang.org/man/tcl8.6/TkCmd/colors.htm
+
     Args:
         card_suite (str):
         four_color (bool): Whether to use one color per suite (default: `False`)

@@ -118,29 +118,12 @@ def display_cards(card_roll, four_color=False):
         command=_save_command(rootWindow, controlFrame), relief="flat"
     ).pack()
 
-    for frame_idx, card_info in enumerate(card_roll[:13]):
-        tkinter.Label(
-            cardFrame, text=chr(int(card_to_utf8.get(card_info), 16)), font=cardFontStyle,
-            fg=get_card_color(card_info[0], four_color)
-        ).grid(column=frame_idx, row=0)
-
-    for frame_idx, card_info in enumerate(card_roll[13:26]):
-        tkinter.Label(
-            cardFrame, text=chr(int(card_to_utf8.get(card_info), 16)), font=cardFontStyle,
-            fg=get_card_color(card_info[0], four_color)
-        ).grid(column=frame_idx, row=1)
-
-    for frame_idx, card_info in enumerate(card_roll[26:39]):
-        tkinter.Label(
-            cardFrame, text=chr(int(card_to_utf8.get(card_info), 16)), font=cardFontStyle,
-            fg=get_card_color(card_info[0], four_color)
-        ).grid(column=frame_idx, row=2)
-
-    for frame_idx, card_info in enumerate(card_roll[39:]):
-        tkinter.Label(
-            cardFrame, text=chr(int(card_to_utf8.get(card_info), 16)), font=cardFontStyle,
-            fg=get_card_color(card_info[0], four_color)
-        ).grid(column=frame_idx, row=3)
+    for row_idx in range(4):
+        for column_idx, card_info in enumerate(card_roll[row_idx*13:(row_idx+1)*13]):
+            tkinter.Label(
+                cardFrame, text=chr(int(card_to_utf8.get(card_info), 16)), font=cardFontStyle,
+                fg=get_card_color(card_info[0], four_color)
+            ).grid(column=column_idx, row=row_idx)
 
     rootWindow.mainloop()
 

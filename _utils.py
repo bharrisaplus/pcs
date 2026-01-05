@@ -35,7 +35,7 @@ def _setup_52():
 
 
 def get_card_title(card_index):
-    if card_index <= 12:
+    if card_index < 13:
         name_idx = card_index
     else:
         name_idx = card_index % 13

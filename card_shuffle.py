@@ -4,8 +4,11 @@ import random
 import os
 import argparse
 
-from _constants import card_num_to_name as lookup_card
-from _utils import _setup_52
+from _utils import (
+    _setup_52,
+    get_card_title
+)
+
 from card_shuffle_gui import display_cards as display_decklist_in_gui
 
 
@@ -77,10 +80,7 @@ def maybe_cut(card_block, is_arbitrary=False):
                 previous_info = info
                 continue
 
-            if info[0] == previous_info[0] and (
-                info[1] == previous_info[1] - 1 or
-                info[1] == previous_info[1] + 1
-            ):
+            if abs(previous_info - info) == 1:
 
                 cut_position = idx_info
                 break
@@ -107,11 +107,7 @@ def display_decklist_in_console(card_roll, to_file=False):
     card_catalog = []
 
     for card_catalog_idx, card_stuff in enumerate(card_roll, start=1):
-        card_catalog.append("{}) {} of {}".format(
-            card_catalog_idx,
-            lookup_card.get(card_stuff[1]).capitalize(),
-            card_stuff[0].capitalize()
-        ))
+        card_catalog.append("{}) {}".format(card_catalog_idx, get_card_title(card_stuff)))
 
     print(*card_catalog, sep="\n")
 

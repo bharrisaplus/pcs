@@ -3,16 +3,14 @@
 from turtle import Turtle
 import tkinter
 
-from _constants import (
-    save_icon_utf8 as floppy_code,
-    card_group_a,
-    card_group_b,
-    card_to_utf8
-)
+# https://www.tcl-lang.org/man/tcl8.6/TkCmd/colors.htm
+tkinter_card_colors = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange2']
+
+from _constants import save_icon_utf8 as floppy_code
 
 from _utils import (
     _capture_tkinter as screen_grab,
-    get_card_color as _get_card_color,
+    get_card_color,
     get_card_symbol
 )
 
@@ -29,10 +27,10 @@ def hello_turtle():
 
     tooter.screen.title('pcs: hello tooter turtle')
     tooter.penup()
-    tooter.color(turtle_colors[_get_card_color(0)])
+    tooter.color(turtle_colors[get_card_color(0)])
     tooter.goto(0, 30)
     tooter.write(s1, font=style, move=True)
-    tooter.color(turtle_colors[_get_card_color(13)])
+    tooter.color(turtle_colors[get_card_color(13)])
     tooter.goto(50, 30)
     tooter.write(d1, font=style, move=True)
     tooter.hideturtle()
@@ -51,35 +49,6 @@ def _save_command(capture_window, offset_area, capture_prefix='shuffled'):
         capture_window.destroy()
 
     return _partial_func
-
-
-def get_card_color(card_suite, four_color=False):
-    '''Pick the tkinter color for the card suite
-
-    https://www.tcl-lang.org/man/tcl8.6/TkCmd/colors.htm
-
-    Args:
-        card_suite (str):
-        four_color (bool): Whether to use one color per suite (default: `False`)
-
-    Returns:
-        str: tkinter color name
-    '''
-    suite_color = None
-
-    if card_suite in card_group_a:
-        suite_color = 'midnight blue'
-
-        if four_color and card_suite == card_group_a[1]:
-            suite_color = 'dark olive green'
-
-    if card_suite in card_group_b:
-        suite_color = 'firebrick'
-
-        if four_color and card_suite == card_group_b[1]:
-            suite_color = 'DarkOrange2'
-
-    return suite_color
 
 
 def display_cards(card_roll, four_color=False):
@@ -128,8 +97,8 @@ def display_cards(card_roll, four_color=False):
     for row_idx in range(4):
         for column_idx, card_info in enumerate(card_roll[row_idx*13:(row_idx+1)*13]):
             tkinter.Label(
-                cardFrame, text=chr(int(card_to_utf8.get(card_info), 16)), font=cardFontStyle,
-                fg=get_card_color(card_info[0], four_color)
+                cardFrame, text=get_card_symbol(card_info), font=cardFontStyle,
+                fg=tkinter_card_colors[get_card_color(card_info, four_color)]
             ).grid(column=column_idx, row=row_idx)
 
     rootWindow.mainloop()

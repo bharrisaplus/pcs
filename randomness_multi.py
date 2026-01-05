@@ -5,8 +5,6 @@ import math
 import _stats as CardShuffleStats
 import card_shuffle as CardShuffle
 
-from specs import card_order
-
 class RandomSingleCheck(unittest.TestCase):
     '''How random is the pcs shuffle
 
@@ -24,7 +22,8 @@ class RandomSingleCheck(unittest.TestCase):
     '''
 
     def setUp(self):
-        self.new_deck_order_positions = list(range(len(card_order)))
+        self.card_order = list(range(52))
+        self.card_order_positions = list(range(52))
 
     def debug_report_jaro_long_stats(self, _mean, _std, _min, _max):
         print("\nThe mean for the data: {}".format(_mean))
@@ -45,8 +44,8 @@ class RandomSingleCheck(unittest.TestCase):
         jaro_measurement = [0] * 10000
 
         for text_idx in range(len(jaro_measurement)):
-            mixed_up = CardShuffle.shuffle_cards(card_order, self.new_deck_order_positions)
-            jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(mixed_up, card_order)
+            mixed_up = CardShuffle.shuffle_cards(self.card_order, self.card_order_positions)
+            jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(mixed_up, self.card_order)
 
             jaro_measurement[text_idx] = jaro_similarity[0]
 
@@ -73,9 +72,9 @@ class RandomSingleCheck(unittest.TestCase):
         jaro_measurement = [0] * 10000
 
         for text_idx in range(len(jaro_measurement)):
-            mixed_up = CardShuffle.shuffle_cards(card_order, self.new_deck_order_positions)
+            mixed_up = CardShuffle.shuffle_cards(self.card_order, self.card_order_positions)
             maybe_cut_up, _ = CardShuffle.maybe_cut(mixed_up)
-            jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(maybe_cut_up, card_order)
+            jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(maybe_cut_up, self.card_order)
 
             jaro_measurement[text_idx] = jaro_similarity[0]
 
@@ -102,9 +101,9 @@ class RandomSingleCheck(unittest.TestCase):
         jaro_measurement = [0] * 10000
 
         for text_idx in range(len(jaro_measurement)):
-            mixed_up = CardShuffle.shuffle_cards(card_order, self.new_deck_order_positions)
+            mixed_up = CardShuffle.shuffle_cards(self.card_order, self.card_order_positions)
             maybe_cut_up, _ = CardShuffle.maybe_cut(mixed_up, is_arbitrary=True)
-            jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(maybe_cut_up, card_order)
+            jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(maybe_cut_up, self.card_order)
 
             jaro_measurement[text_idx] = jaro_similarity[0]
 
@@ -131,8 +130,8 @@ class RandomSingleCheck(unittest.TestCase):
         peapod_measurement = [0] * 10000
 
         for text_idx in range(len(peapod_measurement)):
-            mixed_up = CardShuffle.shuffle_cards(card_order, self.new_deck_order_positions)
-            peapod_count = CardShuffleStats.count_peapods_from(mixed_up, card_order)
+            mixed_up = CardShuffle.shuffle_cards(self.card_order, self.card_order_positions)
+            peapod_count = CardShuffleStats.count_peapods_from(mixed_up, self.card_order)
 
             peapod_measurement[text_idx] = peapod_count[0]
 
@@ -156,9 +155,9 @@ class RandomSingleCheck(unittest.TestCase):
         peapod_measurement = [0] * 10000
 
         for text_idx in range(len(peapod_measurement)):
-            mixed_up = CardShuffle.shuffle_cards(card_order, self.new_deck_order_positions)
+            mixed_up = CardShuffle.shuffle_cards(self.card_order, self.card_order_positions)
             maybe_cut_up, _ = CardShuffle.maybe_cut(mixed_up)
-            peapod_count = CardShuffleStats.count_peapods_from(maybe_cut_up, card_order)
+            peapod_count = CardShuffleStats.count_peapods_from(maybe_cut_up, self.card_order)
 
             peapod_measurement[text_idx] = peapod_count[0]
 
@@ -182,9 +181,9 @@ class RandomSingleCheck(unittest.TestCase):
         peapod_measurement = [0] * 10000
 
         for text_idx in range(len(peapod_measurement)):
-            mixed_up = CardShuffle.shuffle_cards(card_order, self.new_deck_order_positions)
+            mixed_up = CardShuffle.shuffle_cards(self.card_order, self.card_order_positions)
             maybe_cut_up, _ = CardShuffle.maybe_cut(mixed_up, is_arbitrary=True)
-            peapod_count = CardShuffleStats.count_peapods_from(maybe_cut_up, card_order)
+            peapod_count = CardShuffleStats.count_peapods_from(maybe_cut_up, self.card_order)
 
             peapod_measurement[text_idx] = peapod_count[0]
 

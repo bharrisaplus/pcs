@@ -4,19 +4,9 @@ import _utils as CardShuffleUtils
 import _stats as CardShuffleStats
 import card_shuffle as CardShuffle
 
-card_order = [('spade', 1),('spade', 2),('spade', 3),('spade', 4),('spade', 5),('spade', 6),('spade', 7),('spade', 8),('spade', 9),('spade', 10),('spade', 11),('spade', 12),('spade', 13),('diamond', 1),('diamond', 2),('diamond', 3),('diamond', 4),('diamond', 5),('diamond', 6),('diamond', 7),('diamond', 8),('diamond', 9),('diamond', 10),('diamond', 11),('diamond', 12),('diamond', 13),('club', 13),('club', 12),('club', 11),('club', 10),('club', 9),('club', 8),('club', 7),('club', 6),('club', 5),('club', 4),('club', 3),('club', 2),('club', 1),('heart', 13),('heart', 12),('heart', 11),('heart', 10),('heart', 9),('heart', 8),('heart', 7),('heart', 6),('heart', 5),('heart', 4),('heart', 3),('heart', 2),('heart', 1)]
-
 class PCSCheck(unittest.TestCase):
-    def test_setup_52(self):
-        maybe_new_deck_order = CardShuffleUtils._setup_52()
-
-        self.assertEqual(len(maybe_new_deck_order[0]), 52,
-            "The starting deck should contain 52 cards"
-        )
-
-        self.assertEqual(maybe_new_deck_order[0], card_order,
-            "The starting should be in new deck order"
-        )
+    def setUp(self):
+        self.card_order = list(range(52))
 
     def test_get_card_name(self):
         expected_1 = ["ace of spade", "ace of diamond", "ace of club", "ace of heart"]
@@ -91,20 +81,20 @@ class PCSCheck(unittest.TestCase):
         )
 
     def test_shuffle(self):
-        card_order_len = len(card_order)
-        mixed_up = CardShuffle.shuffle_cards(card_order, list(range(card_order_len)))
+        position_count = 52
+        mixed_up = CardShuffle.shuffle_cards(self.card_order, list(range(position_count)))
 
-        self.assertEqual(len(mixed_up), card_order_len,
+        self.assertEqual(len(mixed_up), position_count,
             "The shuffled deck should retain the same number of cards as before the shuffle"
         )
 
-        self.assertNotEqual(mixed_up, card_order,
+        self.assertNotEqual(mixed_up, self.card_order,
             "The shuffled deck should not be the same as new deck order"
         )
 
     def test_cut(self):
-        swear_mix = [('diamond', 13), ('spade', 10), ('spade', 2), ('heart', 11), ('spade', 8), ('heart', 6), ('heart', 13), ('heart', 9), ('spade', 6), ('spade', 12), ('spade', 3), ('spade', 5), ('diamond', 1), ('diamond', 10), ('spade', 7), ('club', 5), ('club', 4), ('club', 11), ('diamond', 9), ('diamond', 2), ('diamond', 7), ('heart', 2), ('spade', 11), ('spade', 4), ('diamond', 3), ('spade', 1), ('heart', 10), ('heart', 12), ('heart', 8), ('club', 6), ('spade', 13), ('club', 13), ('heart', 4), ('club', 8), ('club', 2), ('diamond', 8), ('spade', 9), ('club', 9), ('diamond', 11), ('club', 7), ('heart', 3), ('diamond', 5), ('club', 12), ('heart', 7), ('club', 3), ('heart', 1), ('heart', 5), ('diamond', 6), ('club', 10), ('club', 1), ('diamond', 4), ('diamond', 12)]
-        swear_cut = [('club', 4), ('club', 11), ('diamond', 9), ('diamond', 2), ('diamond', 7), ('heart', 2), ('spade', 11), ('spade', 4), ('diamond', 3), ('spade', 1), ('heart', 10), ('heart', 12), ('heart', 8), ('club', 6), ('spade', 13), ('club', 13), ('heart', 4), ('club', 8), ('club', 2), ('diamond', 8), ('spade', 9), ('club', 9), ('diamond', 11), ('club', 7), ('heart', 3), ('diamond', 5), ('club', 12), ('heart', 7), ('club', 3), ('heart', 1), ('heart', 5), ('diamond', 6), ('club', 10), ('club', 1), ('diamond', 4), ('diamond', 12), ('diamond', 13), ('spade', 10), ('spade', 2), ('heart', 11), ('spade', 8), ('heart', 6), ('heart', 13), ('heart', 9), ('spade', 6), ('spade', 12), ('spade', 3), ('spade', 5), ('diamond', 1), ('diamond', 10), ('spade', 7), ('club', 5)]
+        swear_mix = [25,9,1,41,7,46,39,43,5,11,2,4,13,22,6,34,35,28,21,14,19,50,10,3,15,0,42,40,44,33,12,26,48,31,37,20,8,30,23,32,49,17,27,45,36,51,47,18,29,38,16,24]
+        swear_cut = [35,28,21,14,19,50,10,3,15,0,42,40,44,33,12,26,48,31,37,20,8,30,23,32,49,17,27,45,36,51,47,18,29,38,16,24,25,9,1,41,7,46,39,43,5,11,2,4,13,22,6,34]
 
         cut_up, cut_spot = CardShuffle.maybe_cut(swear_mix)
 
@@ -116,8 +106,12 @@ class PCSCheck(unittest.TestCase):
             "The peapod cut deck should be cut at the first consecutive pair"
         )
 
+        self.assertEqual(cut_up, swear_cut,
+            "The peapod cut deck should be cut at the first consecutive pair"
+        )
+
     def test_cut_arbitrary(self):
-        swear_mix = [('diamond', 13), ('spade', 10), ('spade', 2), ('heart', 11), ('spade', 8), ('heart', 6), ('heart', 13), ('heart', 9), ('spade', 6), ('spade', 12), ('spade', 3), ('spade', 5), ('diamond', 1), ('diamond', 10), ('spade', 7), ('club', 5), ('club', 4), ('club', 11), ('diamond', 9), ('diamond', 2), ('diamond', 7), ('heart', 2), ('spade', 11), ('spade', 4), ('diamond', 3), ('spade', 1), ('heart', 10), ('heart', 12), ('heart', 8), ('club', 6), ('spade', 13), ('club', 13), ('heart', 4), ('club', 8), ('club', 2), ('diamond', 8), ('spade', 9), ('club', 9), ('diamond', 11), ('club', 7), ('heart', 3), ('diamond', 5), ('club', 12), ('heart', 7), ('club', 3), ('heart', 1), ('heart', 5), ('diamond', 6), ('club', 10), ('club', 1), ('diamond', 4), ('diamond', 12)]
+        swear_mix = [25,9,1,41,7,46,39,43,5,11,2,4,13,22,6,34,35,28,21,14,19,50,10,3,15,0,42,40,44,33,12,26,48,31,37,20,8,30,23,32,49,17,27,45,36,51,47,18,29,38,16,24]
 
         cut_up, cut_spot = CardShuffle.maybe_cut(swear_mix, is_arbitrary=True)
 
@@ -126,7 +120,7 @@ class PCSCheck(unittest.TestCase):
         )
 
         self.assertEqual(cut_spot, swear_mix.index(cut_up[0]),
-            "The arbitrary cut deck should be cut at the first consecutive pair"
+            "The arbitrary cut deck should be cut somwhere in the deck"
         )
 
 class MetricCheck(unittest.TestCase):

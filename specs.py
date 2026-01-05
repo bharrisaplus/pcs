@@ -19,49 +19,74 @@ class PCSCheck(unittest.TestCase):
         )
 
     def test_get_card_name(self):
-        expected = [ "ace of spade", "ace of diamond", "ace of club", "ace of heart" ]
-
+        expected_1 = ["ace of spade", "ace of diamond", "ace of club", "ace of heart"]
         solution_1 = CardShuffleUtils.get_card_title(0)
         solution_2 = CardShuffleUtils.get_card_title(13)
         solution_3 = CardShuffleUtils.get_card_title(38)
         solution_4 = CardShuffleUtils.get_card_title(51)
+        expected_2 = ["king of spade", "king of diamond", "king of club", "king of heart"]
+        solution_5 = CardShuffleUtils.get_card_title(12)
+        solution_6 = CardShuffleUtils.get_card_title(25)
+        solution_7 = CardShuffleUtils.get_card_title(26)
+        solution_8 = CardShuffleUtils.get_card_title(39)
 
-        self.assertEqual([solution_1, solution_2, solution_3, solution_4], expected,
+        self.assertEqual([solution_1, solution_2, solution_3, solution_4], expected_1,
+            "The title of a card should be retrieved based on the ndo position of the card"
+        )
+
+        self.assertEqual([solution_5, solution_6, solution_7, solution_8], expected_2,
             "The title of a card should be retrieved based on the ndo position of the card"
         )
 
     def test_get_card_symbol(self):
-        expected = [ '🂡', '🃁', '🃑', '🂱' ]
-
+        expected_1 = [ '🂡', '🃁', '🃑', '🂱' ]
         solution_1 = CardShuffleUtils.get_card_symbol(0)
         solution_2 = CardShuffleUtils.get_card_symbol(13)
         solution_3 = CardShuffleUtils.get_card_symbol(38)
         solution_4 = CardShuffleUtils.get_card_symbol(51)
+        expected_2 = [ '🂮', '🃎', '🃞', '🂾' ]
+        solution_5 = CardShuffleUtils.get_card_symbol(12)
+        solution_6 = CardShuffleUtils.get_card_symbol(25)
+        solution_7 = CardShuffleUtils.get_card_symbol(26)
+        solution_8 = CardShuffleUtils.get_card_symbol(39)
 
-        self.assertEqual([solution_1, solution_2, solution_3, solution_4], expected,
+        self.assertEqual([solution_1, solution_2, solution_3, solution_4], expected_1,
+            "The symbol of a card should be retrieved based on the ndo position of the card"
+        )
+
+        self.assertEqual([solution_5, solution_6, solution_7, solution_8], expected_2,
             "The symbol of a card should be retrieved based on the ndo position of the card"
         )
 
     def test_get_card_color(self):
         expected_1 = [0,1,0,1]
-
         solution_1 = CardShuffleUtils.get_card_color(0)
         solution_2 = CardShuffleUtils.get_card_color(13)
         solution_3 = CardShuffleUtils.get_card_color(38)
         solution_4 = CardShuffleUtils.get_card_color(51)
-
+        solution_5 = CardShuffleUtils.get_card_color(12)
+        solution_6 = CardShuffleUtils.get_card_color(25)
+        solution_7 = CardShuffleUtils.get_card_color(26)
+        solution_8 = CardShuffleUtils.get_card_color(39)
         expected_2 = [0,1,2,3]
-
-        solution_5 = CardShuffleUtils.get_card_color(0, four_color=True)
-        solution_6 = CardShuffleUtils.get_card_color(13, four_color=True)
-        solution_7 = CardShuffleUtils.get_card_color(38, four_color=True)
-        solution_8 = CardShuffleUtils.get_card_color(51, four_color=True)
+        solution_9 = CardShuffleUtils.get_card_color(0, four_color=True)
+        solution_10 = CardShuffleUtils.get_card_color(13, four_color=True)
+        solution_11 = CardShuffleUtils.get_card_color(38, four_color=True)
+        solution_12 = CardShuffleUtils.get_card_color(51, four_color=True)
+        solution_13 = CardShuffleUtils.get_card_color(12, four_color=True)
+        solution_14 = CardShuffleUtils.get_card_color(25, four_color=True)
+        solution_15 = CardShuffleUtils.get_card_color(26, four_color=True)
+        solution_16 = CardShuffleUtils.get_card_color(39, four_color=True)
 
         self.assertEqual([solution_1, solution_2, solution_3, solution_4], expected_1,
             "The color of a card should be retrieved based on the ndo position of the card"
         )
 
-        self.assertEqual([solution_5, solution_6, solution_7, solution_8], expected_2,
+        self.assertEqual([solution_5, solution_6, solution_7, solution_8], expected_1,
+            "The color of a card should be retrieved based on the ndo position of the card"
+        )
+
+        self.assertEqual([solution_9, solution_10, solution_11, solution_12], expected_2,
             "The color of a card should be retrieved based on the ndo position of the card"
         )
 

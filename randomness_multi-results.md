@@ -1,9 +1,9 @@
-Last run: 1/5/26
+Last run: 12/30/25
 
 ## Shuffle
-	* mean: 0.6539808838329514
-	* standard deviation: 0.035876036376349764
-	* range: min(0.5128205128205128), max(0.7727768685215494)
+	* mean: 0.6604752005522471
+	* standard deviation: 0.03649103581881487
+	* range: min(0.5189933523266856), max(0.782051282051282)
 
 ## Shuffle cut
 		* mean: 0.6598134833007017

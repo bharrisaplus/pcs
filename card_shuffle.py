@@ -104,18 +104,20 @@ def display_decklist_in_console(card_roll, to_file=False):
         to_file (bool): Whether or not to create a file. (default: False)
     '''
 
-    card_catalog = []
+    console_catalog = []
+    file_catalog = []
 
-    for card_catalog_idx, card_stuff in enumerate(card_roll, start=1):
-        card_catalog.append("{}) {}".format(card_catalog_idx, get_card_title(card_stuff)))
+    for console_catalog_idx, card_stuff in enumerate(card_roll, start=1):
+        console_catalog.append("{}) {}".format(console_catalog_idx, get_card_title(card_stuff)))
+        file_catalog.append("{}) {}".format(console_catalog_idx, get_card_title(card_stuff)))
 
-    print(*card_catalog, sep="\n")
+    print(*console_catalog, sep="\n")
 
     if to_file:
         file_descriptor = os.open('shuffled.decklist.txt', os.O_WRONLY | os.O_CREAT | os.O_TRUNC)
 
         with os.fdopen(file_descriptor, mode='w') as out_file:
-            out_file.write("\n".join(card_catalog))
+            out_file.write("\n".join(file_catalog))
 
         print("\nDecklist written to 'shuffled.decklist.txt'.")
 

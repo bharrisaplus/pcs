@@ -26,7 +26,7 @@ class PCSCheck(unittest.TestCase):
         solution_3 = CardShuffleUtils.get_card_title(38)
         solution_4 = CardShuffleUtils.get_card_title(51)
 
-        self.assertListEqual([solution_1, solution_2, solution_3, solution_4], expected,
+        self.assertEqual([solution_1, solution_2, solution_3, solution_4], expected,
             "The title of a card should be retrieved based on the ndo position of the card"
         )
 
@@ -38,7 +38,7 @@ class PCSCheck(unittest.TestCase):
         solution_3 = CardShuffleUtils.get_card_symbol(38)
         solution_4 = CardShuffleUtils.get_card_symbol(51)
 
-        self.assertListEqual([solution_1, solution_2, solution_3, solution_4], expected,
+        self.assertEqual([solution_1, solution_2, solution_3, solution_4], expected,
             "The symbol of a card should be retrieved based on the ndo position of the card"
         )
 

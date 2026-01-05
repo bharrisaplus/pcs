@@ -142,7 +142,7 @@ def _gogogo(cardShuffleArgs):
         mixed_deck = shuffle_cards(new_deck_order, positions_to_fill)
         cut_deck = None
 
-        if cardShuffleArgs.cut:
+        if cardShuffleArgs.cut or cardShuffleArgs.arbitrary:
             cut_deck, cut_spot = maybe_cut(mixed_deck, is_arbitrary=cardShuffleArgs.arbitrary)
 
             if cut_spot:

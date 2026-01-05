@@ -46,6 +46,7 @@ def _save_command(capture_window, offset_area, capture_prefix='shuffled'):
     def _partial_func():
         ''' Passed to the command= param for tkinter button widget and invoked upon click '''
 
+        capture_window.update_idletasks()
         screen_grab(capture_window, offset_area, capture_prefix)
         capture_window.destroy()
 

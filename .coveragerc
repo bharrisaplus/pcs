@@ -1,0 +1,15 @@
+[run]
+include =
+	card_shuffle.py
+	_utils.py
+
+omit =
+	card_shuffle_gui.py
+
+[report]
+show_missing = true
+exclude_also =
+	if __name__ == .__main__.:
+	def display_example
+	def display_decklist_in_console
+	def _capture_tkinter

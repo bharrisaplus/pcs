@@ -54,6 +54,29 @@ def get_card_symbol(card_index):
     return chr(int(card_utf8_codes[card_index], 16))
 
 
+def get_card_color(card_index, four_color=False):
+    color_option = None
+
+    in_spade_range = card_index <= 12
+    in_diamond_range = 13 <= card_index <= 26
+    in_club_range = 27 <= card_index <= 38
+    in_heart_range = 39 <= card_index <= 51
+
+    if in_spade_range or in_club_range:
+        color_option = 0
+
+        if four_color and in_club_range:
+            color_option = 2
+
+    if in_diamond_range or in_heart_range:
+        color_option = 1
+
+        if four_color and in_heart_range:
+            color_option = 3
+
+    return color_option
+
+
 def _capture_tkinter(capture_window, offset_area, capture_prefix='shuffled'):
     '''Save an image of the display cards
 

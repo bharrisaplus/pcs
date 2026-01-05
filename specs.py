@@ -42,6 +42,28 @@ class PCSCheck(unittest.TestCase):
             "The symbol of a card should be retrieved based on the ndo position of the card"
         )
 
+    def test_get_card_color(self):
+        expected_1 = [0,1,0,1]
+
+        solution_1 = CardShuffleUtils.get_card_color(0)
+        solution_2 = CardShuffleUtils.get_card_color(13)
+        solution_3 = CardShuffleUtils.get_card_color(38)
+        solution_4 = CardShuffleUtils.get_card_color(51)
+
+        expected_2 = [0,1,2,3]
+
+        solution_5 = CardShuffleUtils.get_card_color(0, four_color=True)
+        solution_6 = CardShuffleUtils.get_card_color(13, four_color=True)
+        solution_7 = CardShuffleUtils.get_card_color(38, four_color=True)
+        solution_8 = CardShuffleUtils.get_card_color(51, four_color=True)
+
+        self.assertEqual([solution_1, solution_2, solution_3, solution_4], expected_1,
+            "The color of a card should be retrieved based on the ndo position of the card"
+        )
+
+        self.assertEqual([solution_5, solution_6, solution_7, solution_8], expected_2,
+            "The color of a card should be retrieved based on the ndo position of the card"
+        )
 
     def test_shuffle(self):
         card_order_len = len(card_order)

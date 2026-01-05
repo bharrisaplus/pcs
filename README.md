@@ -27,9 +27,17 @@ To install dependencies globally
   pip install pillow supports-color
 ```
 #### pipenv
-A Pipfile is included for installing dependencies within a virtualenv
+A `Pipfile` is included for installing dependencies within a virtualenv
 ```
 pipenv install
+```
+Running a script from the `Pipfile`
+```
+pipenv run cli
+```
+Running a file in the project
+```
+pipenv run card_shuffle.py
 ```
 ### Console
 Outputs the list of cards to the terminal optionally with color and/or to a file.

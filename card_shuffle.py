@@ -134,6 +134,26 @@ def display_decklist_in_console(card_roll, to_file=False, four_color=False):
 
         print("\nDecklist written to 'shuffled.decklist.txt'.")
 
+def _gogogo(cardShuffleArgs):
+    if cardShuffleArgs.ndo:
+        display_example()
+    else:
+        new_deck_order, positions_to_fill = _setup_52()
+        mixed_deck = shuffle_cards(new_deck_order, positions_to_fill)
+        cut_deck = None
+
+        if cardShuffleArgs.cut:
+            cut_deck, cut_spot = maybe_cut(mixed_deck, is_arbitrary=cardShuffleArgs.arbitrary)
+
+            if cut_spot:
+                print("Cut deck @ {}".format(cut_spot))
+
+        final_deck = cut_deck or mixed_deck
+
+        display_decklist_in_console(final_deck, to_file=cardShuffleArgs.write, four_color=cardShuffleArgs.four_color)
+
+        if cardShuffleArgs.gui:
+            display_decklist_in_gui(final_deck, four_color=cardShuffleArgs.four_color)
 
 if __name__ == "__main__":
     # Grab arguments
@@ -166,24 +186,4 @@ if __name__ == "__main__":
         help="Flag to set for cutting the deck after the shuffle at a random spot."
     )
 
-    cardShuffleArgs = cardShuffleParser.parse_args()
-
-    if cardShuffleArgs.ndo:
-        display_example()
-    else:
-        new_deck_order, positions_to_fill = _setup_52()
-        mixed_deck = shuffle_cards(new_deck_order, positions_to_fill)
-        cut_deck = None
-
-        if cardShuffleArgs.cut:
-            cut_deck, cut_spot = maybe_cut(mixed_deck, is_arbitrary=cardShuffleArgs.arbitrary)
-
-            if cut_spot:
-                print("Cut deck @ {}".format(cut_spot))
-
-        final_deck = cut_deck or mixed_deck
-
-        display_decklist_in_console(final_deck, to_file=cardShuffleArgs.write, four_color=cardShuffleArgs.four_color)
-
-        if cardShuffleArgs.gui:
-            display_decklist_in_gui(final_deck, four_color=cardShuffleArgs.four_color)
+    _gogogo(cardShuffleParser.parse_args())

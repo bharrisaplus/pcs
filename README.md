@@ -20,7 +20,7 @@ Producing a decklist of shuffled playing cards.
 ## Usage
 
 ### Install dependencies
-This projects needs [tkinter](https://docs.python.org/3/library/tkinter.html), [pillow](https://pillow.readthedocs.io/en/stable/) and [supports-color](https://pypi.org/project/supports-color/). Tkinter should be included with most python distributions, pillow and supports-color are available via [pypi](https://pypi.org/).
+This projects needs [tkinter](https://docs.python.org/3/library/tkinter.html), [pillow](https://pillow.readthedocs.io/en/stable/) and [supports-color](https://github.com/shawwn/supports-color-python). Tkinter should be included with most python distributions, pillow and supports-color are available via [pypi](https://pypi.org/).
 #### pip
 To install dependencies globally
 ```

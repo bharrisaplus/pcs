@@ -3,9 +3,6 @@
 from turtle import Turtle
 import tkinter
 
-# https://www.tcl-lang.org/man/tcl8.6/TkCmd/colors.htm
-tkinter_card_colors = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange2']
-
 from _constants import save_icon_utf8 as floppy_code
 
 from _utils import (
@@ -13,6 +10,9 @@ from _utils import (
     get_card_color,
     get_card_symbol
 )
+
+# https://www.tcl-lang.org/man/tcl8.6/TkCmd/colors.htm
+tkinter_card_colors = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange2']
 
 def hello_turtle():
     ''' Print card symbols to screen '''

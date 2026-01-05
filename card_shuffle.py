@@ -13,6 +13,7 @@ from _utils import (
 
 from card_shuffle_gui import display_cards as display_decklist_in_gui
 
+# https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 console_colors = ['\033[36m', '\033[31m', '\033[32m', '\033[33m' ]
 console_color_reset = '\033[0m'
 
@@ -120,7 +121,6 @@ def display_decklist_in_console(card_roll, to_file=False, four_color=False):
             ))
         else:
             console_catalog.append("{}) {}".format(console_catalog_idx, get_card_title(card_stuff)))
-        
 
         file_catalog.append("{}) {}".format(console_catalog_idx, get_card_title(card_stuff)))
 

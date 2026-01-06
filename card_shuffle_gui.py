@@ -104,5 +104,43 @@ def display_cards(card_roll, four_color=False):
     rootWindow.mainloop()
 
 
+def display_cards_canvas(card_roll, four_color=False):
+    rootWindow = tkinter.Tk()
+    window_height = int((rootWindow.winfo_screenheight() * 0.63) // 1)
+    window_width = int((rootWindow.winfo_screenwidth() * 0.63) // 1)
+    cardFontStyle = ('Consolas', int(window_height * 0.1325 // 1))
+    controlFontStyle = ('Consolas', int(window_height * 0.033 // 1))
+
+    rootWindow.title("pcs: pseudo card shuffle")
+    rootWindow.geometry("{}x{}".format(window_width, window_height))
+    rootWindow.grid_columnconfigure(0, weight=1)
+
+    cardCanvas_width = (window_width * 0.85) // 1
+    cardCanvas_height = (window_height * 0.85) // 1
+    cardCanvas = tkinter.Canvas(rootWindow, width=cardCanvas_width, height=cardCanvas_height)
+
+    cardCanvas.grid()
+
+    controlFrame = tkinter.Frame(rootWindow, bd=0, highlightthickness=0, pady=9)
+
+    controlFrame.grid()
+
+    tkinter.Button(
+        controlFrame, text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="goldenrod3",
+        command=_save_command(rootWindow, controlFrame), relief="flat"
+    ).pack()
+
+    for row_idx in range(4):
+        for column_idx, card_info in enumerate(card_roll[row_idx*13:(row_idx+1)*13]):
+            pos_x = column_idx * (cardCanvas_width // 13)
+            pos_y = row_idx * (cardCanvas_height // 4)
+            cardCanvas.create_text(
+                pos_x, pos_y,text=get_card_symbol(card_info), font=cardFontStyle,
+                fill=tkinter_card_colors[get_card_color(card_info, four_color)], anchor="nw"
+            )
+
+    rootWindow.mainloop()
+
+
 if __name__ == "__main__":
     hello_turtle()

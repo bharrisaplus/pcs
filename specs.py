@@ -127,6 +127,7 @@ class PCSCheck(unittest.TestCase):
             "The arbitrary cut deck should be cut somwhere in the deck"
         )
 
+
     @patch('card_shuffle.display_example')
     @patch('card_shuffle._setup_52')
     @patch('card_shuffle.shuffle_cards')
@@ -149,27 +150,167 @@ class PCSCheck(unittest.TestCase):
         CardShuffle._gogogo(mock_args)
 
         self.assertFalse(mock_example.called, "When no options are passed, ignore example")
-        self.assertEqual(mock_setup.call_count, 1, "When no options are passed, get setup lists ")
+        self.assertEqual(mock_setup.call_count, 1, "When no options are passed, get setup lists")
         self.assertTrue(mock_shuffle.called, "When no options are passed, shuffle cards")
         self.assertFalse(mock_cut.called, "When no options are passed, ignore cut")
-        self.assertTrue(mock_console.called, "When no options are passed, write list to stdout ")
-        self.assertFalse(mock_gui.called, "When no options are passed, ignore gui ")
+        self.assertTrue(mock_console.called, "When no options are passed, write list to stdout")
+        self.assertFalse(mock_gui.called, "When no options are passed, ignore gui")
 
-    @unittest.skip('not yet')
-    def test_gogogo_write(self):
-        self.assertEqual(0, 0)
 
-    @unittest.skip('not yet')
-    def test_gogogo_gui(self):
-        self.assertEqual(0, 0)
+    @patch('card_shuffle.display_example')
+    @patch('card_shuffle._setup_52')
+    @patch('card_shuffle.shuffle_cards')
+    @patch('card_shuffle.maybe_cut')
+    @patch('card_shuffle.display_decklist_in_console')
+    @patch('card_shuffle.display_decklist_in_gui')
+    def test_gogogo_ndo(self, mock_gui, mock_console, mock_cut, mock_shuffle, mock_setup, mock_example):
+        # something like the populated namespace from argparse.ArgumentParser.parse_args()
+        mock_args = json.loads(self.args_json, object_hook=lambda dct: SimpleNamespace(**dct))
 
-    @unittest.skip('not yet')
-    def test_gogogo_cut(self):
-        self.assertEqual(0, 0)
+        mock_args.ndo = True
 
-    @unittest.skip('not yet')
-    def test_gogogo_cut_arbitrary(self):
-        self.assertEqual(0, 0)
+        assert mock_example is CardShuffle.display_example
+        assert mock_setup is CardShuffle._setup_52
+        assert mock_shuffle is CardShuffle.shuffle_cards
+        assert mock_cut is CardShuffle.maybe_cut
+        assert mock_console is CardShuffle.display_decklist_in_console
+        assert mock_gui is CardShuffle.display_decklist_in_gui
+
+        CardShuffle._gogogo(mock_args)
+
+        self.assertTrue(mock_example.called, "When ndo option is passed, show example")
+        self.assertFalse(mock_setup.called, "When ndo option is passed, ignore setup ")
+        self.assertFalse(mock_shuffle.called, "When ndo option is passed, ignore shuffle")
+        self.assertFalse(mock_cut.called, "When ndo option is passed, ignore cut")
+        self.assertFalse(mock_console.called, "When ndo option is passed, ignore stdout")
+        self.assertFalse(mock_gui.called, "When ndo option is passed, ignore gui")
+
+
+    @patch('card_shuffle.display_example')
+    @patch('card_shuffle._setup_52')
+    @patch('card_shuffle.shuffle_cards')
+    @patch('card_shuffle.maybe_cut')
+    @patch('card_shuffle.display_decklist_in_console')
+    @patch('card_shuffle.display_decklist_in_gui')
+    def test_gogogo_write(self, mock_gui, mock_console, mock_cut, mock_shuffle, mock_setup, mock_example):
+        # something like the populated namespace from argparse.ArgumentParser.parse_args()
+        mock_args = json.loads(self.args_json, object_hook=lambda dct: SimpleNamespace(**dct))
+
+        mock_args.write = True
+        mock_setup.return_value = (list(range(52)), list(range(52)))
+
+        assert mock_example is CardShuffle.display_example
+        assert mock_setup is CardShuffle._setup_52
+        assert mock_shuffle is CardShuffle.shuffle_cards
+        assert mock_cut is CardShuffle.maybe_cut
+        assert mock_console is CardShuffle.display_decklist_in_console
+        assert mock_gui is CardShuffle.display_decklist_in_gui
+
+        CardShuffle._gogogo(mock_args)
+
+        self.assertFalse(mock_example.called, "When just write option passed, ignore example")
+        self.assertEqual(mock_setup.call_count, 1, "When just write option passed, get setup lists")
+        self.assertTrue(mock_shuffle.called, "When just write option passed, shuffle cards")
+        self.assertFalse(mock_cut.called, "When just write option passed, ignore cut")
+        self.assertTrue(mock_console.called, "When just write option passed, write list to stdout")
+        self.assertFalse(mock_gui.called, "When just write option passed, ignore gui")
+
+
+    @patch('card_shuffle.display_example')
+    @patch('card_shuffle._setup_52')
+    @patch('card_shuffle.shuffle_cards')
+    @patch('card_shuffle.maybe_cut')
+    @patch('card_shuffle.display_decklist_in_console')
+    @patch('card_shuffle.display_decklist_in_gui')
+    def test_gogogo_gui(self, mock_gui, mock_console, mock_cut, mock_shuffle, mock_setup, mock_example):
+        # something like the populated namespace from argparse.ArgumentParser.parse_args()
+        mock_args = json.loads(self.args_json, object_hook=lambda dct: SimpleNamespace(**dct))
+
+        mock_args.gui = True
+        mock_setup.return_value = (list(range(52)), list(range(52)))
+
+        assert mock_example is CardShuffle.display_example
+        assert mock_setup is CardShuffle._setup_52
+        assert mock_shuffle is CardShuffle.shuffle_cards
+        assert mock_cut is CardShuffle.maybe_cut
+        assert mock_console is CardShuffle.display_decklist_in_console
+        assert mock_gui is CardShuffle.display_decklist_in_gui
+
+        CardShuffle._gogogo(mock_args)
+
+        self.assertFalse(mock_example.called, "When just gui option passed, ignore example")
+        self.assertEqual(mock_setup.call_count, 1, "When just gui option passed, get setup lists")
+        self.assertTrue(mock_shuffle.called, "When just gui option passed, shuffle cards")
+        self.assertFalse(mock_cut.called, "When just gui option passed, ignore cut")
+        self.assertTrue(mock_console.called, "When just gui option passed, ignore stdout")
+        self.assertTrue(mock_gui.called, "When just gui option passed, show gui")
+
+
+    @patch('builtins.print') # comment here to debug/print within test
+    @patch('card_shuffle.display_example')
+    @patch('card_shuffle._setup_52')
+    @patch('card_shuffle.shuffle_cards')
+    @patch('card_shuffle.maybe_cut')
+    @patch('card_shuffle.display_decklist_in_console')
+    @patch('card_shuffle.display_decklist_in_gui')
+    def test_gogogo_cut(self, mock_gui, mock_console, mock_cut, mock_shuffle, mock_setup, mock_example,
+        mock_print
+    ):
+        # something like the populated namespace from argparse.ArgumentParser.parse_args()
+        mock_args = json.loads(self.args_json, object_hook=lambda dct: SimpleNamespace(**dct))
+
+        mock_args.cut = True
+        mock_setup.return_value = (list(range(52)), list(range(52)))
+        mock_cut.return_value = (list(range(52)), list(range(52)))
+
+        assert mock_example is CardShuffle.display_example
+        assert mock_setup is CardShuffle._setup_52
+        assert mock_shuffle is CardShuffle.shuffle_cards
+        assert mock_cut is CardShuffle.maybe_cut
+        assert mock_console is CardShuffle.display_decklist_in_console
+        assert mock_gui is CardShuffle.display_decklist_in_gui
+
+        CardShuffle._gogogo(mock_args)
+
+        self.assertFalse(mock_example.called, "When just cut option passed, ignore example")
+        self.assertEqual(mock_setup.call_count, 1, "When just cut option passed, get setup lists")
+        self.assertTrue(mock_shuffle.called, "When just cut option passed, shuffle cards")
+        self.assertTrue(mock_cut.called, "When just cut option passed, cut cards")
+        self.assertTrue(mock_console.called, "When just cut option passed, ignore stdout")
+        self.assertFalse(mock_gui.called, "When just cut option passed, ignore gui")
+
+    @patch('builtins.print') # comment here to debug/print within test
+    @patch('card_shuffle.display_example')
+    @patch('card_shuffle._setup_52')
+    @patch('card_shuffle.shuffle_cards')
+    @patch('card_shuffle.maybe_cut')
+    @patch('card_shuffle.display_decklist_in_console')
+    @patch('card_shuffle.display_decklist_in_gui')
+    def test_gogogo_cut_arbitrary(self, mock_gui, mock_console, mock_cut, mock_shuffle, mock_setup,
+        mock_example, mock_print
+    ):
+        # something like the populated namespace from argparse.ArgumentParser.parse_args()
+        mock_args = json.loads(self.args_json, object_hook=lambda dct: SimpleNamespace(**dct))
+
+        mock_args.cut = True
+        mock_setup.return_value = (list(range(52)), list(range(52)))
+        mock_cut.return_value = (list(range(52)), list(range(52)))
+
+        assert mock_example is CardShuffle.display_example
+        assert mock_setup is CardShuffle._setup_52
+        assert mock_shuffle is CardShuffle.shuffle_cards
+        assert mock_cut is CardShuffle.maybe_cut
+        assert mock_console is CardShuffle.display_decklist_in_console
+        assert mock_gui is CardShuffle.display_decklist_in_gui
+
+        CardShuffle._gogogo(mock_args)
+
+        self.assertFalse(mock_example.called, "When just cut option passed, ignore example")
+        self.assertEqual(mock_setup.call_count, 1, "When just cut option passed, get setup lists")
+        self.assertTrue(mock_shuffle.called, "When just cut option passed, shuffle cards")
+        self.assertTrue(mock_cut.called, "When just cut option passed, cut cards")
+        self.assertTrue(mock_console.called, "When just cut option passed, ignore stdout")
+        self.assertFalse(mock_gui.called, "When just cut option passed, ignore gui")
 
 
 class MetricCheck(unittest.TestCase):

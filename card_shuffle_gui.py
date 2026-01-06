@@ -114,20 +114,21 @@ def display_cards_canvas(card_roll, four_color=False):
     rootWindow.title("pcs: pseudo card shuffle")
     rootWindow.geometry("{}x{}".format(window_width, window_height))
     rootWindow.grid_columnconfigure(0, weight=1)
+    rootWindow.configure(bg="wheat2")
 
     cardCanvas_width = (window_width * 0.85) // 1
     cardCanvas_height = (window_height * 0.85) // 1
-    cardCanvas = tkinter.Canvas(rootWindow, width=cardCanvas_width, height=cardCanvas_height)
+    cardCanvas = tkinter.Canvas(rootWindow, bd=0, highlightthickness=0, width=cardCanvas_width, height=cardCanvas_height, bg="wheat2")
 
     cardCanvas.grid()
 
-    controlFrame = tkinter.Frame(rootWindow, bd=0, highlightthickness=0, pady=9)
+    controlFrame = tkinter.Frame(rootWindow, bd=0, highlightthickness=0, pady=9, bg="wheat2")
 
     controlFrame.grid()
 
     tkinter.Button(
-        controlFrame, text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="goldenrod3",
-        command=_save_command(rootWindow, controlFrame), relief="flat"
+        controlFrame, text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="dim gray",
+        command=_save_command(rootWindow, controlFrame), relief="flat", bg="wheat2", activebackground="wheat2"
     ).pack()
 
     for row_idx in range(4):

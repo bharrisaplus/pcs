@@ -102,7 +102,7 @@ def get_card_color(card_index, four_color=False):
     return color_option
 
 
-def _capture_tkinter(capture_window, offset_area, capture_prefix='shuffled'):
+def _capture_tkinter(capture_window, capture_prefix):
     '''Save an image of the display cards
 
     Grab the current screen using pillow and crop the area outside of the gui using the tkinter
@@ -110,18 +110,16 @@ def _capture_tkinter(capture_window, offset_area, capture_prefix='shuffled'):
 
     Args:
         capture_window (tkinter.Tk): The current tkinter instance to pull geometry from
-        offset_area (tkinter.Frame): The widget to ignore when grabbing screenshot
-        capture_prefix (str): What to name the saved file (default: 'shuffled')
+        capture_prefix (str): What to name the saved file
     '''
 
-    capture_window.update_idletasks()
+    capture_filename = "{}.decklist.png".format(capture_prefix)
+    _child = capture_window.nametowidget("control_frame")
 
     capture_area_start_x = capture_window.winfo_rootx()
     capture_area_start_y = capture_window.winfo_rooty()
-    offset_y = offset_area.winfo_height()
     capture_area_end_x = capture_area_start_x + capture_window.winfo_width()
-    capture_area_end_y = capture_area_start_y + capture_window.winfo_height() - offset_y
-    capture_filename = "{}.decklist.png".format(capture_prefix)
+    capture_area_end_y = capture_area_start_y + capture_window.winfo_height() - _child.winfo_height()
 
     # https://pillow.readthedocs.io/en/stable/reference/ImageGrab.html
     #

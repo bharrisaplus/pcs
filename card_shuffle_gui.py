@@ -1,6 +1,7 @@
 ''' Show a deck of cards '''
 
 from turtle import Turtle
+from functools import partial
 from tkinter import (
     Frame as tkFrame,
     Canvas as tkCanvas,
@@ -46,17 +47,12 @@ def hello_turtle():
     tooter.screen.mainloop()
 
 
-def _save_command(capture_window, offset_area, capture_prefix='shuffled'):
-    ''' Create wrapper method to grab screenshot and close window '''
+def _save_command(capture_window, capture_prefix='shuffled'):
+    ''' Grab screenshot and close window, invoked upon click'''
 
-    def _partial_func():
-        ''' Passed to the command= param for tkinter button widget and invoked upon click '''
-
-        capture_window.update_idletasks()
-        screen_grab(capture_window, offset_area, capture_prefix)
-        capture_window.destroy()
-
-    return _partial_func
+    capture_window.update_idletasks()
+    screen_grab(capture_window=capture_window, capture_prefix=capture_prefix)
+    capture_window.destroy()
 
 
 def display_cards(card_roll, four_color=False, capture_filename='shuffled'):
@@ -77,6 +73,7 @@ def display_cards(card_roll, four_color=False, capture_filename='shuffled'):
     Args:
         card_roll (list[tuple(str, int)]): The cards to be shown. See _constants.py@_setup_52
         four_color (bool): Whether to use one color pre suite when displaying cards (default: False)
+        capture_filename (str): Name of the image file to save (default: 'shuffled')
     '''
 
     rootWindow = Tk()
@@ -93,13 +90,15 @@ def display_cards(card_roll, four_color=False, capture_filename='shuffled'):
 
     cardFrame.grid()
 
-    controlFrame = tkFrame(rootWindow, bd=0, highlightthickness=0, pady=9)
+    controlFrame = tkFrame(
+        rootWindow, name="control_frame", bd=0, highlightthickness=0, pady=9
+    )
 
     controlFrame.grid()
 
-    tkButton(
-        controlFrame, text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="goldenrod3",
-        command=_save_command(rootWindow, controlFrame, capture_filename), relief="flat"
+    tkButton(controlFrame,
+        text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="goldenrod3", relief="flat",
+        command=partial(_save_command, capture_window=rootWindow, capture_prefix=capture_filename)
     ).pack()
 
     for row_idx in range(4):
@@ -133,14 +132,16 @@ def display_cards_canvas(card_roll, four_color=False, capture_filename='shuffled
 
     cardCanvas.grid()
 
-    controlFrame = tkFrame(rootWindow, bd=0, highlightthickness=0, pady=9, bg=tkinter_bg_color)
+    controlFrame = tkFrame(
+        rootWindow, name="control_frame", bd=0, highlightthickness=0, pady=9, bg=tkinter_bg_color
+    )
 
     controlFrame.grid()
 
     tkButton(
         controlFrame, text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="dim gray",
         relief="flat", bg=tkinter_bg_color, activebackground=tkinter_bg_color,
-        command=_save_command(rootWindow, controlFrame, capture_filename)
+        command=partial(_save_command, capture_window=rootWindow, capture_prefix=capture_filename)
     ).pack()
 
     for row_idx in range(4):

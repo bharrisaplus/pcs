@@ -134,7 +134,7 @@ class PCSCheck(unittest.TestCase):
     @patch('card_shuffle.display_decklist_in_console')
     @patch('card_shuffle.display_decklist_in_gui')
     def test_gogogo_simple(self, mock_gui, mock_console, mock_cut, mock_shuffle, mock_setup, mock_example):
-        # make something like argparse.ArgumentParser.parse_args()
+        # something like the populated namespace from argparse.ArgumentParser.parse_args()
         mock_args = json.loads(self.args_json, object_hook=lambda dct: SimpleNamespace(**dct))
 
         mock_setup.return_value = (list(range(52)), list(range(52)))
@@ -154,6 +154,22 @@ class PCSCheck(unittest.TestCase):
         self.assertFalse(mock_cut.called, "When no options are passed, ignore cut")
         self.assertTrue(mock_console.called, "When no options are passed, write list to stdout ")
         self.assertFalse(mock_gui.called, "When no options are passed, ignore gui ")
+
+    @unittest.skip('not yet')
+    def test_gogogo_write(self):
+        self.assertEqual(0, 0)
+
+    @unittest.skip('not yet')
+    def test_gogogo_gui(self):
+        self.assertEqual(0, 0)
+
+    @unittest.skip('not yet')
+    def test_gogogo_cut(self):
+        self.assertEqual(0, 0)
+
+    @unittest.skip('not yet')
+    def test_gogogo_cut_arbitrary(self):
+        self.assertEqual(0, 0)
 
 
 class MetricCheck(unittest.TestCase):

@@ -12,7 +12,7 @@ from _utils import (
 )
 
 # https://www.tcl-lang.org/man/tcl8.6/TkCmd/colors.htm
-tkinter_card_colors = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange2']
+tkinter_card_colors = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange3']
 
 def hello_turtle():
     ''' Print card symbols to screen '''

@@ -112,6 +112,25 @@ def display_cards(card_roll, four_color=False, capture_filename='shuffled'):
 
 
 def display_cards_canvas(card_roll, four_color=False, capture_filename='shuffled'):
+    _last_tilt_event = None
+    _last_untilt_event = None
+    card_tag = 'card'
+
+    def _handle_enterleave_tilt(_event):
+        nonlocal _last_tilt_event, _last_untilt_event
+
+        _item_id = _event.widget.find_withtag("current")
+        _tilt_queue = _last_tilt_event if _event.type == tkEvent.Enter else _last_untilt_event
+        angle = 2.8125 if _event.type == tkEvent.Enter else 0
+
+        if _tilt_queue:
+            _event.widget.after_cancel(_tilt_queue)
+
+        _tilt_queue = _event.widget.after_idle(
+            lambda: _event.widget.itemconfig(_item_id, angle=angle) if _item_id else None
+        )
+
+
     rootWindow = Tk()
     window_height = int((rootWindow.winfo_screenheight() * 0.63) // 1)
     window_width = int((rootWindow.winfo_screenwidth() * 0.63) // 1)
@@ -144,14 +163,17 @@ def display_cards_canvas(card_roll, four_color=False, capture_filename='shuffled
         command=partial(_save_command, capture_window=rootWindow, capture_prefix=capture_filename)
     ).pack()
 
+    cardCanvas.tag_bind(card_tag, "<Enter>", lambda _evt: _handle_enterleave_tilt(_evt))
+    cardCanvas.tag_bind(card_tag, "<Leave>", lambda _evt: _handle_enterleave_tilt(_evt))
+
     for row_idx in range(4):
         for column_idx, card_info in enumerate(card_roll[row_idx*13:(row_idx+1)*13]):
             pos_x = column_idx * (cardCanvas_width // 13)
             pos_y = row_idx * (cardCanvas_height // 4)
 
             cardCanvas.create_text(
-                pos_x, pos_y,text=get_card_symbol(card_info), font=cardFontStyle,
-                fill=tkinter_card_colors[get_card_color(card_info, four_color)], anchor="nw"
+                pos_x, pos_y, anchor="nw", text=get_card_symbol(card_info), font=cardFontStyle,
+                fill=tkinter_card_colors[get_card_color(card_info, four_color)], tags=card_tag
             )
 
     rootWindow.mainloop()

@@ -13,6 +13,7 @@ from _utils import (
 
 # https://www.tcl-lang.org/man/tcl8.6/TkCmd/colors.htm
 tkinter_card_colors = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange3']
+tkinter_bg_color = "Ivory2"
 
 def hello_turtle():
     ''' Print card symbols to screen '''
@@ -114,27 +115,32 @@ def display_cards_canvas(card_roll, four_color=False):
     rootWindow.title("pcs: pseudo card shuffle")
     rootWindow.geometry("{}x{}".format(window_width, window_height))
     rootWindow.grid_columnconfigure(0, weight=1)
-    rootWindow.configure(bg="wheat2")
+    rootWindow.configure(bg=tkinter_bg_color)
 
     cardCanvas_width = (window_width * 0.85) // 1
     cardCanvas_height = (window_height * 0.85) // 1
-    cardCanvas = tkinter.Canvas(rootWindow, bd=0, highlightthickness=0, width=cardCanvas_width, height=cardCanvas_height, bg="wheat2")
+    cardCanvas = tkinter.Canvas(
+        rootWindow, bd=0, highlightthickness=0, bg=tkinter_bg_color,
+        width=cardCanvas_width, height=cardCanvas_height
+    )
 
     cardCanvas.grid()
 
-    controlFrame = tkinter.Frame(rootWindow, bd=0, highlightthickness=0, pady=9, bg="wheat2")
+    controlFrame = tkinter.Frame(rootWindow, bd=0, highlightthickness=0, pady=9, bg=tkinter_bg_color)
 
     controlFrame.grid()
 
     tkinter.Button(
         controlFrame, text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="dim gray",
-        command=_save_command(rootWindow, controlFrame), relief="flat", bg="wheat2", activebackground="wheat2"
+        relief="flat", bg=tkinter_bg_color, activebackground=tkinter_bg_color,
+        command=_save_command(rootWindow, controlFrame)
     ).pack()
 
     for row_idx in range(4):
         for column_idx, card_info in enumerate(card_roll[row_idx*13:(row_idx+1)*13]):
             pos_x = column_idx * (cardCanvas_width // 13)
             pos_y = row_idx * (cardCanvas_height // 4)
+
             cardCanvas.create_text(
                 pos_x, pos_y,text=get_card_symbol(card_info), font=cardFontStyle,
                 fill=tkinter_card_colors[get_card_color(card_info, four_color)], anchor="nw"

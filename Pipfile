@@ -17,6 +17,7 @@ python_version = "3.12"
 
 [scripts]
 specs = "python -m unittest specs.py"
+specs_coverage = "coverage run -m unittest specs.py"
 randomness = "python -m unittest randomness_single.py"
 randomness_multi = "python -m unittest randomness_multi.py"
 cli_help = "python card_shuffle.py -h"

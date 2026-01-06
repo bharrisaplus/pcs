@@ -23,7 +23,7 @@ def display_example():
 
     example_deck, _ = _setup_52()
 
-    display_decklist_in_gui(example_deck, four_color=True)
+    display_decklist_in_gui(example_deck, four_color=True, capture_filename='ndo')
 
 
 def shuffle_cards(card_pool, position_pool):

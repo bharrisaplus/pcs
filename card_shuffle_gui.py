@@ -52,7 +52,7 @@ def _save_command(capture_window, offset_area, capture_prefix='shuffled'):
     return _partial_func
 
 
-def display_cards(card_roll, four_color=False):
+def display_cards(card_roll, four_color=False, capture_filename='shuffled'):
     '''Show the cards using utf-8 symbols
 
     Create a layout in tkinter with the following layout
@@ -92,7 +92,7 @@ def display_cards(card_roll, four_color=False):
 
     tkinter.Button(
         controlFrame, text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="goldenrod3",
-        command=_save_command(rootWindow, controlFrame), relief="flat"
+        command=_save_command(rootWindow, controlFrame, capture_filename), relief="flat"
     ).pack()
 
     for row_idx in range(4):
@@ -105,7 +105,7 @@ def display_cards(card_roll, four_color=False):
     rootWindow.mainloop()
 
 
-def display_cards_canvas(card_roll, four_color=False):
+def display_cards_canvas(card_roll, four_color=False, capture_filename='shuffled'):
     rootWindow = tkinter.Tk()
     window_height = int((rootWindow.winfo_screenheight() * 0.63) // 1)
     window_width = int((rootWindow.winfo_screenwidth() * 0.63) // 1)
@@ -133,7 +133,7 @@ def display_cards_canvas(card_roll, four_color=False):
     tkinter.Button(
         controlFrame, text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="dim gray",
         relief="flat", bg=tkinter_bg_color, activebackground=tkinter_bg_color,
-        command=_save_command(rootWindow, controlFrame)
+        command=_save_command(rootWindow, controlFrame, capture_filename)
     ).pack()
 
     for row_idx in range(4):

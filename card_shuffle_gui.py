@@ -47,7 +47,7 @@ def hello_turtle():
     tooter.screen.mainloop()
 
 
-def _save_command(capture_window, capture_prefix='shuffled'):
+def _save_command(capture_window, capture_prefix):
     ''' Grab screenshot and close window, invoked upon click'''
 
     capture_window.update_idletasks()

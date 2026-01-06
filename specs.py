@@ -1,4 +1,7 @@
 import unittest
+from unittest.mock import patch
+import json
+from types import SimpleNamespace
 
 import _utils as CardShuffleUtils
 import _stats as CardShuffleStats
@@ -7,6 +10,7 @@ import card_shuffle as CardShuffle
 class PCSCheck(unittest.TestCase):
     def setUp(self):
         self.card_order = list(range(52))
+        self.args_json = '{"write": false, "gui": false, "four_color": false, "ndo": false, "cut": false, "arbitrary": false}'
 
     def test_get_card_name(self):
         expected_1 = ["ace of spade", "ace of diamond", "ace of club", "ace of heart"]
@@ -122,6 +126,35 @@ class PCSCheck(unittest.TestCase):
         self.assertEqual(cut_spot, swear_mix.index(cut_up[0]),
             "The arbitrary cut deck should be cut somwhere in the deck"
         )
+
+    @patch('card_shuffle.display_example')
+    @patch('card_shuffle._setup_52')
+    @patch('card_shuffle.shuffle_cards')
+    @patch('card_shuffle.maybe_cut')
+    @patch('card_shuffle.display_decklist_in_console')
+    @patch('card_shuffle.display_decklist_in_gui')
+    def test_gogogo_simple(self, mock_gui, mock_console, mock_cut, mock_shuffle, mock_setup, mock_example):
+        # make something like argparse.ArgumentParser.parse_args()
+        mock_args = json.loads(self.args_json, object_hook=lambda dct: SimpleNamespace(**dct))
+
+        mock_setup.return_value = (list(range(52)), list(range(52)))
+
+        assert mock_example is CardShuffle.display_example
+        assert mock_setup is CardShuffle._setup_52
+        assert mock_shuffle is CardShuffle.shuffle_cards
+        assert mock_cut is CardShuffle.maybe_cut
+        assert mock_console is CardShuffle.display_decklist_in_console
+        assert mock_gui is CardShuffle.display_decklist_in_gui
+
+        CardShuffle._gogogo(mock_args)
+
+        self.assertFalse(mock_example.called, "When no options are passed, ignore example")
+        self.assertEqual(mock_setup.call_count, 1, "When no options are passed, get setup lists ")
+        self.assertTrue(mock_shuffle.called, "When no options are passed, shuffle cards")
+        self.assertFalse(mock_cut.called, "When no options are passed, ignore cut")
+        self.assertTrue(mock_console.called, "When no options are passed, write list to stdout ")
+        self.assertFalse(mock_gui.called, "When no options are passed, ignore gui ")
+
 
 class MetricCheck(unittest.TestCase):
     def test_jaro(self):

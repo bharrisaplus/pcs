@@ -1,7 +1,14 @@
 ''' Show a deck of cards '''
 
 from turtle import Turtle
-import tkinter
+from tkinter import (
+    Frame as tkFrame,
+    Canvas as tkCanvas,
+    Button as tkButton,
+    Label as tkLabel,
+    EventType as tkEvent,
+    Tk
+)
 
 from _constants import save_icon_utf8 as floppy_code
 
@@ -72,7 +79,7 @@ def display_cards(card_roll, four_color=False, capture_filename='shuffled'):
         four_color (bool): Whether to use one color pre suite when displaying cards (default: False)
     '''
 
-    rootWindow = tkinter.Tk()
+    rootWindow = Tk()
     window_height = int((rootWindow.winfo_screenheight() * 0.63) // 1)
     window_width = int((rootWindow.winfo_screenwidth() * 0.63) // 1)
     cardFontStyle = ('Consolas', int(window_height * 0.1325 // 1))
@@ -82,22 +89,22 @@ def display_cards(card_roll, four_color=False, capture_filename='shuffled'):
     rootWindow.geometry("{}x{}".format(window_width, window_height))
     rootWindow.grid_columnconfigure(0, weight=1)
 
-    cardFrame = tkinter.Frame(rootWindow, bd=0, highlightthickness=0)
+    cardFrame = tkFrame(rootWindow, bd=0, highlightthickness=0)
 
     cardFrame.grid()
 
-    controlFrame = tkinter.Frame(rootWindow, bd=0, highlightthickness=0, pady=9)
+    controlFrame = tkFrame(rootWindow, bd=0, highlightthickness=0, pady=9)
 
     controlFrame.grid()
 
-    tkinter.Button(
+    tkButton(
         controlFrame, text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="goldenrod3",
         command=_save_command(rootWindow, controlFrame, capture_filename), relief="flat"
     ).pack()
 
     for row_idx in range(4):
         for column_idx, card_info in enumerate(card_roll[row_idx*13:(row_idx+1)*13]):
-            tkinter.Label(
+            tkLabel(
                 cardFrame, text=get_card_symbol(card_info), font=cardFontStyle,
                 fg=tkinter_card_colors[get_card_color(card_info, four_color)]
             ).grid(column=column_idx, row=row_idx)
@@ -106,7 +113,7 @@ def display_cards(card_roll, four_color=False, capture_filename='shuffled'):
 
 
 def display_cards_canvas(card_roll, four_color=False, capture_filename='shuffled'):
-    rootWindow = tkinter.Tk()
+    rootWindow = Tk()
     window_height = int((rootWindow.winfo_screenheight() * 0.63) // 1)
     window_width = int((rootWindow.winfo_screenwidth() * 0.63) // 1)
     cardFontStyle = ('Consolas', int(window_height * 0.1325 // 1))
@@ -119,18 +126,18 @@ def display_cards_canvas(card_roll, four_color=False, capture_filename='shuffled
 
     cardCanvas_width = (window_width * 0.85) // 1
     cardCanvas_height = (window_height * 0.85) // 1
-    cardCanvas = tkinter.Canvas(
+    cardCanvas = tkCanvas(
         rootWindow, bd=0, highlightthickness=0, bg=tkinter_bg_color,
         width=cardCanvas_width, height=cardCanvas_height
     )
 
     cardCanvas.grid()
 
-    controlFrame = tkinter.Frame(rootWindow, bd=0, highlightthickness=0, pady=9, bg=tkinter_bg_color)
+    controlFrame = tkFrame(rootWindow, bd=0, highlightthickness=0, pady=9, bg=tkinter_bg_color)
 
     controlFrame.grid()
 
-    tkinter.Button(
+    tkButton(
         controlFrame, text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="dim gray",
         relief="flat", bg=tkinter_bg_color, activebackground=tkinter_bg_color,
         command=_save_command(rootWindow, controlFrame, capture_filename)

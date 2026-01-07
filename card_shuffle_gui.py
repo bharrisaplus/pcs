@@ -47,11 +47,27 @@ def hello_turtle():
     tooter.screen.mainloop()
 
 
+def _get_capture_coordinates(capture_window):
+    ''' Determine where to capture screen at '''
+
+    _child = capture_window.nametowidget("control_frame")
+
+    capture_area_start_x = capture_window.winfo_rootx()
+    capture_area_start_y = capture_window.winfo_rooty()
+    capture_area_end_x = capture_area_start_x + capture_window.winfo_width()
+    capture_area_end_y = capture_area_start_y + capture_window.winfo_height() - _child.winfo_height()
+
+    return (capture_area_start_x, capture_area_start_y, capture_area_end_x, capture_area_end_y)
+
+
 def _save_command(capture_window, capture_prefix):
     ''' Grab screenshot and close window, invoked upon click'''
 
     capture_window.update_idletasks()
-    screen_grab(capture_window=capture_window, capture_prefix=capture_prefix)
+
+    capture_coordinates = _get_capture_coordinates(capture_window)
+
+    screen_grab(capture_bounds=capture_coordinates, capture_prefix=capture_prefix)
     capture_window.destroy()
 
 

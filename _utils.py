@@ -102,31 +102,22 @@ def get_card_color(card_index, four_color=False):
     return color_option
 
 
-def _capture_tkinter(capture_window, capture_prefix):
+def _capture_tkinter(capture_bounds, capture_prefix):
     '''Save an image of the display cards
 
-    Grab the current screen using pillow and crop the area outside of the gui using the tkinter
-        window + widget geometry
+    Grab the current screen using pillow and crop the area outside of the gui
 
     Args:
-        capture_window (tkinter.Tk): The current tkinter instance to pull geometry from
+        capture_bounds (tuple[int,int,int,int]): The bounding box of the crop to make
         capture_prefix (str): What to name the saved file
     '''
 
     capture_filename = "{}.decklist.png".format(capture_prefix)
-    _child = capture_window.nametowidget("control_frame")
-
-    capture_area_start_x = capture_window.winfo_rootx()
-    capture_area_start_y = capture_window.winfo_rooty()
-    capture_area_end_x = capture_area_start_x + capture_window.winfo_width()
-    capture_area_end_y = capture_area_start_y + capture_window.winfo_height() - _child.winfo_height()
 
     # https://pillow.readthedocs.io/en/stable/reference/ImageGrab.html
     #
-    # bbox determines what region of screen to save
-    #
     capture_image = ImageGrab.grab(
-        bbox=(capture_area_start_x, capture_area_start_y, capture_area_end_x, capture_area_end_y)
+        bbox=(capture_bounds[0], capture_bounds[1], capture_bounds[2], capture_bounds[3])
     )
 
     capture_image.save(capture_filename)

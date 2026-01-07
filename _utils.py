@@ -14,7 +14,7 @@ def _setup_52() -> tuple[list[int], list[int]]:
     '''Get a deck of cards and positions to fill for the new deck
 
     This facilitates the default of taking 52 cards then shuffling them into a new arrangement
-    
+
     Previously, the deck of cards was modeled as list of tuples to represent suite and card value
         but now is a list of integers which represent the cards original position in new deck order:
 
@@ -24,6 +24,7 @@ def _setup_52() -> tuple[list[int], list[int]]:
     '''
 
     return list(range(52)), list(range(52))
+
 
 def get_card_title(card_index: int) -> str:
     '''The full name of a card
@@ -52,11 +53,11 @@ def get_card_symbol(card_index: int) -> chr:
     return chr(int(card_utf8_codes[card_index], 16))
 
 
-def get_card_color(card_index: int, four_color: bool=False) -> int:
-    '''color for suite
+def get_card_color(card_index: int, four_color: bool = False) -> int:
+    '''Determine what color for each card suite
 
-    With the options for card colors as a list like below, pick which option the card suit should use,
-        this allows for different color names to be used for different targets:
+    With the options for card colors as a list like below, pick which option the card suit
+        should use so that different color names can be used for different targets:
 
         ['red', 'blue', 'green', 'purple]
     '''

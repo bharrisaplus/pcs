@@ -14,7 +14,7 @@ from _utils import (
 from card_shuffle_gui import display_cards as display_decklist_in_gui
 
 # https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
-console_colors: list[str] = ['\033[36m', '\033[31m', '\033[32m', '\033[33m' ]
+console_colors: list[str] = ['\033[36m', '\033[31m', '\033[32m', '\033[33m']
 console_color_reset: str = '\033[0m'
 
 
@@ -52,7 +52,7 @@ def shuffle_cards(card_pool: list[int], position_pool: list[int]) -> list[int]:
     return random_deck_order
 
 
-def maybe_cut(card_block: list[int], is_arbitrary: bool=False) -> tuple[list[int], int | None]:
+def maybe_cut(card_block: list[int], is_arbitrary: bool = False) -> tuple[list[int], int | None]:
     '''Rearrange the deck at a determined point
 
     From the determined point take every card before the point and move it to the back of the list.
@@ -88,7 +88,7 @@ def maybe_cut(card_block: list[int], is_arbitrary: bool=False) -> tuple[list[int
     return cutting_block or card_block, cut_position
 
 
-def display_decklist_in_console(card_roll: list[int], to_file: bool=False, four_color: bool=False) -> None:
+def display_decklist_in_console(card_roll: list[int], to_file: bool = False, four_color: bool = False) -> None:
     '''Create a plain-text version of the card order for viewing in the terminal.
 
     Taking the cards given create a formatted string with each card on it's own line that
@@ -119,6 +119,7 @@ def display_decklist_in_console(card_roll: list[int], to_file: bool=False, four_
 
         print("\nDecklist written to 'shuffled.decklist.txt'.")
 
+
 def _gogogo(cardShuffleArgs: argparse.Namespace) -> None:
     if cardShuffleArgs.ndo:
         display_example()
@@ -139,6 +140,7 @@ def _gogogo(cardShuffleArgs: argparse.Namespace) -> None:
 
         if cardShuffleArgs.gui:
             display_decklist_in_gui(final_deck, four_color=cardShuffleArgs.four_color)
+
 
 if __name__ == "__main__":
     # Grab arguments

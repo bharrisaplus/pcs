@@ -6,7 +6,6 @@ from tkinter import (
     Frame as tkFrame,
     Canvas as tkCanvas,
     Button as tkButton,
-    Label as tkLabel,
     EventType as tkEvent,
     Tk
 )
@@ -25,6 +24,7 @@ from _utils import (
 # https://www.tcl-lang.org/man/tcl8.6/TkCmd/colors.htm
 tkinter_card_colors = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange3']
 tkinter_bg_color = "Ivory2"
+
 
 def hello_turtle() -> None:
     ''' Print card symbols to screen '''
@@ -57,8 +57,9 @@ def _get_capture_coordinates(capture_window: Tk) -> boundingBox:
 
     capture_area_start_x = capture_window.winfo_rootx()
     capture_area_start_y = capture_window.winfo_rooty()
+    offset_y = _child.winfo_height()
     capture_area_end_x = capture_area_start_x + capture_window.winfo_width()
-    capture_area_end_y = capture_area_start_y + capture_window.winfo_height() - _child.winfo_height()
+    capture_area_end_y = capture_area_start_y + capture_window.winfo_height() - offset_y
 
     return (capture_area_start_x, capture_area_start_y, capture_area_end_x, capture_area_end_y)
 
@@ -74,7 +75,7 @@ def _save_command(capture_window: Tk, capture_prefix: str) -> None:
     capture_window.destroy()
 
 
-def display_cards(card_roll: list[int], four_color: bool=False, capture_filename: str='shuffled') -> None:
+def display_cards(card_roll: list[int], four_color: bool = False, capture_filename: str = 'shuffled') -> None:
     '''Show the cards using utf-8 symbols
 
     Create a layout in tkinter with the following layout
@@ -110,7 +111,6 @@ def display_cards(card_roll: list[int], four_color: bool=False, capture_filename
             lambda: _event.widget.itemconfig(_item_id, angle=angle) if _item_id else None
         )
 
-
     rootWindow = Tk()
     window_height = int((rootWindow.winfo_screenheight() * 0.63) // 1)
     window_width = int((rootWindow.winfo_screenwidth() * 0.63) // 1)
@@ -143,8 +143,8 @@ def display_cards(card_roll: list[int], four_color: bool=False, capture_filename
         command=partial(_save_command, capture_window=rootWindow, capture_prefix=capture_filename)
     ).pack()
 
-    cardCanvas.tag_bind(card_tag, "<Enter>", lambda _evt: _handle_enterleave_tilt(_evt))
-    cardCanvas.tag_bind(card_tag, "<Leave>", lambda _evt: _handle_enterleave_tilt(_evt))
+    cardCanvas.tag_bind(card_tag, "<Enter>", _handle_enterleave_tilt)
+    cardCanvas.tag_bind(card_tag, "<Leave>", _handle_enterleave_tilt)
 
     for row_idx in range(4):
         for column_idx, card_info in enumerate(card_roll[row_idx*13:(row_idx+1)*13]):

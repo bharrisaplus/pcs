@@ -3,13 +3,14 @@
 from PIL import ImageGrab
 
 from _constants import (
+    boundingBoxType as boundingBox,
     card_suites,
     card_names,
     card_utf8_codes
 )
 
 
-def _setup_52():
+def _setup_52() -> tuple[list[int], list[int]]:
     '''Get a deck of cards and positions to fill for the new deck
 
     This facilitates the default of taking 52 cards then shuffling them into a new arrangement
@@ -24,16 +25,10 @@ def _setup_52():
 
     return list(range(52)), list(range(52))
 
-def get_card_title(card_index):
+def get_card_title(card_index: int) -> str:
     '''The full name of a card
 
-    The card suite and number in english
-
-    Args:
-        card_index (int): The position of the card in ndo
-
-    Returns:
-        str: Like "jack of club"
+    The card suite and number in english: "jack of club"
     '''
 
     if card_index < 13:
@@ -51,33 +46,19 @@ def get_card_title(card_index):
     return "{} of {}".format(name_lookup[name_idx], card_suites[suite_idx])
 
 
-def get_card_symbol(card_index):
-    ''' The glyph/pictograph/icon of the card
-
-    Args:
-        card_index (int): The position of the card in ndo
-
-    Returns:
-        chr: The character for the glyph
-    '''
+def get_card_symbol(card_index: int) -> chr:
+    ''' The glyph/pictograph/icon of the card '''
 
     return chr(int(card_utf8_codes[card_index], 16))
 
 
-def get_card_color(card_index, four_color=False):
+def get_card_color(card_index: int, four_color: bool=False) -> int:
     '''color for suite
 
     With the options for card colors as a list like below, pick which option the card suit should use,
         this allows for different color names to be used for different targets:
 
         ['red', 'blue', 'green', 'purple]
-
-    Args:
-        card_index (int): The position of the card in ndo
-        four_color (bool): Whether to use one color per suite (default: False)
-
-    Returns:
-        int: The index of the color to use
     '''
 
     color_option = None
@@ -102,14 +83,10 @@ def get_card_color(card_index, four_color=False):
     return color_option
 
 
-def _capture_tkinter(capture_bounds, capture_prefix):
+def _capture_tkinter(capture_bounds: boundingBox, capture_prefix: str) -> None:
     '''Save an image of the display cards
 
     Grab the current screen using pillow and crop the area outside of the gui
-
-    Args:
-        capture_bounds (tuple[int,int,int,int]): The bounding box of the crop to make
-        capture_prefix (str): What to name the saved file
     '''
 
     capture_filename = "{}.decklist.png".format(capture_prefix)

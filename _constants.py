@@ -13,3 +13,6 @@ card_utf8_codes: list[str] = [ '1F0A1', '1F0A2', '1F0A3', '1F0A4', '1F0A5', '1F0
 
 # 💾
 save_icon_utf8: list[str] = '1F4BE'
+
+
+type boundingBoxType = tuple[int,int,int,int]

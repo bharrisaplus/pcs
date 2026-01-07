@@ -92,42 +92,6 @@ def display_cards(card_roll, four_color=False, capture_filename='shuffled'):
         capture_filename (str): Name of the image file to save (default: 'shuffled')
     '''
 
-    rootWindow = Tk()
-    window_height = int((rootWindow.winfo_screenheight() * 0.63) // 1)
-    window_width = int((rootWindow.winfo_screenwidth() * 0.63) // 1)
-    cardFontStyle = ('Consolas', int(window_height * 0.1325 // 1))
-    controlFontStyle = ('Consolas', int(window_height * 0.033 // 1))
-
-    rootWindow.title("pcs: pseudo card shuffle")
-    rootWindow.geometry("{}x{}".format(window_width, window_height))
-    rootWindow.grid_columnconfigure(0, weight=1)
-
-    cardFrame = tkFrame(rootWindow, bd=0, highlightthickness=0)
-
-    cardFrame.grid()
-
-    controlFrame = tkFrame(
-        rootWindow, name="control_frame", bd=0, highlightthickness=0, pady=9
-    )
-
-    controlFrame.grid()
-
-    tkButton(controlFrame,
-        text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="goldenrod3", relief="flat",
-        command=partial(_save_command, capture_window=rootWindow, capture_prefix=capture_filename)
-    ).pack()
-
-    for row_idx in range(4):
-        for column_idx, card_info in enumerate(card_roll[row_idx*13:(row_idx+1)*13]):
-            tkLabel(
-                cardFrame, text=get_card_symbol(card_info), font=cardFontStyle,
-                fg=tkinter_card_colors[get_card_color(card_info, four_color)]
-            ).grid(column=column_idx, row=row_idx)
-
-    rootWindow.mainloop()
-
-
-def display_cards_canvas(card_roll, four_color=False, capture_filename='shuffled'):
     _last_tilt_event = None
     _last_untilt_event = None
     card_tag = 'card'

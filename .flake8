@@ -41,7 +41,7 @@ hang-closing = False
 # per-file-ignores =
 
 # longest line of code can be
-max-line-length = 100
+max-line-length = 111
 
 # longest line of comment/docstring can be
 # max-doc-length

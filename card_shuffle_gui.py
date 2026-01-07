@@ -1,7 +1,8 @@
 ''' Show a deck of cards '''
 
 from turtle import Turtle
-from functools import partial
+from functools import partial as fpartial
+from typing import Callable
 from tkinter import (
     Frame as tkFrame,
     Canvas as tkCanvas,
@@ -9,6 +10,7 @@ from tkinter import (
     EventType as tkEvent,
     Tk
 )
+
 
 from _constants import (
     save_icon_utf8 as floppy_code,
@@ -75,6 +77,31 @@ def _save_command(capture_window: Tk, capture_prefix: str) -> None:
     capture_window.destroy()
 
 
+def _handle_enterleave_tilt() -> Callable[[tkEvent], None]:
+    ''' HOF for Scoped mouse events '''
+
+    _last_tilt_event = None
+    _last_untilt_event = None
+
+    def _handle_enterleave_tilt_inner(_event: tkEvent) -> None:
+        ''' Create effect where cards move as mouse hovers over '''
+
+        nonlocal _last_tilt_event, _last_untilt_event
+
+        _item_id = _event.widget.find_withtag("current")
+        _tilt_queue = _last_tilt_event if _event.type == tkEvent.Enter else _last_untilt_event
+        angle = 2.8125 if _event.type == tkEvent.Enter else 0
+
+        if _tilt_queue:
+            _event.widget.after_cancel(_tilt_queue)
+
+        _tilt_queue = _event.widget.after_idle(
+            lambda: _event.widget.itemconfig(_item_id, angle=angle) if _item_id else None
+        )
+
+    return _handle_enterleave_tilt_inner
+
+
 def display_cards(card_roll: list[int], four_color: bool = False, capture_filename: str = 'shuffled') -> None:
     '''Show the cards using utf-8 symbols
 
@@ -91,26 +118,6 @@ def display_cards(card_roll: list[int], four_color: bool = False, capture_filena
         When clicked, the saveButton will create an image file of the rootWindow and cardFrame
     '''
 
-    _last_tilt_event = None
-    _last_untilt_event = None
-    card_tag = 'card'
-
-    def _handle_enterleave_tilt(_event: tkEvent):
-        ''' Create effect where cards move as mouse hovers over '''
-
-        nonlocal _last_tilt_event, _last_untilt_event
-
-        _item_id = _event.widget.find_withtag("current")
-        _tilt_queue = _last_tilt_event if _event.type == tkEvent.Enter else _last_untilt_event
-        angle = 2.8125 if _event.type == tkEvent.Enter else 0
-
-        if _tilt_queue:
-            _event.widget.after_cancel(_tilt_queue)
-
-        _tilt_queue = _event.widget.after_idle(
-            lambda: _event.widget.itemconfig(_item_id, angle=angle) if _item_id else None
-        )
-
     rootWindow = Tk()
     window_height = int((rootWindow.winfo_screenheight() * 0.63) // 1)
     window_width = int((rootWindow.winfo_screenwidth() * 0.63) // 1)
@@ -122,6 +129,7 @@ def display_cards(card_roll: list[int], four_color: bool = False, capture_filena
     rootWindow.grid_columnconfigure(0, weight=1)
     rootWindow.configure(bg=tkinter_bg_color)
 
+    card_tag = 'card'
     cardCanvas_width = (window_width * 0.85) // 1
     cardCanvas_height = (window_height * 0.85) // 1
     cardCanvas = tkCanvas(
@@ -140,11 +148,11 @@ def display_cards(card_roll: list[int], four_color: bool = False, capture_filena
     tkButton(
         controlFrame, text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="dim gray",
         relief="flat", bg=tkinter_bg_color, activebackground=tkinter_bg_color,
-        command=partial(_save_command, capture_window=rootWindow, capture_prefix=capture_filename)
+        command=fpartial(_save_command, capture_window=rootWindow, capture_prefix=capture_filename)
     ).pack()
 
-    cardCanvas.tag_bind(card_tag, "<Enter>", _handle_enterleave_tilt)
-    cardCanvas.tag_bind(card_tag, "<Leave>", _handle_enterleave_tilt)
+    cardCanvas.tag_bind(card_tag, "<Enter>", _handle_enterleave_tilt())
+    cardCanvas.tag_bind(card_tag, "<Leave>", _handle_enterleave_tilt())
 
     for row_idx in range(4):
         for column_idx, card_info in enumerate(card_roll[row_idx*13:(row_idx+1)*13]):

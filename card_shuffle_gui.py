@@ -11,7 +11,10 @@ from tkinter import (
     Tk
 )
 
-from _constants import save_icon_utf8 as floppy_code
+from _constants import (
+    save_icon_utf8 as floppy_code,
+    boundingBoxType as boundingBox,
+)
 
 from _utils import (
     _capture_tkinter as screen_grab,
@@ -23,7 +26,7 @@ from _utils import (
 tkinter_card_colors = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange3']
 tkinter_bg_color = "Ivory2"
 
-def hello_turtle():
+def hello_turtle() -> None:
     ''' Print card symbols to screen '''
 
     s1 = get_card_symbol(0)
@@ -47,7 +50,7 @@ def hello_turtle():
     tooter.screen.mainloop()
 
 
-def _get_capture_coordinates(capture_window):
+def _get_capture_coordinates(capture_window: Tk) -> boundingBox:
     ''' Determine where to capture screen at. Helper for card_shuffle_gui.py@_save_command '''
 
     _child = capture_window.nametowidget("control_frame")
@@ -60,7 +63,7 @@ def _get_capture_coordinates(capture_window):
     return (capture_area_start_x, capture_area_start_y, capture_area_end_x, capture_area_end_y)
 
 
-def _save_command(capture_window, capture_prefix):
+def _save_command(capture_window: Tk, capture_prefix: str) -> None:
     ''' Click handler to grab screenshot then close window '''
 
     capture_window.update_idletasks()
@@ -71,7 +74,7 @@ def _save_command(capture_window, capture_prefix):
     capture_window.destroy()
 
 
-def display_cards(card_roll, four_color=False, capture_filename='shuffled'):
+def display_cards(card_roll: list[int], four_color: bool=False, capture_filename: str='shuffled') -> None:
     '''Show the cards using utf-8 symbols
 
     Create a layout in tkinter with the following layout
@@ -84,24 +87,16 @@ def display_cards(card_roll, four_color=False, capture_filename='shuffled'):
             controlFrame:
                 [{saveButton}]
 
-        When clicked, the saveButton will create an image file of the rootWindow and cardFrame only.
-
-    Args:
-        card_roll (list[int]): The cards to be shown. See _utils.py@_setup_52
-        four_color (bool): Whether to use one color pre suite when displaying cards (default: False)
-        capture_filename (str): Name of the image file to save (default: 'shuffled')
+        When clicked, the saveButton will create an image file of the rootWindow and cardFrame
     '''
 
     _last_tilt_event = None
     _last_untilt_event = None
     card_tag = 'card'
 
-    def _handle_enterleave_tilt(_event):
-        '''Create effect where cards move as mouse hovers over
+    def _handle_enterleave_tilt(_event: tkEvent):
+        ''' Create effect where cards move as mouse hovers over '''
 
-        Args:
-            _event (tkinter.Event): The dispatched event
-        '''
         nonlocal _last_tilt_event, _last_untilt_event
 
         _item_id = _event.widget.find_withtag("current")

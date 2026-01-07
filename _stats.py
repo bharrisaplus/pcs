@@ -9,11 +9,11 @@ def get_jaro_match_between(mixed_order, known_order):
             ⌊ max(a, b) * 0.5 ⌋ - 1
 
     Args:
-        mixed_order (list[str]): The randomized items
-        known_order (list[str]): The sorted items
+        mixed_order (list[Any]): The randomized items
+        known_order (list[Any]): The sorted items
 
     Returns:
-        tuple(list[str], list[str]):
+        tuple[list[Any], list[Any]]:
     '''
 
     tolerance = ( max(len(mixed_order), len(known_order)) // 2 ) - 1
@@ -41,8 +41,8 @@ def count_jaro_transposition_for(mixed_order, known_order):
     After finding the matched characters, compare their current positions between the two lists
 
     Args:
-        mixed_order (list[str]): The randomized items
-        known_order (list[str]): The sorted items
+        mixed_order (list[Any]): The randomized items
+        known_order (list[Any]): The sorted items
 
     Returns:
         float:
@@ -64,11 +64,11 @@ def get_jaro_edit_distance_from(mixed_order, known_order):
         original positions.
 
     Args:
-        mixed_order (list[str]): The randomized items
-        known_order (list[str]): The sorted items
+        mixed_order (list[Any]): The randomized items
+        known_order (list[Any]): The sorted items
 
     Returns:
-        tuple(float, tuple(list[str], list[str]), int):
+        tuple[float, tuple[list[Any], list[Any]], int]:
     '''
 
     mixed_match, known_match = get_jaro_match_between(mixed_order, known_order)
@@ -92,11 +92,11 @@ def count_peapods_from(mixed_order, known_order):
             * Green is random
 
     Args:
-        mixed_order (list[str]): The randomized items
-        known_order (list[str]): The sorted items
+        mixed_order (list[Any]): The randomized items
+        known_order (list[Any]): The sorted items
 
     Returns:
-        tuple(int, int):
+        tuple[int, int]:
     '''
 
     item_count = len(mixed_order)

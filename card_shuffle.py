@@ -29,15 +29,15 @@ def display_example():
 def shuffle_cards(card_pool, position_pool):
     '''Randomize the order of given cards and place at random in a new deck
 
-    Having a bank of both cards and positions, pick a random card and a random position from their
-        respective banks to create a new order.
+    Having a bank of both cards and positions, for each position pick a random card and
+        a random position from their respective banks to create a new order.
 
     Args:
         card_pool (list[int]): The cards to randomize. See _utils.py@_setup_52
         position_pool (list[int]): The potential numbered spots cards can be placed in
 
     Returns:
-        list[tuple(str, int)]: cards placed in a pseudo-random order
+        list[int]: cards placed in a pseudo-random order
     '''
 
     position_count = len(position_pool)

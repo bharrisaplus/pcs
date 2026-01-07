@@ -48,7 +48,7 @@ def hello_turtle():
 
 
 def _get_capture_coordinates(capture_window):
-    ''' Determine where to capture screen at '''
+    ''' Determine where to capture screen at. Helper for card_shuffle_gui.py@_save_command '''
 
     _child = capture_window.nametowidget("control_frame")
 
@@ -61,7 +61,7 @@ def _get_capture_coordinates(capture_window):
 
 
 def _save_command(capture_window, capture_prefix):
-    ''' Grab screenshot and close window, invoked upon click'''
+    ''' Click handler to grab screenshot then close window '''
 
     capture_window.update_idletasks()
 
@@ -87,7 +87,7 @@ def display_cards(card_roll, four_color=False, capture_filename='shuffled'):
         When clicked, the saveButton will create an image file of the rootWindow and cardFrame only.
 
     Args:
-        card_roll (list[tuple(str, int)]): The cards to be shown. See _constants.py@_setup_52
+        card_roll (list[int]): The cards to be shown. See _utils.py@_setup_52
         four_color (bool): Whether to use one color pre suite when displaying cards (default: False)
         capture_filename (str): Name of the image file to save (default: 'shuffled')
     '''

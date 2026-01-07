@@ -24,8 +24,8 @@ from _utils import (
 )
 
 # https://www.tcl-lang.org/man/tcl8.6/TkCmd/colors.htm
-tkinter_card_colors = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange3']
-tkinter_bg_color = "Ivory2"
+tkinter_card_colors: list[str] = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange3']
+tkinter_bg_colors: list[str] = ['ivory2', 'white', 'AntiqueWhite2', 'bisque2', 'cornsilk2', 'honeydew2', 'ivory3', 'lavender blush', 'LightYellow2']
 
 
 def hello_turtle() -> None:
@@ -127,27 +127,27 @@ def display_cards(card_roll: list[int], four_color: bool = False, capture_filena
     rootWindow.title("pcs: pseudo card shuffle")
     rootWindow.geometry("{}x{}".format(window_width, window_height))
     rootWindow.grid_columnconfigure(0, weight=1)
-    rootWindow.configure(bg=tkinter_bg_color)
+    rootWindow.configure(bg=tkinter_bg_colors[0])
 
     card_tag = 'card'
     cardCanvas_width = (window_width * 0.85) // 1
     cardCanvas_height = (window_height * 0.85) // 1
     cardCanvas = tkCanvas(
-        rootWindow, bd=0, highlightthickness=0, bg=tkinter_bg_color,
+        rootWindow, bd=0, highlightthickness=0, bg=tkinter_bg_colors[0],
         width=cardCanvas_width, height=cardCanvas_height
     )
 
     cardCanvas.grid()
 
     controlFrame = tkFrame(
-        rootWindow, name="control_frame", bd=0, highlightthickness=0, pady=9, bg=tkinter_bg_color
+        rootWindow, name="control_frame", bd=0, highlightthickness=0, pady=9, bg=tkinter_bg_colors[0]
     )
 
     controlFrame.grid()
 
     tkButton(
         controlFrame, text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="dim gray",
-        relief="flat", bg=tkinter_bg_color, activebackground=tkinter_bg_color,
+        relief="flat", bg=tkinter_bg_colors[0], activebackground=tkinter_bg_colors[0],
         command=fpartial(_save_command, capture_window=rootWindow, capture_prefix=capture_filename)
     ).pack()
 

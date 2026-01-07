@@ -26,7 +26,7 @@ from _utils import (
 
 # https://www.tcl-lang.org/man/tcl8.6/TkCmd/colors.htm
 tkinter_card_colors: list[str] = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange3']
-tkinter_bg_colors: list[str] = ['ivory2', 'white', 'AntiqueWhite2', 'bisque2', 'cornsilk2', 'honeydew2', 'ivory3', 'lavender blush', 'LightYellow2']
+tkinter_bg_colors: list[str] = ['ivory2', 'ivory3', 'snow', 'AntiqueWhite2', 'bisque2', 'cornsilk2', 'honeydew2', 'lavender blush', 'LightYellow2']
 
 
 def hello_turtle() -> None:
@@ -51,6 +51,25 @@ def hello_turtle() -> None:
     tooter.hideturtle()
 
     tooter.screen.mainloop()
+
+
+def _handle_select_background(_event: tkEvent, _window: Tk) -> None:
+    ''' Upate the colors for various widgets based on user pick '''
+
+    _window.update_idletasks()
+
+    selected_option = _event.widget.get()
+
+    if _window.cget('bg') != selected_option:
+        _window.configure(bg=selected_option)
+
+        _canvas = _window.nametowidget("card_canvas")
+        _frame = _window.nametowidget("control_frame")
+        _button = _frame.nametowidget("save_button")
+
+        if _canvas: _canvas.configure(bg=selected_option)
+        if _frame: _frame.configure(bg=selected_option)
+        if _button: _button.configure(bg=selected_option)
 
 
 def _get_capture_coordinates(capture_window: Tk) -> boundingBox:
@@ -134,7 +153,7 @@ def display_cards(card_roll: list[int], four_color: bool = False, capture_filena
     cardCanvas_width = (window_width * 0.85) // 1
     cardCanvas_height = (window_height * 0.85) // 1
     cardCanvas = tkCanvas(
-        rootWindow, bd=0, highlightthickness=0, bg=tkinter_bg_colors[0],
+        rootWindow, name='card_canvas', bd=0, highlightthickness=0, bg=tkinter_bg_colors[0],
         width=cardCanvas_width, height=cardCanvas_height
     )
 
@@ -152,11 +171,12 @@ def display_cards(card_roll: list[int], four_color: bool = False, capture_filena
     backgroundDropdown.current(0)
 
     tkButton(
-        controlFrame, text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="dim gray",
+        controlFrame, name='save_button', text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="dim gray",
         relief="flat", bg=tkinter_bg_colors[0], activebackground=tkinter_bg_colors[0],
         command=fpartial(_save_command, capture_window=rootWindow, capture_prefix=capture_filename)
     ).pack()
 
+    backgroundDropdown.bind('<<ComboboxSelected>>', fpartial(_handle_select_background, _window=rootWindow))
     cardCanvas.tag_bind(card_tag, "<Enter>", _handle_enterleave_tilt())
     cardCanvas.tag_bind(card_tag, "<Leave>", _handle_enterleave_tilt())
 

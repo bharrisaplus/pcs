@@ -133,6 +133,11 @@ def display_cards_canvas(card_roll, four_color=False, capture_filename='shuffled
     card_tag = 'card'
 
     def _handle_enterleave_tilt(_event):
+        '''Create effect where cards move as mouse hovers over
+
+        Args:
+            _event (tkinter.Event): The dispatched event
+        '''
         nonlocal _last_tilt_event, _last_untilt_event
 
         _item_id = _event.widget.find_withtag("current")

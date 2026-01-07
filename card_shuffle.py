@@ -14,11 +14,11 @@ from _utils import (
 from card_shuffle_gui import display_cards as display_decklist_in_gui
 
 # https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
-console_colors = ['\033[36m', '\033[31m', '\033[32m', '\033[33m' ]
-console_color_reset = '\033[0m'
+console_colors: list[str] = ['\033[36m', '\033[31m', '\033[32m', '\033[33m' ]
+console_color_reset: str = '\033[0m'
 
 
-def display_example():
+def display_example() -> None:
     ''' Print cards in new deck order: (♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️:K-A) '''
 
     example_deck, _ = _setup_52()
@@ -26,18 +26,11 @@ def display_example():
     display_decklist_in_gui(example_deck, four_color=True, capture_filename='ndo')
 
 
-def shuffle_cards(card_pool, position_pool):
+def shuffle_cards(card_pool: list[int], position_pool: list[int]) -> list[int]:
     '''Randomize the order of given cards and place at random in a new deck
 
     Having a bank of both cards and positions, for each position pick a random card and
         a random position from their respective banks to create a new order.
-
-    Args:
-        card_pool (list[int]): The cards to randomize. See _utils.py@_setup_52
-        position_pool (list[int]): The potential numbered spots cards can be placed in
-
-    Returns:
-        list[int]: cards placed in a pseudo-random order
     '''
 
     position_count = len(position_pool)
@@ -59,17 +52,13 @@ def shuffle_cards(card_pool, position_pool):
     return random_deck_order
 
 
-def maybe_cut(card_block, is_arbitrary=False):
+def maybe_cut(card_block: list[int], is_arbitrary: bool=False) -> tuple[list[int], int | None]:
     '''Rearrange the deck at a determined point
 
     From the determined point take every card before the point and move it to the back of the list.
         The determined point can be picked by:
             * arbitrary: index from one of 1-3 randomly selected cards from the deck
             * peapod: index of card found next to new deck order neighbor
-
-    Args:
-        card_block (list[int]): The cards to rearrange. See _utils.py@_setup_52
-        is_arbitrary (bool): See above (default: False)
     '''
 
     previous_info = None
@@ -99,15 +88,11 @@ def maybe_cut(card_block, is_arbitrary=False):
     return cutting_block or card_block, cut_position
 
 
-def display_decklist_in_console(card_roll, to_file=False, four_color=False):
+def display_decklist_in_console(card_roll: list[int], to_file: bool=False, four_color: bool=False) -> None:
     '''Create a plain-text version of the card order for viewing in the terminal.
 
     Taking the cards given create a formatted string with each card on it's own line that
-    can, optionally, be written to a file.
-
-    Args:
-        card_roll (list[int]): The cards to be shown. See _utils.py@_setup_52
-        to_file (bool): Whether or not to create a file. (default: False)
+        can, optionally, be written to a file.
     '''
 
     console_catalog = []
@@ -134,7 +119,7 @@ def display_decklist_in_console(card_roll, to_file=False, four_color=False):
 
         print("\nDecklist written to 'shuffled.decklist.txt'.")
 
-def _gogogo(cardShuffleArgs):
+def _gogogo(cardShuffleArgs: argparse.Namespace) -> None:
     if cardShuffleArgs.ndo:
         display_example()
     else:

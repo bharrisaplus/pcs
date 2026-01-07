@@ -53,7 +53,7 @@ $ python card_shuffle.py [-f, --four-color]
 
 #### Writing to file
 ```
-$ python card_shuffle.py [-w,--write] [-f, --four-color]
+$ python card_shuffle.py [-w,--write]
 1) Three of Club
 2) Ace of Spade
 3) Two of Spade
@@ -73,7 +73,7 @@ $ python card_shuffle.py [-g,--gui]
 #### NDO Example
 A demo that shows a deck in 'new deck order' ♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️: K-A
 ```
-$ python card_shuffle.py [-d, --demo]
+$ python card_shuffle.py [-n, --ndo]
 ```
 
 ### Help display

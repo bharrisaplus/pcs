@@ -3,6 +3,7 @@
 from turtle import Turtle
 from functools import partial as fpartial
 from typing import Callable
+from tkinter.ttk import Combobox as tkCombobox
 from tkinter import (
     Frame as tkFrame,
     Canvas as tkCanvas,
@@ -144,6 +145,11 @@ def display_cards(card_roll: list[int], four_color: bool = False, capture_filena
     )
 
     controlFrame.grid()
+
+    backgroundDropdown = tkCombobox(controlFrame, values=tkinter_bg_colors, state='readonly')
+
+    backgroundDropdown.pack(side='left')
+    backgroundDropdown.current(0)
 
     tkButton(
         controlFrame, text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="dim gray",

@@ -8,14 +8,14 @@ from tkinter import (
     Frame as tkFrame,
     Canvas as tkCanvas,
     Button as tkButton,
-    EventType as tkEvent,
+    EventType as tkEventType,
+    Event as tkEvent,
     Tk
 )
 
-
 from _constants import (
     save_icon_utf8 as floppy_code,
-    boundingBoxType as boundingBox,
+    boundingBoxType as boundingBox
 )
 
 from _utils import (
@@ -109,8 +109,8 @@ def _handle_enterleave_tilt() -> Callable[[tkEvent], None]:
         nonlocal _last_tilt_event, _last_untilt_event
 
         _item_id = _event.widget.find_withtag("current")
-        _tilt_queue = _last_tilt_event if _event.type == tkEvent.Enter else _last_untilt_event
-        angle = 2.8125 if _event.type == tkEvent.Enter else 0
+        _tilt_queue = _last_tilt_event if _event.type == tkEventType.Enter else _last_untilt_event
+        angle = 2.8125 if _event.type == tkEventType.Enter else 0
 
         if _tilt_queue:
             _event.widget.after_cancel(_tilt_queue)
@@ -125,15 +125,15 @@ def _handle_enterleave_tilt() -> Callable[[tkEvent], None]:
 def display_cards(card_roll: list[int], four_color: bool = False, capture_filename: str = 'shuffled') -> None:
     '''Show the cards using utf-8 symbols
 
-    Create a layout in tkinter with the following layout
+    Create widgets in tkinter based on the layout below:
         rootWindow
-            cardFrame:
+            cardCanvas:
                 [{Cards 1 - 13}]
                 [{Cards 14 - 26}]
                 [{Cards 27 - 39}]
                 [{Cards 40 - 52}]
             controlFrame:
-                [{saveButton}]
+                [{backgroundDropdown}][{saveButton}]
 
         When clicked, the saveButton will create an image file of the rootWindow and cardFrame
     '''
@@ -152,15 +152,15 @@ def display_cards(card_roll: list[int], four_color: bool = False, capture_filena
     card_tag = 'card'
     cardCanvas_width = (window_width * 0.85) // 1
     cardCanvas_height = (window_height * 0.85) // 1
-    cardCanvas = tkCanvas(
-        rootWindow, name='card_canvas', bd=0, highlightthickness=0, bg=tkinter_bg_colors[0],
+    cardCanvas = tkCanvas(rootWindow, name='card_canvas',
+        bd=0, highlightthickness=0, bg=tkinter_bg_colors[0],
         width=cardCanvas_width, height=cardCanvas_height
     )
 
     cardCanvas.grid()
 
-    controlFrame = tkFrame(
-        rootWindow, name="control_frame", bd=0, highlightthickness=0, pady=9, bg=tkinter_bg_colors[0]
+    controlFrame = tkFrame(rootWindow, name="control_frame",
+        bd=0, highlightthickness=0, pady=9, bg=tkinter_bg_colors[0]
     )
 
     controlFrame.grid()
@@ -170,8 +170,8 @@ def display_cards(card_roll: list[int], four_color: bool = False, capture_filena
     backgroundDropdown.pack(side='left')
     backgroundDropdown.current(0)
 
-    tkButton(
-        controlFrame, name='save_button', text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="dim gray",
+    tkButton(controlFrame, name='save_button',
+        text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="dim gray",
         relief="flat", bg=tkinter_bg_colors[0], activebackground=tkinter_bg_colors[0],
         command=fpartial(_save_command, capture_window=rootWindow, capture_prefix=capture_filename)
     ).pack()
@@ -185,9 +185,9 @@ def display_cards(card_roll: list[int], four_color: bool = False, capture_filena
             pos_x = column_idx * (cardCanvas_width // 12.75)
             pos_y = row_idx * (cardCanvas_height // 3.8)
 
-            cardCanvas.create_text(
-                pos_x, pos_y, anchor="nw", text=get_card_symbol(card_info), font=cardFontStyle,
-                fill=tkinter_card_colors[get_card_color(card_info, four_color)], tags=card_tag
+            cardCanvas.create_text(pos_x, pos_y, anchor="nw", tags=card_tag,
+                text=get_card_symbol(card_info), font=cardFontStyle,
+                fill=tkinter_card_colors[get_card_color(card_info, four_color)]
             )
 
     rootWindow.mainloop()

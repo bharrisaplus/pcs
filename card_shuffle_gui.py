@@ -171,8 +171,8 @@ def display_cards(card_roll: list[int], four_color: bool = False, capture_filena
     backgroundDropdown.current(0)
 
     tkButton(controlFrame, name='save_button',
-        text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="dim gray",
-        relief="flat", bg=tkinter_bg_colors[0], activebackground=tkinter_bg_colors[0],
+        text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="dim gray", relief="flat", bd=0,
+        bg=tkinter_bg_colors[0], activebackground=tkinter_bg_colors[0], activeforeground='dim gray',
         command=fpartial(_save_command, capture_window=rootWindow, capture_prefix=capture_filename)
     ).pack()
 

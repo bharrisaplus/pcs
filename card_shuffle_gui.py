@@ -75,13 +75,13 @@ def _handle_select_background(_event: tkEvent, _window: Tk) -> None:
 def _get_capture_coordinates(capture_window: Tk) -> boundingBox:
     ''' Determine where to capture screen at. Helper for card_shuffle_gui.py@_save_command '''
 
-    _child = capture_window.nametowidget("control_frame")
+    _child = capture_window.nametowidget("card_canvas")
 
     capture_area_start_x = capture_window.winfo_rootx()
     capture_area_start_y = capture_window.winfo_rooty()
-    offset_y = _child.winfo_height()
+
     capture_area_end_x = capture_area_start_x + capture_window.winfo_width()
-    capture_area_end_y = capture_area_start_y + capture_window.winfo_height() - offset_y
+    capture_area_end_y = capture_area_start_y + _child.winfo_height()
 
     return (capture_area_start_x, capture_area_start_y, capture_area_end_x, capture_area_end_y)
 

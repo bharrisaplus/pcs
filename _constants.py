@@ -1,3 +1,5 @@
+from pathlib import Path
+
 ''' Data for describing the card shuffle '''
 
 card_suites: list[str] = [ 'spade', 'diamond', 'club', 'heart' ]
@@ -13,6 +15,10 @@ card_utf8_codes: list[str] = [ '1F0A1', '1F0A2', '1F0A3', '1F0A4', '1F0A5', '1F0
 
 # 💾
 save_icon_utf8: str = '1F4BE'
+
+
+sqwiggle_b16_path: str = Path(__file__).resolve().parent / 'sqwiggle_b_16.png'
+sqwiggle_b32_path: str = Path(__file__).resolve().parent / 'sqwiggle_b_32.png'
 
 
 type boundingBoxType = tuple[int,int,int,int]

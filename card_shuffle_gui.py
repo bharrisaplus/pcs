@@ -8,6 +8,7 @@ from tkinter import (
     Frame as tkFrame,
     Canvas as tkCanvas,
     Button as tkButton,
+    PhotoImage as tkImage,
     EventType as tkEventType,
     Event as tkEvent,
     Tk
@@ -15,7 +16,9 @@ from tkinter import (
 
 from _constants import (
     save_icon_utf8 as floppy_code,
-    boundingBoxType as boundingBox
+    boundingBoxType as boundingBox,
+    sqwiggle_b16_path as sqwiggle_b16,
+    sqwiggle_b32_path as sqwiggle_b32
 )
 
 from _utils import (
@@ -148,6 +151,7 @@ def display_cards(card_roll: list[int], four_color: bool = False, capture_filena
     rootWindow.geometry("{}x{}".format(window_width, window_height))
     rootWindow.grid_columnconfigure(0, weight=1)
     rootWindow.configure(bg=tkinter_bg_colors[0])
+    rootWindow.wm_iconphoto(True, tkImage(file=sqwiggle_b16), tkImage(file=sqwiggle_b32))
 
     card_tag = 'card'
     cardCanvas_width = (window_width * 0.85) // 1

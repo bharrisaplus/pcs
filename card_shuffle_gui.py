@@ -182,8 +182,8 @@ def display_cards(card_roll: list[int], four_color: bool = False, capture_filena
 
     for row_idx in range(4):
         for column_idx, card_info in enumerate(card_roll[row_idx*13:(row_idx+1)*13]):
-            pos_x = column_idx * (cardCanvas_width // 12.75)
-            pos_y = row_idx * (cardCanvas_height // 3.8)
+            pos_x = column_idx * (cardCanvas_width // 13)
+            pos_y = row_idx * (cardCanvas_height // 4)
 
             cardCanvas.create_text(pos_x, pos_y, anchor="nw", tags=card_tag,
                 text=get_card_symbol(card_info), font=cardFontStyle,

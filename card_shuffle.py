@@ -99,15 +99,17 @@ def display_decklist_in_console(card_roll: list[int], to_file: bool = False, fou
     file_catalog = []
 
     for console_catalog_idx, card_stuff in enumerate(card_roll, start=1):
+        _line = "{}) {}".format(console_catalog_idx, get_card_title(card_stuff))
+
         if four_color and supports_color.supportsColor.stdout:
             console_catalog.append("{}{}) {}{}".format(
                 console_colors[get_card_color(card_stuff, four_color=True)], console_catalog_idx,
                 get_card_title(card_stuff), console_color_reset
             ))
         else:
-            console_catalog.append("{}) {}".format(console_catalog_idx, get_card_title(card_stuff)))
+            console_catalog.append(_line)
 
-        file_catalog.append("{}) {}".format(console_catalog_idx, get_card_title(card_stuff)))
+        file_catalog.append(_line)
 
     print(*console_catalog, sep="\n")
 

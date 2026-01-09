@@ -112,15 +112,22 @@ def _handle_enterleave_tilt() -> Callable[[tkEvent], None]:
         nonlocal _last_tilt_event, _last_untilt_event
 
         _item_id = _event.widget.find_withtag("current")
-        _tilt_queue = _last_tilt_event if _event.type == tkEventType.Enter else _last_untilt_event
-        angle = 2.8125 if _event.type == tkEventType.Enter else 0
 
-        if _tilt_queue:
-            _event.widget.after_cancel(_tilt_queue)
+        if _event.type == tkEventType.Enter:
+            if _last_tilt_event:
+                _event.widget.after_cancel(_last_tilt_event)
 
-        _tilt_queue = _event.widget.after_idle(
-            lambda: _event.widget.itemconfig(_item_id, angle=angle) if _item_id else None
-        )
+            _last_tilt_event = _event.widget.after_idle(
+                lambda: _event.widget.itemconfig(_item_id, angle=2.8125) if _item_id else None
+            )
+        else:
+            _last_untilt_event
+            if _last_untilt_event:
+                _event.widget.after_cancel(_last_untilt_event)
+
+            _last_untilt_event = _event.widget.after_idle(
+                lambda: _event.widget.itemconfig(_item_id, angle=0) if _item_id else None
+            )
 
     return _handle_enterleave_tilt_inner
 

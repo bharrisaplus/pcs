@@ -70,9 +70,12 @@ def _handle_select_background(_event: tkEvent, _window: Tk) -> None:
         _frame = _window.nametowidget("control_frame")
         _button = _frame.nametowidget("save_button")
 
-        if _canvas: _canvas.configure(bg=selected_option)
-        if _frame: _frame.configure(bg=selected_option)
-        if _button: _button.configure(bg=selected_option)
+        if _canvas:
+            _canvas.configure(bg=selected_option)
+        if _frame:
+            _frame.configure(bg=selected_option)
+        if _button:
+            _button.configure(bg=selected_option)
 
 
 def _get_capture_coordinates(capture_window: Tk) -> boundingBox:
@@ -121,7 +124,6 @@ def _handle_enterleave_tilt() -> Callable[[tkEvent], None]:
                 lambda: _event.widget.itemconfig(_item_id, angle=2.8125) if _item_id else None
             )
         else:
-            _last_untilt_event
             if _last_untilt_event:
                 _event.widget.after_cancel(_last_untilt_event)
 

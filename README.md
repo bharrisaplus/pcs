@@ -1,4 +1,4 @@
-# (P)seudo (C)ard (S)huffler
+# (P)seudo (C)ard (S)huffler ![icon](sqwiggle_w.png)
 For producing a pseudo-randomized list of playing cards (♠️♦️♣️♥️).
 
 ![example_image](example.webp)

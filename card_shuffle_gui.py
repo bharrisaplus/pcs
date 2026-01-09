@@ -145,7 +145,7 @@ def display_cards(card_roll: list[int], four_color: bool = False, capture_filena
     window_height = int((rootWindow.winfo_screenheight() * 0.63) // 1)
     window_width = int((rootWindow.winfo_screenwidth() * 0.63) // 1)
     cardFontStyle = ('Consolas', int(window_height * 0.1325 // 1))
-    controlFontStyle = ('Consolas', int(window_height * 0.033 // 1))
+    controlFontStyle = ('Consolas', int(window_height * 0.03 // 1))
 
     rootWindow.title("pcs: pseudo card shuffle")
     rootWindow.geometry("{}x{}".format(window_width, window_height))

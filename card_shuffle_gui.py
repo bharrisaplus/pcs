@@ -160,10 +160,11 @@ def display_cards(card_roll: list[int], four_color: bool = False, capture_filena
     cardCanvas.grid()
 
     controlFrame = tkFrame(rootWindow, name="control_frame",
-        bd=0, highlightthickness=0, pady=9, bg=tkinter_bg_colors[0]
+        bd=0, highlightthickness=0, bg=tkinter_bg_colors[0],
+        padx=(window_width * 0.025), pady=(window_width * 0.025)
     )
 
-    controlFrame.grid()
+    controlFrame.grid(sticky='ew')
 
     backgroundDropdown = tkCombobox(controlFrame, values=tkinter_bg_colors, state='readonly')
 
@@ -174,7 +175,7 @@ def display_cards(card_roll: list[int], four_color: bool = False, capture_filena
         text=chr(int(floppy_code, 16)), font=controlFontStyle, fg="dim gray", relief="flat", bd=0,
         bg=tkinter_bg_colors[0], activebackground=tkinter_bg_colors[0], activeforeground='dim gray',
         command=fpartial(_save_command, capture_window=rootWindow, capture_prefix=capture_filename)
-    ).pack()
+    ).pack(side='right')
 
     backgroundDropdown.bind('<<ComboboxSelected>>', fpartial(_handle_select_background, _window=rootWindow))
     cardCanvas.tag_bind(card_tag, "<Enter>", _handle_enterleave_tilt())

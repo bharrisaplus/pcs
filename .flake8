@@ -35,7 +35,11 @@ hang-closing = False
 # ignore =
 
 # additional codes for above
-# extend-ignore =
+# E124 - Matching braces
+# E128 - Matching params
+extend-ignore =
+	E124,
+	E128
 
 # specific pep codes to ignore certain files
 # per-file-ignores =
@@ -65,7 +69,10 @@ indent-size = 4
 statistics = True
 
 # specific plugins to load before running checks
-# require-plugins =
+require-plugins =
+	mccabe,
+	pycodestyle,
+	pyflakes
 
 # enable plugins which are registered as off-by-default
 # enable-extensions =
@@ -83,4 +90,4 @@ statistics = True
 # doctests = True
 
 # determine the complexity for blocks of code
-# max-complexity = 10
+max-complexity = 10

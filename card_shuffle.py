@@ -3,12 +3,15 @@
 import random
 import os
 import argparse
+
 import supports_color
 
 from _utils import (
     _setup_52,
     get_card_title,
-    get_card_color
+    get_card_color,
+    jitter_bugs,
+    ndpf
 )
 
 from card_shuffle_gui import display_cards as display_decklist_in_gui
@@ -34,22 +37,27 @@ def shuffle_cards(card_pool: list[int], position_pool: list[int]) -> list[int]:
     '''
 
     position_count = len(position_pool)
-    random_cards = random.sample(population=card_pool, k=len(card_pool))
-    random_positions = random.sample(population=position_pool, k=position_count)
-    random_deck_order = [0] * position_count
+    result = [0] * position_count
+
+    card_sample = ndpf(
+        signal_list=card_pool, seed_list=jitter_bugs(len(card_pool), len(card_pool) // 4)
+    )
+    position_sample = ndpf(
+        signal_list=position_pool, seed_list=jitter_bugs(position_count, position_count // 4)
+    )
 
     for _ in range(position_count):
-        card_idx = random.randrange(len(random_cards))
-        card_to_place = random_cards[card_idx]
-        position_idx = random.randrange(len(random_positions))
-        position_to_use = random_positions[position_idx]
+        card_idx = random.randrange(len(card_sample))
+        card_to_place = card_sample[card_idx]
+        position_idx = random.randrange(len(position_sample))
+        position_to_use = position_sample[position_idx]
 
-        random_deck_order[position_to_use] = card_to_place
+        result[position_to_use] = card_to_place
 
-        random_cards.remove(card_to_place)
-        random_positions.remove(position_to_use)
+        card_sample.remove(card_to_place)
+        position_sample.remove(position_to_use)
 
-    return random_deck_order
+    return result
 
 
 def maybe_cut(card_block: list[int], is_arbitrary: bool = False) -> tuple[list[int], int | None]:

@@ -67,10 +67,6 @@ class PCSCheck(unittest.TestCase):
         solution_10 = CardShuffleUtils.get_card_color(13, four_color=True)
         solution_11 = CardShuffleUtils.get_card_color(38, four_color=True)
         solution_12 = CardShuffleUtils.get_card_color(51, four_color=True)
-        solution_13 = CardShuffleUtils.get_card_color(12, four_color=True)
-        solution_14 = CardShuffleUtils.get_card_color(25, four_color=True)
-        solution_15 = CardShuffleUtils.get_card_color(26, four_color=True)
-        solution_16 = CardShuffleUtils.get_card_color(39, four_color=True)
 
         self.assertEqual([solution_1, solution_2, solution_3, solution_4], expected_1,
             "The color of a card should be retrieved based on the ndo position of the card"

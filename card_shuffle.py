@@ -146,7 +146,9 @@ def _gogogo(cardShuffleArgs: argparse.Namespace) -> None:
 
         final_deck = cut_deck or mixed_deck
 
-        display_decklist_in_console(final_deck, to_file=cardShuffleArgs.write, four_color=cardShuffleArgs.four_color)
+        display_decklist_in_console(
+            final_deck, to_file=cardShuffleArgs.write, four_color=cardShuffleArgs.four_color
+        )
 
         if cardShuffleArgs.gui:
             display_decklist_in_gui(final_deck, four_color=cardShuffleArgs.four_color)

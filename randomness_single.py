@@ -43,11 +43,11 @@ class RandomSingleCheck(unittest.TestCase):
 
         peapod_count = CardShuffleStats.count_peapods_from(mixed_up, self.card_order)
 
-        self.assertTrue( peapod_count[0] <= 4,
+        self.assertTrue(peapod_count[0] <= 4,
             "There should be around 4 consecutive pairs for any shuffled deck"
         )
 
-        self.assertTrue( peapod_count[0] < peapod_count[1],
+        self.assertTrue(peapod_count[0] < peapod_count[1],
             "There should be less consecutive than non-consecutive pairs for any shuffled deck"
         )
 
@@ -57,11 +57,11 @@ class RandomSingleCheck(unittest.TestCase):
 
         peapod_count = CardShuffleStats.count_peapods_from(maybe_cut_up, self.card_order)
 
-        self.assertTrue( peapod_count[0] <= 4,
+        self.assertTrue(peapod_count[0] <= 4,
             "There should be around 4 consecutive pairs for any shuffled deck"
         )
 
-        self.assertTrue( peapod_count[0] < peapod_count[1],
+        self.assertTrue(peapod_count[0] < peapod_count[1],
             "There should be less consecutive than non-consecutive pairs for any shuffled deck"
         )
 
@@ -71,10 +71,10 @@ class RandomSingleCheck(unittest.TestCase):
 
         peapod_count = CardShuffleStats.count_peapods_from(maybe_cut_up, self.card_order)
 
-        self.assertTrue( peapod_count[0] <= 4,
+        self.assertTrue(peapod_count[0] <= 4,
             "There should be around 4 consecutive pairs for any shuffled deck"
         )
 
-        self.assertTrue( peapod_count[0] < peapod_count[1],
+        self.assertTrue(peapod_count[0] < peapod_count[1],
             "There should be less consecutive than non-consecutive pairs for any shuffled deck"
         )

@@ -7,6 +7,7 @@ import _utils as CardShuffleUtils
 import _stats as CardShuffleStats
 import card_shuffle as CardShuffle
 
+
 class PCSCheck(unittest.TestCase):
     def setUp(self):
         self.card_order = list(range(52))
@@ -33,12 +34,12 @@ class PCSCheck(unittest.TestCase):
         )
 
     def test_get_card_symbol(self):
-        expected_1 = [ '🂡', '🃁', '🃑', '🂱' ]
+        expected_1 = ['🂡', '🃁', '🃑', '🂱']
         solution_1 = CardShuffleUtils.get_card_symbol(0)
         solution_2 = CardShuffleUtils.get_card_symbol(13)
         solution_3 = CardShuffleUtils.get_card_symbol(38)
         solution_4 = CardShuffleUtils.get_card_symbol(51)
-        expected_2 = [ '🂮', '🃎', '🃞', '🂾' ]
+        expected_2 = ['🂮', '🃎', '🃞', '🂾']
         solution_5 = CardShuffleUtils.get_card_symbol(12)
         solution_6 = CardShuffleUtils.get_card_symbol(25)
         solution_7 = CardShuffleUtils.get_card_symbol(26)
@@ -53,7 +54,7 @@ class PCSCheck(unittest.TestCase):
         )
 
     def test_get_card_color(self):
-        expected_1 = [0,1,0,1]
+        expected_1 = [0, 1, 0, 1]
         solution_1 = CardShuffleUtils.get_card_color(0)
         solution_2 = CardShuffleUtils.get_card_color(13)
         solution_3 = CardShuffleUtils.get_card_color(38)
@@ -62,7 +63,7 @@ class PCSCheck(unittest.TestCase):
         solution_6 = CardShuffleUtils.get_card_color(25)
         solution_7 = CardShuffleUtils.get_card_color(26)
         solution_8 = CardShuffleUtils.get_card_color(39)
-        expected_2 = [0,1,2,3]
+        expected_2 = [0, 1, 2, 3]
         solution_9 = CardShuffleUtils.get_card_color(0, four_color=True)
         solution_10 = CardShuffleUtils.get_card_color(13, four_color=True)
         solution_11 = CardShuffleUtils.get_card_color(38, four_color=True)
@@ -93,8 +94,14 @@ class PCSCheck(unittest.TestCase):
         )
 
     def test_cut(self):
-        swear_mix = [25,9,1,41,7,46,39,43,5,11,2,4,13,22,6,34,35,28,21,14,19,50,10,3,15,0,42,40,44,33,12,26,48,31,37,20,8,30,23,32,49,17,27,45,36,51,47,18,29,38,16,24]
-        swear_cut = [35,28,21,14,19,50,10,3,15,0,42,40,44,33,12,26,48,31,37,20,8,30,23,32,49,17,27,45,36,51,47,18,29,38,16,24,25,9,1,41,7,46,39,43,5,11,2,4,13,22,6,34]
+        swear_mix = [
+            25, 9, 1, 41, 7, 46, 39, 43, 5, 11, 2, 4, 13, 22, 6, 34, 35, 28, 21, 14, 19, 50, 10, 3, 15, 0, 42,
+            40, 44, 33, 12, 26, 48, 31, 37, 20, 8, 30, 23, 32, 49, 17, 27, 45, 36, 51, 47, 18, 29, 38, 16, 24
+        ]
+        swear_cut = [
+            35, 28, 21, 14, 19, 50, 10, 3, 15, 0, 42, 40, 44, 33, 12, 26, 48, 31, 37, 20, 8, 30, 23, 32, 49,
+            17, 27, 45, 36, 51, 47, 18, 29, 38, 16, 24, 25, 9, 1, 41, 7, 46, 39, 43, 5, 11, 2, 4, 13, 22, 6, 34
+        ]
 
         cut_up, cut_spot = CardShuffle.maybe_cut(swear_mix)
 
@@ -111,7 +118,10 @@ class PCSCheck(unittest.TestCase):
         )
 
     def test_cut_arbitrary(self):
-        swear_mix = [25,9,1,41,7,46,39,43,5,11,2,4,13,22,6,34,35,28,21,14,19,50,10,3,15,0,42,40,44,33,12,26,48,31,37,20,8,30,23,32,49,17,27,45,36,51,47,18,29,38,16,24]
+        swear_mix = [
+            25, 9, 1, 41, 7, 46, 39, 43, 5, 11, 2, 4, 13, 22, 6, 34, 35, 28, 21, 14, 19, 50, 10, 3, 15, 0, 42,
+            40, 44, 33, 12, 26, 48, 31, 37, 20, 8, 30, 23, 32, 49, 17, 27, 45, 36, 51, 47, 18, 29, 38, 16, 24
+        ]
 
         cut_up, cut_spot = CardShuffle.maybe_cut(swear_mix, is_arbitrary=True)
 
@@ -122,7 +132,6 @@ class PCSCheck(unittest.TestCase):
         self.assertEqual(cut_spot, swear_mix.index(cut_up[0]),
             "The arbitrary cut deck should be cut somwhere in the deck"
         )
-
 
     @patch('card_shuffle.display_example')
     @patch('card_shuffle._setup_52')
@@ -152,7 +161,6 @@ class PCSCheck(unittest.TestCase):
         self.assertTrue(mock_console.called, "When no options are passed, write list to stdout")
         self.assertFalse(mock_gui.called, "When no options are passed, ignore gui")
 
-
     @patch('card_shuffle.display_example')
     @patch('card_shuffle._setup_52')
     @patch('card_shuffle.shuffle_cards')
@@ -180,7 +188,6 @@ class PCSCheck(unittest.TestCase):
         self.assertFalse(mock_cut.called, "When ndo option is passed, ignore cut")
         self.assertFalse(mock_console.called, "When ndo option is passed, ignore stdout")
         self.assertFalse(mock_gui.called, "When ndo option is passed, ignore gui")
-
 
     @patch('card_shuffle.display_example')
     @patch('card_shuffle._setup_52')
@@ -211,7 +218,6 @@ class PCSCheck(unittest.TestCase):
         self.assertTrue(mock_console.called, "When just write option passed, write list to stdout")
         self.assertFalse(mock_gui.called, "When just write option passed, ignore gui")
 
-
     @patch('card_shuffle.display_example')
     @patch('card_shuffle._setup_52')
     @patch('card_shuffle.shuffle_cards')
@@ -241,8 +247,7 @@ class PCSCheck(unittest.TestCase):
         self.assertTrue(mock_console.called, "When just gui option passed, ignore stdout")
         self.assertTrue(mock_gui.called, "When just gui option passed, show gui")
 
-
-    @patch('builtins.print') # comment here to debug/print within test
+    @patch('builtins.print')  # comment here to debug/print within test
     @patch('card_shuffle.display_example')
     @patch('card_shuffle._setup_52')
     @patch('card_shuffle.shuffle_cards')
@@ -275,7 +280,7 @@ class PCSCheck(unittest.TestCase):
         self.assertTrue(mock_console.called, "When just cut option passed, ignore stdout")
         self.assertFalse(mock_gui.called, "When just cut option passed, ignore gui")
 
-    @patch('builtins.print') # comment here to debug/print within test
+    @patch('builtins.print')  # comment here to debug/print within test
     @patch('card_shuffle.display_example')
     @patch('card_shuffle._setup_52')
     @patch('card_shuffle.shuffle_cards')
@@ -311,8 +316,8 @@ class PCSCheck(unittest.TestCase):
 
 class MetricCheck(unittest.TestCase):
     def test_jaro(self):
-        ex_a = ['F','A','R','M','V','I','L','L','E']
-        ex_b = ['F','A','R','E','M','V','I','E','L']
+        ex_a = ['F', 'A', 'R', 'M', 'V', 'I', 'L', 'L', 'E']
+        ex_b = ['F', 'A', 'R', 'E', 'M', 'V', 'I', 'E', 'L']
         solution = CardShuffleStats.get_jaro_edit_distance_from(ex_b, ex_a)
 
         self.assertEqual(0.8842592592592592, solution[0],
@@ -332,8 +337,8 @@ class MetricCheck(unittest.TestCase):
         )
 
     def test_jaro_again(self):
-        ex_c = ['H','E','L','L','O']
-        ex_d = ['H','E','Y','Y','A']
+        ex_c = ['H', 'E', 'L', 'L', 'O']
+        ex_d = ['H', 'E', 'Y', 'Y', 'A']
         solution = CardShuffleStats.get_jaro_edit_distance_from(ex_c, ex_d)
 
         self.assertEqual(1.8/3, solution[0],
@@ -353,8 +358,8 @@ class MetricCheck(unittest.TestCase):
         )
 
     def test_jaro_again_again(self):
-        ex_e = ['X','L','N','G','X','A','T','C','X','R']
-        ex_f = ['F','Y','J','L','H','D','R','Q','D','M']
+        ex_e = ['X', 'L', 'N', 'G', 'X', 'A', 'T', 'C', 'X', 'R']
+        ex_f = ['F', 'Y', 'J', 'L', 'H', 'D', 'R', 'Q', 'D', 'M']
         solution = CardShuffleStats.get_jaro_edit_distance_from(ex_e, ex_f)
 
         self.assertEqual(abs(1.4/3), solution[0],
@@ -374,8 +379,8 @@ class MetricCheck(unittest.TestCase):
         )
 
     def test_peapod(self):
-        ex_g = [16,18,13,15,11,12,14,10,17]
-        ex_h = [10,11,12,13,14,15,16,17,18]
+        ex_g = [16, 18, 13, 15, 11, 12, 14, 10, 17]
+        ex_h = [10, 11, 12, 13, 14, 15, 16, 17, 18]
 
         solution = CardShuffleStats.count_peapods_from(ex_g, ex_h)
 
@@ -383,8 +388,8 @@ class MetricCheck(unittest.TestCase):
         self.assertEqual(solution[1], 15, "Should be 15 green peapods in {}".format(ex_h))
 
     def test_peapod_agin(self):
-        ex_i = [24,25,19,18,23,21,22,26,20]
-        ex_j = [18,19,20,21,22,23,24,25,26]
+        ex_i = [24, 25, 19, 18, 23, 21, 22, 26, 20]
+        ex_j = [18, 19, 20, 21, 22, 23, 24, 25, 26]
 
         solution = CardShuffleStats.count_peapods_from(ex_i, ex_j)
 
@@ -392,8 +397,8 @@ class MetricCheck(unittest.TestCase):
         self.assertEqual(solution[1], 13, "Should be 13 green peapods in {}".format(ex_j))
 
     def test_peapod_again_again(self):
-        ex_k = [6,2,4,1,7,5,8,3]
-        ex_l = [1,2,3,4,5,6,7,8]
+        ex_k = [6, 2, 4, 1, 7, 5, 8, 3]
+        ex_l = [1, 2, 3, 4, 5, 6, 7, 8]
 
         solution = CardShuffleStats.count_peapods_from(ex_k, ex_l)
 

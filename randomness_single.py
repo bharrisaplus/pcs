@@ -3,7 +3,8 @@ import unittest
 import _stats as CardShuffleStats
 import card_shuffle as CardShuffle
 
-class RandomMultiCheck(unittest.TestCase):
+
+class RandomSingleCheck(unittest.TestCase):
     def setUp(self):
         self.card_order = list(range(52))
         self.card_order_positions = list(range(52))

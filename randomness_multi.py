@@ -5,7 +5,8 @@ import math
 import _stats as CardShuffleStats
 import card_shuffle as CardShuffle
 
-class RandomSingleCheck(unittest.TestCase):
+
+class RandomMultiCheck(unittest.TestCase):
     '''How random is the pcs shuffle
 
     Starting with the jaro similarity as a sanity test and looking at Fisher-Yates (FY) shuffle and the

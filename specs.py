@@ -81,6 +81,34 @@ class PCSCheck(unittest.TestCase):
             "The color of a card should be retrieved based on the ndo position of the card"
         )
 
+    def test_jitter(self):
+        solution_1 = CardShuffleUtils.jitter_bugs()
+        solution_2 = CardShuffleUtils.jitter_bugs(10, 8)
+
+        self.assertTrue(len(solution_1) >= 0 and len(solution_1) <= 16, "Should produce within tolerance")
+        self.assertEqual(len(solution_1), len(set(solution_1)), "Should be unique values")
+        self.assertTrue(len(solution_2) >= 0 and len(solution_2) <= 8, "Should produce within tolerance")
+        self.assertEqual(len(solution_2), len(set(solution_2)), "Should be unique values")
+
+    def test_ndpf(self):
+        og_list = list(range(11))
+        expected_1 = [0, 4, 7, 3, 1, 5, 6, 2, 8, 9, 10]
+        expected_2 = [8, 1, 2, 0, 4, 5, 6, 7, 3, 9, 10]
+
+        solution_1 = CardShuffleUtils.ndpf(og_list, [7, 2, 4, 1])
+        solution_2 = CardShuffleUtils.ndpf(og_list, [0, 3, 8])
+        solution_3 = CardShuffleUtils.ndpf([], [5])
+        solution_4 = CardShuffleUtils.ndpf('1,2,3', [5])
+        solution_5 = CardShuffleUtils.ndpf(og_list, 5)
+        solution_6 = CardShuffleUtils.ndpf(og_list, [])
+
+        self.assertEqual(solution_1, expected_1, "Should re-arrange when possible")
+        self.assertEqual(solution_2, expected_2, "Should re-arrange when possible")
+        self.assertEqual(solution_3, [], "Should re-arrange when possible")
+        self.assertEqual(solution_4, [], "Should re-arrange when possible")
+        self.assertEqual(solution_5, [], "Should re-arrange when possible")
+        self.assertEqual(solution_6, og_list, "Should re-arrange when possible")
+
     def test_shuffle(self):
         position_count = 52
         mixed_up = CardShuffle.shuffle_cards(self.card_order, list(range(position_count)))

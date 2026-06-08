@@ -143,7 +143,11 @@ def ndpf(signal_list: list[int], seed_list: list[int]) -> list[int]:
     result = []
     lucky_nums = []
 
-    if len(signal_list) == 0:
+    if (
+        isinstance(signal_list, list) is False or
+        isinstance(seed_list, list) is False or
+        len(signal_list) == 0
+    ):
         return result
 
     result = list(signal_list)
@@ -151,27 +155,17 @@ def ndpf(signal_list: list[int], seed_list: list[int]) -> list[int]:
 
     for _idx in range(0, len(lucky_nums), 2):
         pivot = ccopy(lucky_nums[_idx])
-        nxt_pivot = ccopy(lucky_nums[_idx + 1]) if _idx < (len(lucky_nums) - 1) else None
-        hold = None
+        nxt_pivot = ccopy(lucky_nums[_idx + 1]) if _idx < (len(lucky_nums) - 1) else len(result)
 
-        try:
+        if pivot < len(result):
             hold = ccopy(result[pivot])
-        except IndexError:
-            print(result)
-            print(seed_list)
-            print(pivot)
 
-        if _idx < (len(lucky_nums) - 1):
-            try:
+            if _idx < (len(lucky_nums) - 1):
                 result[pivot] = ccopy(result[nxt_pivot])
-            except IndexError:
-                print(result)
-                print(nxt_pivot)
-
-            result[nxt_pivot] = hold
-        else:
-            result[pivot] = ccopy(result[0])
-            result.pop(0)
-            result.insert(0, hold)
+                result[nxt_pivot] = hold
+            else:
+                result[pivot] = ccopy(result[0])
+                result.pop(0)
+                result.insert(0, hold)
 
     return result

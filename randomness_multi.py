@@ -26,19 +26,16 @@ class RandomMultiCheck(unittest.TestCase):
         self.card_order = list(range(52))
         self.card_order_positions = list(range(52))
 
-
     def debug_report_jaro_long_stats(self, _mean, _std, _min, _max):
         print("\nThe mean for the data: {}".format(_mean))
         print("The standard deviation for the data: {}".format(_std))
         print("The Data ranged between {} and {}".format(_min, _max))
-
 
     def debug_report_peapod_long_stats(self, _mean, _std, _min, _max):
         print("\nThe mean for the data: {}".format(_mean))
         print("The standard deviation for the data: {}".format(_std))
         print("The Data ranged between {} and {}".format(_min, _max))
         print("\nThe mean compared to accpated value: {} +- {} vs {}".format(_mean, _std, 2.0))
-
 
     @unittest.skip("one long test at a time")
     def test_card_shuffle_long(self):
@@ -58,12 +55,13 @@ class RandomMultiCheck(unittest.TestCase):
             math.isclose(sample_mean, 0.6662, rel_tol=sample_std)
         )
 
-        self.debug_report_jaro_long_stats(sample_mean, sample_std, min(jaro_measurement), max(jaro_measurement))
+        self.debug_report_jaro_long_stats(
+            sample_mean, sample_std, min(jaro_measurement), max(jaro_measurement)
+        )
 
         self.assertTrue(acceptance_check_passed,
             "The mean jaro similarity observed of the PCS should be close to that of the FY and GSR shuffles"
         )
-
 
     @unittest.skip("one long test at a time")
     def test_card_shuffle_cut_long(self):
@@ -84,12 +82,13 @@ class RandomMultiCheck(unittest.TestCase):
             math.isclose(sample_mean, 0.6662, rel_tol=sample_std)
         )
 
-        self.debug_report_jaro_long_stats(sample_mean, sample_std, min(jaro_measurement), max(jaro_measurement))
+        self.debug_report_jaro_long_stats(
+            sample_mean, sample_std, min(jaro_measurement), max(jaro_measurement)
+        )
 
         self.assertTrue(acceptance_check_passed,
             "The mean jaro similarity observed of the PCS should be close to that of the FY and GSR shuffles"
         )
-
 
     @unittest.skip("one long test at a time")
     def test_card_shuffle_arbitrary_cut_long(self):
@@ -110,12 +109,13 @@ class RandomMultiCheck(unittest.TestCase):
             math.isclose(sample_mean, 0.6662, rel_tol=sample_std)
         )
 
-        self.debug_report_jaro_long_stats(sample_mean, sample_std, min(jaro_measurement), max(jaro_measurement))
+        self.debug_report_jaro_long_stats(
+            sample_mean, sample_std, min(jaro_measurement), max(jaro_measurement)
+        )
 
         self.assertTrue(acceptance_check_passed,
             "The mean jaro similarity observed of the PCS should be close to that of the FY and GSR shuffles"
         )
-
 
     @unittest.skip("one long test at a time")
     def test_card_shuffle_for_peapod_long(self):
@@ -141,7 +141,6 @@ class RandomMultiCheck(unittest.TestCase):
 
         self.assertTrue(acceptance_check_passed, "The number of consecutive pairs should be around 2")
 
-
     @unittest.skip("one long test at a time")
     def test_card_shuffle_cut_for_peapod_long(self):
         peapod_measurement = [0] * 10000
@@ -166,7 +165,6 @@ class RandomMultiCheck(unittest.TestCase):
         )
 
         self.assertTrue(acceptance_check_passed, "The number of consecutive pairs should be around 2")
-
 
     @unittest.skip("one long test at a time")
     def test_card_shuffle_arbitrary_cut_for_peapod_long(self):

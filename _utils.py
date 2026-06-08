@@ -1,5 +1,12 @@
 ''' Helpful methods for card shuffling '''
 
+from os import urandom as os_urandom
+from copy import copy as ccopy
+from math import (
+    ceil as mceil,
+    floor as mfloor
+)
+
 from PIL import ImageGrab
 
 from _constants import (
@@ -101,3 +108,70 @@ def _capture_tkinter(capture_bounds: boundingBox, capture_prefix: str) -> None:
     capture_image.save(capture_filename)
 
     print("Decklist saved to '{}'".format(capture_filename))
+
+
+def jitter_bugs(max_cap: int = 52, upper_bound: int = 13) -> list[int]:
+    ''' get random numbers to use for pre-shuffle '''
+
+    result = []
+    bucket_one = list(os_urandom(mceil(upper_bound / 4)))
+    bucket_two = list(os_urandom(mceil(upper_bound / 4)))
+    bucket_three = list(os_urandom(mceil(upper_bound / 4)))
+    bucket_four = list(os_urandom(mceil(upper_bound / 4)))
+
+    def jitter_filter(_seed: int) -> bool:
+        return (_seed <= max_cap or (mfloor(_seed / 10) <= max_cap))
+
+    def jitter_map(_seed: int) -> int:
+        return (
+            _seed
+            if _seed < max_cap
+            else mfloor(_seed / max_cap)
+        )
+
+    result = bucket_one + bucket_two + bucket_three + bucket_four
+
+    result = list(filter(jitter_filter, result))
+    result = list(map(jitter_map, result))
+
+    return list(dict.fromkeys(result))
+
+
+def ndpf(signal_list: list[int], seed_list: list[int]) -> list[int]:
+    ''' non-deterministic permutation filter to break up uniformity '''
+
+    result = []
+    lucky_nums = []
+
+    if len(signal_list) == 0:
+        return result
+
+    result = list(signal_list)
+    lucky_nums = list(dict.fromkeys(seed_list))
+
+    for _idx in range(0, len(lucky_nums), 2):
+        pivot = ccopy(lucky_nums[_idx])
+        nxt_pivot = ccopy(lucky_nums[_idx + 1]) if _idx < (len(lucky_nums) - 1) else None
+        hold = None
+
+        try:
+            hold = ccopy(result[pivot])
+        except IndexError:
+            print(result)
+            print(seed_list)
+            print(pivot)
+
+        if _idx < (len(lucky_nums) - 1):
+            try:
+                result[pivot] = ccopy(result[nxt_pivot])
+            except IndexError:
+                print(result)
+                print(nxt_pivot)
+
+            result[nxt_pivot] = hold
+        else:
+            result[pivot] = ccopy(result[0])
+            result.pop(0)
+            result.insert(0, hold)
+
+    return result

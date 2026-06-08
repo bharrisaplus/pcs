@@ -138,7 +138,7 @@ def jitter_bugs(max_cap: int = 52, upper_bound: int = 13) -> list[int]:
 
 
 def ndpf(signal_list: list[int], seed_list: list[int]) -> list[int]:
-    ''' non-deterministic permutation filter to break up uniformity '''
+    ''' separate noise '''
 
     result = []
     lucky_nums = []
